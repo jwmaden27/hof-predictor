@@ -6,6 +6,8 @@ export interface HOFScore {
   trajectoryComponent: number
   breakdown: ScoringBreakdown
   tier: HOFTier
+  hofProbability: number
+  ballotPrediction: { ballot: string; description: string }
 }
 
 export type HOFTier =

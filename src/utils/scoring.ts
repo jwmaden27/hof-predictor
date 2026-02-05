@@ -7,6 +7,7 @@ import type {
   SeasonWAR,
 } from '@/types/index.ts'
 import { MILESTONES } from '@/data/milestones.ts'
+import { calculateHOFProbability, predictBallot } from '@/utils/hof-probability.ts'
 
 const AWARD_IDS = {
   MVP: ['ALMVP', 'NLMVP'],
@@ -146,5 +147,7 @@ export function calculateHOFScore(
     trajectoryComponent: Math.round(trajectoryComponent * 10) / 10,
     breakdown,
     tier: assignTier(overall),
+    hofProbability: calculateHOFProbability(overall),
+    ballotPrediction: predictBallot(overall),
   }
 }

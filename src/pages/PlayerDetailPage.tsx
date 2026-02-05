@@ -5,6 +5,7 @@ import { PlayerHeader } from '@/components/player/PlayerHeader.tsx'
 import { PlayerStatTable } from '@/components/player/PlayerStatTable.tsx'
 import { AwardBadges } from '@/components/player/AwardBadges.tsx'
 import { MilestoneIndicator } from '@/components/player/MilestoneIndicator.tsx'
+import { BallotPrediction } from '@/components/player/BallotPrediction.tsx'
 import { JawsGauge } from '@/components/jaws/JawsGauge.tsx'
 import { JawsBreakdown } from '@/components/jaws/JawsBreakdown.tsx'
 import { PositionComparison } from '@/components/jaws/PositionComparison.tsx'
@@ -105,28 +106,48 @@ export function PlayerDetailPage() {
             <div className="space-y-8">
               {data.jawsComparison && data.hofScore && (
                 <>
-                  <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                  <div className="grid gap-6 md:grid-cols-2">
                     <div className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-900">
                       <h3 className="mb-3 text-sm font-semibold text-gray-700 dark:text-gray-300">
                         JAWS Score
                       </h3>
                       <JawsGauge comparison={data.jawsComparison} />
                     </div>
+                    {data.hofScore.tier !== 'Hall of Famer' ? (
+                      <div className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-900">
+                        <h3 className="mb-3 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                          HOF Probability & Ballot Prediction
+                        </h3>
+                        <BallotPrediction hofScore={data.hofScore} />
+                      </div>
+                    ) : (
+                      <div className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-900">
+                        <h3 className="mb-3 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                          Milestones
+                        </h3>
+                        <MilestoneIndicator
+                          careerStats={data.careerStats}
+                          playerType={getPlayerType(data.bio.primaryPosition.code)}
+                        />
+                      </div>
+                    )}
                     <div className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-900">
                       <h3 className="mb-3 text-sm font-semibold text-gray-700 dark:text-gray-300">
                         Awards
                       </h3>
                       <AwardBadges awards={data.awards} />
                     </div>
-                    <div className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-900">
-                      <h3 className="mb-3 text-sm font-semibold text-gray-700 dark:text-gray-300">
-                        Milestones
-                      </h3>
-                      <MilestoneIndicator
-                        careerStats={data.careerStats}
-                        playerType={getPlayerType(data.bio.primaryPosition.code)}
-                      />
-                    </div>
+                    {data.hofScore.tier !== 'Hall of Famer' && (
+                      <div className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-900">
+                        <h3 className="mb-3 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                          Milestones
+                        </h3>
+                        <MilestoneIndicator
+                          careerStats={data.careerStats}
+                          playerType={getPlayerType(data.bio.primaryPosition.code)}
+                        />
+                      </div>
+                    )}
                   </div>
 
                   <div className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-900">

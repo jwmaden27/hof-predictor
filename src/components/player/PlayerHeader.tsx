@@ -54,6 +54,16 @@ export function PlayerHeader({ data }: PlayerHeaderProps) {
                 </div>
                 <div className="mt-1 text-xs text-gray-400 dark:text-gray-500">HOF Score</div>
               </div>
+              {hofScore.tier !== 'Hall of Famer' && (
+                <div className="text-center">
+                  <div className="text-5xl font-bold text-cyan-400">
+                    {hofScore.hofProbability}%
+                  </div>
+                  <div className="mt-1 text-xs text-gray-400 dark:text-gray-500">
+                    HOF Probability
+                  </div>
+                </div>
+              )}
               <div>
                 <span
                   className={`inline-block rounded-lg border px-3 py-1.5 text-sm font-semibold ${getTierBgColor(hofScore.tier)}`}
