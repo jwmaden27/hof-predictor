@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useCallback } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { PageContainer } from '@/components/layout/PageContainer.tsx'
 import { SearchBar } from '@/components/search/SearchBar.tsx'
 import { PlayerFilters } from '@/components/search/PlayerFilters.tsx'
@@ -8,10 +9,38 @@ import { useLeaderboard } from '@/hooks/useLeaderboard.ts'
 import type { PositionCategory, HOFTier } from '@/types/index.ts'
 
 export function DashboardPage() {
-  const [positionFilter, setPositionFilter] = useState<
-    PositionCategory | undefined
-  >()
-  const [tierFilter, setTierFilter] = useState<HOFTier | undefined>()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const positionFilter = (searchParams.get('position') as PositionCategory) || undefined
+  const tierFilter = (searchParams.get('tier') as HOFTier) || undefined
+
+  const setPositionFilter = useCallback(
+    (value: PositionCategory | undefined) => {
+      setSearchParams((prev) => {
+        if (value) {
+          prev.set('position', value)
+        } else {
+          prev.delete('position')
+        }
+        return prev
+      }, { replace: true })
+    },
+    [setSearchParams],
+  )
+
+  const setTierFilter = useCallback(
+    (value: HOFTier | undefined) => {
+      setSearchParams((prev) => {
+        if (value) {
+          prev.set('tier', value)
+        } else {
+          prev.delete('tier')
+        }
+        return prev
+      }, { replace: true })
+    },
+    [setSearchParams],
+  )
+
   const leaderboard = useLeaderboard(positionFilter, tierFilter)
 
   return (
