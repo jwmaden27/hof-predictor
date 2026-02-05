@@ -23,6 +23,7 @@ import { useProjection } from '@/hooks/useProjection.ts'
 import { getPlayerType } from '@/utils/stats-helpers.ts'
 import { projectCareerEnd } from '@/utils/career-projection.ts'
 import { ComparableHOFPlayers } from '@/components/player/ComparableHOFPlayers.tsx'
+import { HofRequirementsWidget } from '@/components/player/HofRequirementsWidget.tsx'
 
 const TABS_WITH_PROJECTION = [
   { label: 'Overview', value: 'overview' },
@@ -169,6 +170,22 @@ export function PlayerDetailPage() {
                       </div>
                     )}
                   </div>
+
+                  {data.bio.active && !data.isPitcher && data.hofScore.tier !== 'Hall of Famer' && (
+                    <div className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-900">
+                      <h3 className="mb-3 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                        What It Takes
+                      </h3>
+                      <HofRequirementsWidget
+                        hofScore={data.hofScore}
+                        careerStats={data.careerStats}
+                        warSeasons={data.warSeasons}
+                        awards={data.awards}
+                        currentAge={data.bio.currentAge}
+                        positionCategory={data.positionCategory}
+                      />
+                    </div>
+                  )}
 
                   {data.hasWAR && data.warSeasons.length > 0 && (
                     <ComparableHOFPlayers
