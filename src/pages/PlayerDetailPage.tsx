@@ -6,6 +6,7 @@ import { PlayerStatTable } from '@/components/player/PlayerStatTable.tsx'
 import { AwardBadges } from '@/components/player/AwardBadges.tsx'
 import { MilestoneIndicator } from '@/components/player/MilestoneIndicator.tsx'
 import { BallotPrediction } from '@/components/player/BallotPrediction.tsx'
+import { CareerStatsRibbon } from '@/components/player/CareerStatsRibbon.tsx'
 import { JawsGauge } from '@/components/jaws/JawsGauge.tsx'
 import { JawsBreakdown } from '@/components/jaws/JawsBreakdown.tsx'
 import { PositionComparison } from '@/components/jaws/PositionComparison.tsx'
@@ -90,6 +91,7 @@ export function PlayerDetailPage() {
   return (
     <>
       <PlayerHeader data={data} />
+      <CareerStatsRibbon data={data} />
 
       <PageContainer>
         {!data.hasWAR && (
