@@ -7,6 +7,8 @@ import { DashboardPage } from './pages/DashboardPage.tsx'
 import { PlayerDetailPage } from './pages/PlayerDetailPage.tsx'
 import { SearchPage } from './pages/SearchPage.tsx'
 import { AboutPage } from './pages/AboutPage.tsx'
+import { TermsPage } from './pages/TermsPage.tsx'
+import { PrivacyPage } from './pages/PrivacyPage.tsx'
 import './index.css'
 
 const router = createBrowserRouter([
@@ -18,6 +20,8 @@ const router = createBrowserRouter([
       { path: 'player/:playerId', element: <PlayerDetailPage /> },
       { path: 'search', element: <SearchPage /> },
       { path: 'about', element: <AboutPage /> },
+      { path: 'terms', element: <TermsPage /> },
+      { path: 'privacy', element: <PrivacyPage /> },
     ],
   },
 ])
