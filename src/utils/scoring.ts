@@ -21,7 +21,7 @@ function countAward(awards: Award[], ids: readonly string[]): number {
   return awards.filter((a) => ids.includes(a.id)).length
 }
 
-function calculateJAWSComponent(jawsComparison: JAWSComparison): number {
+export function calculateJAWSComponent(jawsComparison: JAWSComparison): number {
   const { jawsRatio, careerWARRatio, peakWARRatio } = jawsComparison
   const compositeRatio =
     jawsRatio * 0.6 + careerWARRatio * 0.2 + peakWARRatio * 0.2
@@ -72,7 +72,7 @@ function calculateMilestonesComponent(
   return { points: Math.min(points, 20), milestoneHits }
 }
 
-function calculateTrajectoryComponent(
+export function calculateTrajectoryComponent(
   seasons: SeasonWAR[],
   currentAge: number,
   isActive: boolean,
