@@ -5,13 +5,14 @@ import { PlayerFilters } from '@/components/search/PlayerFilters.tsx'
 import { PlayerCard } from '@/components/player/PlayerCard.tsx'
 import { LeaderboardChart } from '@/components/charts/LeaderboardChart.tsx'
 import { useLeaderboard } from '@/hooks/useLeaderboard.ts'
-import type { PositionCategory } from '@/types/index.ts'
+import type { PositionCategory, HOFTier } from '@/types/index.ts'
 
 export function DashboardPage() {
   const [positionFilter, setPositionFilter] = useState<
     PositionCategory | undefined
   >()
-  const leaderboard = useLeaderboard(positionFilter)
+  const [tierFilter, setTierFilter] = useState<HOFTier | undefined>()
+  const leaderboard = useLeaderboard(positionFilter, tierFilter)
 
   return (
     <>
@@ -34,11 +35,13 @@ export function DashboardPage() {
         {/* Filters */}
         <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-            Top HOF Candidates
+            Players
           </h2>
           <PlayerFilters
             positionFilter={positionFilter}
             onPositionChange={setPositionFilter}
+            tierFilter={tierFilter}
+            onTierChange={setTierFilter}
           />
         </div>
 
@@ -51,7 +54,7 @@ export function DashboardPage() {
 
         {leaderboard.length === 0 && (
           <div className="py-12 text-center text-gray-500 dark:text-gray-400">
-            No players found for this position
+            No players found for the selected filters
           </div>
         )}
 
