@@ -31,3 +31,44 @@ export function hasWARData(playerId: number): boolean {
 export function isHallOfFamer(playerId: number): boolean {
   return warIndex.get(playerId)?.isHOF === true
 }
+
+/**
+ * Fetches WAR data on-demand from the /api/war serverless function
+ * and caches it in the in-memory index for the session.
+ * Returns the seasons if found, or empty array if not.
+ */
+export async function fetchAndCacheWAR(
+  playerId: number,
+  playerName: string,
+  positionCategory: string,
+): Promise<SeasonWAR[]> {
+  // Already have data
+  if (hasWARData(playerId)) {
+    return warIndex.get(playerId)!.seasons
+  }
+
+  try {
+    const res = await fetch(`/api/war?playerId=${playerId}`)
+    if (!res.ok) return []
+
+    const data = await res.json()
+    if (!data.seasons || data.seasons.length === 0) return []
+
+    const seasons: SeasonWAR[] = data.seasons
+    const entry: PlayerWARData = {
+      playerId,
+      playerName,
+      bbrefId: '',
+      positionCategory: positionCategory as PlayerWARData['positionCategory'],
+      seasons,
+      careerWAR: data.careerWAR ?? 0,
+    }
+
+    // Cache in the in-memory index
+    warIndex.set(playerId, entry)
+
+    return seasons
+  } catch {
+    return []
+  }
+}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { getPlayerComplete } from '@/services/mlb-api.ts'
-import { getPlayerSeasonWARs, getPlayerWAR, hasWARData, isHallOfFamer } from '@/services/war-service.ts'
+import { getPlayerSeasonWARs, getPlayerWAR, hasWARData, isHallOfFamer, fetchAndCacheWAR } from '@/services/war-service.ts'
 import { calculateJAWS, compareToHOFAverage } from '@/utils/jaws.ts'
 import { calculateHOFScore } from '@/utils/scoring.ts'
 import { mapPositionToCategory, getPlayerType } from '@/utils/stats-helpers.ts'
@@ -55,8 +55,22 @@ export function usePlayerData(playerId: number | null) {
         const warEntry = getPlayerWAR(playerId)
         const positionCategory = warEntry?.positionCategory ??
           mapPositionToCategory(bio.primaryPosition)
-        const warSeasons = getPlayerSeasonWARs(playerId)
-        const playerHasWAR = hasWARData(playerId)
+        let warSeasons = getPlayerSeasonWARs(playerId)
+        let playerHasWAR = hasWARData(playerId)
+
+        // If no WAR data in static bundle, try fetching on-demand
+        if (!playerHasWAR) {
+          const fetched = await fetchAndCacheWAR(
+            playerId,
+            bio.fullName,
+            positionCategory,
+          )
+          if (cancelled) return
+          if (fetched.length > 0) {
+            warSeasons = fetched
+            playerHasWAR = true
+          }
+        }
 
         let jawsResult: JAWSResult | null = null
         let jawsComparison: JAWSComparison | null = null
