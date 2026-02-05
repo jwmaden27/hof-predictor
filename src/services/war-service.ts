@@ -24,7 +24,8 @@ export function getPlayerCareerWARTotal(playerId: number): number {
 }
 
 export function hasWARData(playerId: number): boolean {
-  return warIndex.has(playerId)
+  const entry = warIndex.get(playerId)
+  return entry !== undefined && entry.seasons.length > 0
 }
 
 export function isHallOfFamer(playerId: number): boolean {
