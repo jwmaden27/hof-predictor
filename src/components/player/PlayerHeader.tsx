@@ -7,6 +7,10 @@ interface PlayerHeaderProps {
   data: PlayerAnalysis
 }
 
+function getHeadshotUrl(playerId: number): string {
+  return `https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_213,q_auto:best/v1/people/${playerId}/headshot/67/current`
+}
+
 function getSeasonsLabel(data: PlayerAnalysis): string | null {
   const { bio, seasonStats } = data
   if (seasonStats.length > 0) {
@@ -32,38 +36,45 @@ export function PlayerHeader({ data }: PlayerHeaderProps) {
     <div className="bg-gradient-to-r from-gray-900 to-gray-800 dark:from-gray-950 dark:to-gray-900 text-white">
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-          <div>
-            <div className="mb-2 flex items-center gap-3">
-              <h1 className="text-3xl font-bold">{bio.fullName}</h1>
-              {bio.primaryNumber && (
-                <span className="text-2xl font-light text-gray-400 dark:text-gray-500">
-                  #{bio.primaryNumber}
+          <div className="flex items-center gap-5">
+            <img
+              src={getHeadshotUrl(bio.id)}
+              alt={bio.fullName}
+              className="h-20 w-20 rounded-full border-2 border-gray-600 bg-gray-700 object-cover"
+            />
+            <div>
+              <div className="mb-2 flex items-center gap-3">
+                <h1 className="text-3xl font-bold">{bio.fullName}</h1>
+                {bio.primaryNumber && (
+                  <span className="text-2xl font-light text-gray-400 dark:text-gray-500">
+                    #{bio.primaryNumber}
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-wrap items-center gap-3 text-sm text-gray-300 dark:text-gray-400">
+                <span>{POSITION_LABELS[positionCategory] ?? positionCategory}</span>
+                {bio.currentTeam && (
+                  <>
+                    <span className="text-gray-600 dark:text-gray-500">|</span>
+                    <span>{bio.currentTeam.name}</span>
+                  </>
+                )}
+                <span className="text-gray-600 dark:text-gray-500">|</span>
+                <span>Age {bio.currentAge}</span>
+                <span className="text-gray-600 dark:text-gray-500">|</span>
+                <span>
+                  {bio.batSide.description}/{bio.pitchHand.description}
                 </span>
-              )}
-            </div>
-            <div className="flex flex-wrap items-center gap-3 text-sm text-gray-300 dark:text-gray-400">
-              <span>{POSITION_LABELS[positionCategory] ?? positionCategory}</span>
-              {bio.currentTeam && (
-                <>
-                  <span className="text-gray-600 dark:text-gray-500">|</span>
-                  <span>{bio.currentTeam.name}</span>
-                </>
-              )}
-              <span className="text-gray-600 dark:text-gray-500">|</span>
-              <span>Age {bio.currentAge}</span>
-              <span className="text-gray-600 dark:text-gray-500">|</span>
-              <span>
-                {bio.batSide.description}/{bio.pitchHand.description}
-              </span>
-              {seasonsLabel && (
-                <>
-                  <span className="text-gray-600 dark:text-gray-500">|</span>
-                  <span>{seasonsLabel}</span>
-                </>
-              )}
-              <Badge variant={bio.active ? 'success' : 'default'}>
-                {bio.active ? 'Active' : 'Retired'}
-              </Badge>
+                {seasonsLabel && (
+                  <>
+                    <span className="text-gray-600 dark:text-gray-500">|</span>
+                    <span>{seasonsLabel}</span>
+                  </>
+                )}
+                <Badge variant={bio.active ? 'success' : 'default'}>
+                  {bio.active ? 'Active' : 'Retired'}
+                </Badge>
+              </div>
             </div>
           </div>
 
