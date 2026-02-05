@@ -11,7 +11,9 @@ import type { PositionCategory, HOFTier } from '@/types/index.ts'
 export function DashboardPage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const positionFilter = (searchParams.get('position') as PositionCategory) || undefined
-  const tierFilter = (searchParams.get('tier') as HOFTier) || undefined
+  const tierFilters: HOFTier[] = searchParams.get('tier')
+    ? (searchParams.get('tier')!.split(',') as HOFTier[])
+    : []
 
   const setPositionFilter = useCallback(
     (value: PositionCategory | undefined) => {
@@ -27,11 +29,11 @@ export function DashboardPage() {
     [setSearchParams],
   )
 
-  const setTierFilter = useCallback(
-    (value: HOFTier | undefined) => {
+  const setTierFilters = useCallback(
+    (tiers: HOFTier[]) => {
       setSearchParams((prev) => {
-        if (value) {
-          prev.set('tier', value)
+        if (tiers.length > 0) {
+          prev.set('tier', tiers.join(','))
         } else {
           prev.delete('tier')
         }
@@ -41,7 +43,7 @@ export function DashboardPage() {
     [setSearchParams],
   )
 
-  const leaderboard = useLeaderboard(positionFilter, tierFilter)
+  const leaderboard = useLeaderboard(positionFilter, tierFilters)
 
   return (
     <>
@@ -62,15 +64,17 @@ export function DashboardPage() {
 
       <PageContainer>
         {/* Filters */}
-        <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-            Players
-          </h2>
+        <div className="mb-6 space-y-3">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
+              Players
+            </h2>
+          </div>
           <PlayerFilters
             positionFilter={positionFilter}
             onPositionChange={setPositionFilter}
-            tierFilter={tierFilter}
-            onTierChange={setTierFilter}
+            tierFilters={tierFilters}
+            onTierChange={setTierFilters}
           />
         </div>
 

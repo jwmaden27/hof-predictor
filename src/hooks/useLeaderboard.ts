@@ -41,7 +41,7 @@ function assignJAWSTier(comparison: JAWSComparison, seasons: SeasonWAR[]): HOFTi
   return 'Not HOF Caliber'
 }
 
-export function useLeaderboard(positionFilter?: PositionCategory, tierFilter?: HOFTier) {
+export function useLeaderboard(positionFilter?: PositionCategory, tierFilters: HOFTier[] = []) {
   const entries = useMemo(() => {
     const allPlayers = getAllPlayersWithWAR().filter((p) => p.seasons.length > 0)
     const leaderboard: LeaderboardEntry[] = allPlayers.map((player) => {
@@ -66,12 +66,12 @@ export function useLeaderboard(positionFilter?: PositionCategory, tierFilter?: H
       ? leaderboard.filter((e) => e.positionCategory === positionFilter)
       : leaderboard
 
-    if (tierFilter) {
-      filtered = filtered.filter((e) => e.tier === tierFilter)
+    if (tierFilters.length > 0) {
+      filtered = filtered.filter((e) => tierFilters.includes(e.tier))
     }
 
     return filtered.sort((a, b) => b.jaws - a.jaws)
-  }, [positionFilter, tierFilter])
+  }, [positionFilter, tierFilters])
 
   return entries
 }
