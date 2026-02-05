@@ -7,6 +7,34 @@ interface MilestoneIndicatorProps {
   milestoneProjections?: MilestoneProjection[]
 }
 
+/**
+ * For rate stats (AVG, OBP), progress is mapped from rateFloor→threshold onto 0–100%.
+ * For counting stats, progress is simply value/threshold * 100.
+ */
+function calculateProgress(
+  value: number,
+  threshold: number,
+  isRate: boolean | undefined,
+  rateFloor: number | undefined,
+): number {
+  if (isRate && rateFloor !== undefined) {
+    const range = threshold - rateFloor
+    if (range <= 0) return 100
+    return Math.min(Math.max(((value - rateFloor) / range) * 100, 0), 100)
+  }
+  return Math.min((value / threshold) * 100, 100)
+}
+
+function formatStatValue(value: number, isRate: boolean | undefined): string {
+  if (isRate) return value.toFixed(3).replace(/^0/, '')
+  return value.toLocaleString()
+}
+
+function formatThresholdValue(threshold: number, isRate: boolean | undefined): string {
+  if (isRate) return threshold.toFixed(3).replace(/^0/, '')
+  return threshold.toLocaleString()
+}
+
 export function MilestoneIndicator({
   careerStats,
   playerType,
@@ -24,11 +52,8 @@ export function MilestoneIndicator({
           : typeof rawValue === 'string'
             ? parseFloat(rawValue)
             : 0
-      const progress = Math.min((value / milestone.threshold) * 100, 100)
-      const hofAveragePercent = Math.min(
-        (milestone.hofAverage / milestone.threshold) * 100,
-        100,
-      )
+      const progress = calculateProgress(value, milestone.threshold, milestone.isRate, milestone.rateFloor)
+      const hofAveragePercent = calculateProgress(milestone.hofAverage, milestone.threshold, milestone.isRate, milestone.rateFloor)
       const reached = value >= milestone.threshold
 
       // Find matching projection for this milestone
@@ -36,7 +61,7 @@ export function MilestoneIndicator({
         (p) => p.statKey === milestone.statKey && p.threshold === milestone.threshold,
       )
       const projectedPercent = proj
-        ? Math.min((proj.projectedValue / milestone.threshold) * 100, 100)
+        ? calculateProgress(proj.projectedValue, milestone.threshold, milestone.isRate, milestone.rateFloor)
         : null
       const projectedValue = proj?.projectedValue ?? null
 
@@ -70,7 +95,7 @@ export function MilestoneIndicator({
               </span>
             </span>
             <span className="text-xs text-gray-500 dark:text-gray-400">
-              {m.value.toLocaleString()} / {m.threshold.toLocaleString()}
+              {formatStatValue(m.value, m.isRate)} / {formatThresholdValue(m.threshold, m.isRate)}
             </span>
           </div>
           <div className="relative h-2.5 w-full overflow-visible rounded-full bg-gray-200 dark:bg-gray-700">
@@ -84,7 +109,7 @@ export function MilestoneIndicator({
             <div
               className="absolute top-0 h-full w-0.5 bg-amber-500"
               style={{ left: `${m.hofAveragePercent}%` }}
-              title={`HOF Avg: ${m.hofAverage.toLocaleString()}`}
+              title={`HOF Avg: ${formatStatValue(m.hofAverage, m.isRate)}`}
             >
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 whitespace-nowrap text-[9px] font-medium text-amber-500">
                 HOF Avg
@@ -94,7 +119,7 @@ export function MilestoneIndicator({
               <div
                 className="absolute top-0 h-full w-0.5 bg-cyan-500"
                 style={{ left: `${m.projectedPercent}%` }}
-                title={`Projected: ${m.projectedValue?.toLocaleString()}`}
+                title={`Projected: ${m.projectedValue !== null ? formatStatValue(m.projectedValue, m.isRate) : ''}`}
               >
                 <div className="absolute top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap text-[9px] font-medium text-cyan-500 dark:text-cyan-400">
                   Proj.

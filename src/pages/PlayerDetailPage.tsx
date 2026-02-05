@@ -63,6 +63,13 @@ export function PlayerDetailPage() {
   const { futureWAR, setFutureWAR, projectionData } =
     useProjection(projectionParams)
 
+  // Enrich careerStats with careerWAR from WAR seasons so MilestoneIndicator can display it
+  const enrichedCareerStats = useMemo(() => {
+    if (!data?.careerStats) return null
+    const careerWAR = data.warSeasons.reduce((sum, s) => sum + s.war, 0)
+    return { ...data.careerStats, careerWAR: Math.round(careerWAR * 10) / 10 }
+  }, [data])
+
   const careerProjection = useMemo(() => {
     if (!data || !data.bio.active || !data.hasWAR || !data.hofScore) return null
     if (data.hofScore.tier === 'Hall of Famer') return null
@@ -144,7 +151,7 @@ export function PlayerDetailPage() {
                           Milestones
                         </h3>
                         <MilestoneIndicator
-                          careerStats={data.careerStats}
+                          careerStats={enrichedCareerStats}
                           playerType={getPlayerType(data.bio.primaryPosition.code)}
                         />
                       </div>
@@ -155,7 +162,7 @@ export function PlayerDetailPage() {
                           Milestones
                         </h3>
                         <MilestoneIndicator
-                          careerStats={data.careerStats}
+                          careerStats={enrichedCareerStats}
                           playerType={getPlayerType(data.bio.primaryPosition.code)}
                           milestoneProjections={careerProjection?.milestoneProjections}
                         />

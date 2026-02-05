@@ -92,6 +92,10 @@ export function usePlayerData(playerId: number | null) {
               }
             }
           }
+          // Inject careerWAR from WAR seasons so milestone scoring can use it
+          statsRecord.careerWAR = Math.round(
+            warSeasons.reduce((sum, s) => sum + s.war, 0) * 10,
+          ) / 10
 
           hofScore = calculateHOFScore(
             jawsComparison,

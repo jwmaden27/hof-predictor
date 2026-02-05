@@ -219,6 +219,8 @@ export function projectCareerEnd(params: CareerProjectionParams): CareerProjecti
 
   // Track when each milestone stat value is reached, for likelihood calculation
   const milestoneReachedProb: Record<string, number> = {}
+  const currentCareerWAR = warSeasons.reduce((sum, s) => sum + s.war, 0)
+  let runningWAR = currentCareerWAR
 
   for (let yearOffset = 1; yearOffset <= MAX_PROJECTION_AGE - currentAge; yearOffset++) {
     const futureAge = currentAge + yearOffset
@@ -242,8 +244,12 @@ export function projectCareerEnd(params: CareerProjectionParams): CareerProjecti
       accumulatedStats[key] = (accumulatedStats[key] ?? 0) + seasonRate
     }
 
+    // Track running WAR total for milestone detection
+    runningWAR += projectedSeasonWAR
+    accumulatedStats.careerWAR = Math.round(runningWAR * 10) / 10
+
     // Check if any milestone thresholds are crossed this season
-    const applicable = MILESTONES.filter((m) => m.playerType === actualPlayerType)
+    const applicable = MILESTONES.filter((m) => m.playerType === actualPlayerType && !m.isRate)
     for (const milestone of applicable) {
       const key = `${milestone.statKey}_${milestone.threshold}`
       if (milestoneReachedProb[key] === undefined && accumulatedStats[milestone.statKey] >= milestone.threshold) {
@@ -255,10 +261,24 @@ export function projectCareerEnd(params: CareerProjectionParams): CareerProjecti
   const totalSeasons = projectedWARSeasons.length
   const endAge = currentAge + totalSeasons
 
-  // Calculate projected career WAR
-  const currentCareerWAR = warSeasons.reduce((sum, s) => sum + s.war, 0)
+  // Calculate projected career WAR (currentCareerWAR defined above loop)
   const futureWAR = projectedWARSeasons.reduce((sum, s) => sum + s.war, 0)
   const projectedCareerWAR = Math.round((currentCareerWAR + futureWAR) * 10) / 10
+
+  // Ensure accumulatedStats has final projected careerWAR
+  accumulatedStats.careerWAR = projectedCareerWAR
+
+  // Inject rate stats (avg, obp) from careerStats — these don't accumulate over seasons
+  if (careerStats) {
+    for (const key of ['avg', 'obp']) {
+      const raw = careerStats[key]
+      if (typeof raw === 'number') accumulatedStats[key] = raw
+      else if (typeof raw === 'string') {
+        const parsed = parseFloat(raw)
+        if (!isNaN(parsed)) accumulatedStats[key] = parsed
+      }
+    }
+  }
 
   // Build projected seasons array (current + future) for JAWS/score calculation
   const allSeasons: SeasonWAR[] = [...warSeasons, ...projectedWARSeasons]
@@ -267,6 +287,12 @@ export function projectCareerEnd(params: CareerProjectionParams): CareerProjecti
   const projectedCareerStatsForScoring: Record<string, number> = {}
   for (const [k, v] of Object.entries(accumulatedStats)) {
     projectedCareerStatsForScoring[k] = Math.round(v)
+  }
+  // Keep rate stats unrounded
+  for (const key of ['avg', 'obp']) {
+    if (key in accumulatedStats) {
+      projectedCareerStatsForScoring[key] = accumulatedStats[key]
+    }
   }
   // Also include any existing career stats not in our projection keys
   if (careerStats) {
@@ -290,12 +316,24 @@ export function projectCareerEnd(params: CareerProjectionParams): CareerProjecti
   )
 
   // Build milestone projections
-  const applicable = MILESTONES.filter((m) => m.playerType === actualPlayerType)
-  const milestoneProjections: MilestoneProjection[] = applicable
+  const applicable2 = MILESTONES.filter((m) => m.playerType === actualPlayerType)
+  const milestoneProjections: MilestoneProjection[] = applicable2
     .map((milestone) => {
       const raw = careerStats?.[milestone.statKey]
       const currentValue = typeof raw === 'number' ? raw : typeof raw === 'string' ? parseFloat(raw) : 0
-      const projectedValue = Math.round(accumulatedStats[milestone.statKey] ?? currentValue)
+
+      // For rate stats, use current value as projected (rates don't accumulate).
+      // For careerWAR, use the projected total from WAR projections.
+      // For other counting stats, use accumulated projected stats.
+      let projectedValue: number
+      if (milestone.isRate) {
+        projectedValue = currentValue // AVG/OBP won't meaningfully change in projection
+      } else if (milestone.statKey === 'careerWAR') {
+        projectedValue = projectedCareerWAR
+      } else {
+        projectedValue = Math.round(accumulatedStats[milestone.statKey] ?? currentValue)
+      }
+
       const needed = Math.max(milestone.threshold - currentValue, 0)
       const key = `${milestone.statKey}_${milestone.threshold}`
 
@@ -304,7 +342,12 @@ export function projectCareerEnd(params: CareerProjectionParams): CareerProjecti
         likelihood = 100
       } else if (projectedValue >= milestone.threshold) {
         // Player is projected to reach it; likelihood = probability of still playing at that point
-        likelihood = Math.round((milestoneReachedProb[key] ?? 0) * 100)
+        if (milestone.statKey === 'careerWAR') {
+          // For WAR, use the cumulative probability at the point WAR crosses threshold
+          likelihood = Math.round((milestoneReachedProb[key] ?? cumulativeProb) * 100)
+        } else {
+          likelihood = Math.round((milestoneReachedProb[key] ?? 0) * 100)
+        }
       } else {
         // Not projected to reach it even with full career
         likelihood = 0
