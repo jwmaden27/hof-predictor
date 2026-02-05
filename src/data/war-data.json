@@ -9490,6 +9490,37 @@
     "isHOF": true
   },
   {
+    "playerId": 111188,
+    "playerName": "Barry Bonds",
+    "bbrefId": "bondsba01",
+    "positionCategory": "LF",
+    "seasons": [
+      { "season": 1986, "war": 3.3, "team": "PIT", "age": 21 },
+      { "season": 1987, "war": 5.3, "team": "PIT", "age": 22 },
+      { "season": 1988, "war": 5.4, "team": "PIT", "age": 23 },
+      { "season": 1989, "war": 7.1, "team": "PIT", "age": 24 },
+      { "season": 1990, "war": 9.9, "team": "PIT", "age": 25 },
+      { "season": 1991, "war": 7.8, "team": "PIT", "age": 26 },
+      { "season": 1992, "war": 9.6, "team": "PIT", "age": 27 },
+      { "season": 1993, "war": 10.5, "team": "SFG", "age": 28 },
+      { "season": 1994, "war": 6.0, "team": "SFG", "age": 29 },
+      { "season": 1995, "war": 7.7, "team": "SFG", "age": 30 },
+      { "season": 1996, "war": 9.2, "team": "SFG", "age": 31 },
+      { "season": 1997, "war": 8.9, "team": "SFG", "age": 32 },
+      { "season": 1998, "war": 8.5, "team": "SFG", "age": 33 },
+      { "season": 1999, "war": 3.3, "team": "SFG", "age": 34 },
+      { "season": 2000, "war": 7.6, "team": "SFG", "age": 35 },
+      { "season": 2001, "war": 12.5, "team": "SFG", "age": 36 },
+      { "season": 2002, "war": 12.7, "team": "SFG", "age": 37 },
+      { "season": 2003, "war": 10.2, "team": "SFG", "age": 38 },
+      { "season": 2004, "war": 11.9, "team": "SFG", "age": 39 },
+      { "season": 2005, "war": 0.7, "team": "SFG", "age": 40 },
+      { "season": 2006, "war": 3.2, "team": "SFG", "age": 41 },
+      { "season": 2007, "war": 3.2, "team": "SFG", "age": 42 }
+    ],
+    "careerWAR": 164.4
+  },
+  {
     "playerId": 124341,
     "playerName": "Ted Williams",
     "bbrefId": "willite01",
