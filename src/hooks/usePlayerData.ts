@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { getPlayerComplete } from '@/services/mlb-api.ts'
-import { getPlayerSeasonWARs, getPlayerWAR, hasWARData } from '@/services/war-service.ts'
+import { getPlayerSeasonWARs, getPlayerWAR, hasWARData, isHallOfFamer } from '@/services/war-service.ts'
 import { calculateJAWS, compareToHOFAverage } from '@/utils/jaws.ts'
 import { calculateHOFScore } from '@/utils/scoring.ts'
 import { mapPositionToCategory, getPlayerType } from '@/utils/stats-helpers.ts'
@@ -88,6 +88,10 @@ export function usePlayerData(playerId: number | null) {
             bio.currentAge,
             bio.active,
           )
+
+          if (playerId && isHallOfFamer(playerId)) {
+            hofScore = { ...hofScore, tier: 'Hall of Famer' }
+          }
         }
 
         if (cancelled) return

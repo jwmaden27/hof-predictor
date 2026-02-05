@@ -140,19 +140,20 @@ export function AboutPage() {
           </h2>
           <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { tier: 'First Ballot Lock', range: '90-100', color: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300' },
-              { tier: 'Strong Candidate', range: '75-89', color: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300' },
-              { tier: 'Solid Candidate', range: '60-74', color: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300' },
-              { tier: 'Borderline', range: '45-59', color: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300' },
-              { tier: 'Unlikely', range: '25-44', color: 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300' },
-              { tier: 'Not HOF Caliber', range: '0-24', color: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300' },
+              { tier: 'Hall of Famer', range: 'Inducted into the Baseball Hall of Fame', color: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300' },
+              { tier: 'First Ballot Lock', range: '90-100 points', color: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300' },
+              { tier: 'Strong Candidate', range: '75-89 points', color: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300' },
+              { tier: 'Solid Candidate', range: '60-74 points', color: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300' },
+              { tier: 'Borderline', range: '45-59 points', color: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300' },
+              { tier: 'Unlikely', range: '25-44 points', color: 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300' },
+              { tier: 'Not HOF Caliber', range: '0-24 points', color: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300' },
             ].map((item) => (
               <div
                 key={item.tier}
                 className={`rounded-lg px-4 py-3 ${item.color}`}
               >
                 <div className="font-medium">{item.tier}</div>
-                <div className="text-sm opacity-80">{item.range} points</div>
+                <div className="text-sm opacity-80">{item.range}</div>
               </div>
             ))}
           </div>

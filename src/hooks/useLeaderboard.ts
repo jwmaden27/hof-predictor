@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { getAllPlayersWithWAR } from '@/services/war-service.ts'
+import { getAllPlayersWithWAR, isHallOfFamer } from '@/services/war-service.ts'
 import { calculateJAWS, compareToHOFAverage } from '@/utils/jaws.ts'
 import { assignTier } from '@/utils/scoring.ts'
 import type { PositionCategory, HOFTier } from '@/types/index.ts'
@@ -36,7 +36,7 @@ export function useLeaderboard(positionFilter?: PositionCategory) {
         jaws: jawsResult.jaws,
         jawsRatio: comparison.jawsRatio,
         positionCategory: jawsResult.positionCategory,
-        tier: assignTier(estimatedScore),
+        tier: isHallOfFamer(player.playerId) ? 'Hall of Famer' : assignTier(estimatedScore),
       }
     })
 

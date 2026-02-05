@@ -14,4 +14,5 @@ export interface PlayerWARData {
   positionCategory: PositionCategory
   seasons: SeasonWAR[]
   careerWAR: number
+  isHOF?: boolean
 }

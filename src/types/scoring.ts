@@ -9,6 +9,7 @@ export interface HOFScore {
 }
 
 export type HOFTier =
+  | 'Hall of Famer'
   | 'First Ballot Lock'
   | 'Strong Candidate'
   | 'Solid Candidate'

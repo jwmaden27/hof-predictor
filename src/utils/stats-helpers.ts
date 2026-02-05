@@ -58,6 +58,8 @@ export function formatIP(ip: string): string {
 
 export function getTierColor(tier: string): string {
   switch (tier) {
+    case 'Hall of Famer':
+      return 'text-indigo-500'
     case 'First Ballot Lock':
       return 'text-amber-500'
     case 'Strong Candidate':
@@ -77,6 +79,8 @@ export function getTierColor(tier: string): string {
 
 export function getTierBgColor(tier: string): string {
   switch (tier) {
+    case 'Hall of Famer':
+      return 'bg-indigo-500/10 text-indigo-500 border-indigo-500/30'
     case 'First Ballot Lock':
       return 'bg-amber-500/10 text-amber-500 border-amber-500/30'
     case 'Strong Candidate':
