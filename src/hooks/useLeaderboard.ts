@@ -17,7 +17,7 @@ export interface LeaderboardEntry {
 
 export function useLeaderboard(positionFilter?: PositionCategory, tierFilter?: HOFTier) {
   const entries = useMemo(() => {
-    const allPlayers = getAllPlayersWithWAR()
+    const allPlayers = getAllPlayersWithWAR().filter((p) => p.seasons.length > 0)
     const leaderboard: LeaderboardEntry[] = allPlayers.map((player) => {
       const jawsResult = calculateJAWS(player.seasons, player.positionCategory)
       const comparison = compareToHOFAverage(jawsResult)
