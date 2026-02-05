@@ -1,4 +1,3 @@
-import { ProgressBar } from '@/components/ui/ProgressBar.tsx'
 import { MILESTONES } from '@/data/milestones.ts'
 
 interface MilestoneIndicatorProps {
@@ -23,10 +22,14 @@ export function MilestoneIndicator({
             ? parseFloat(rawValue)
             : 0
       const progress = Math.min((value / milestone.threshold) * 100, 100)
+      const hofAveragePercent = Math.min(
+        (milestone.hofAverage / milestone.threshold) * 100,
+        100,
+      )
       const reached = value >= milestone.threshold
-      return { ...milestone, value, progress, reached }
+      return { ...milestone, value, progress, hofAveragePercent, reached }
     })
-    .filter((m) => m.progress >= 20) // Only show milestones the player has meaningful progress toward
+    .filter((m) => m.progress >= 20)
 
   if (milestoneProgress.length === 0) {
     return (
@@ -57,11 +60,24 @@ export function MilestoneIndicator({
               {m.value.toLocaleString()} / {m.threshold.toLocaleString()}
             </span>
           </div>
-          <ProgressBar
-            value={m.progress}
-            showValue={false}
-            color={m.reached ? '#10b981' : '#3b82f6'}
-          />
+          <div className="relative h-2.5 w-full overflow-visible rounded-full bg-gray-200 dark:bg-gray-700">
+            <div
+              className="h-full rounded-full transition-all duration-500"
+              style={{
+                width: `${m.progress}%`,
+                backgroundColor: m.reached ? '#10b981' : '#3b82f6',
+              }}
+            />
+            <div
+              className="absolute top-0 h-full w-0.5 bg-amber-500"
+              style={{ left: `${m.hofAveragePercent}%` }}
+              title={`HOF Avg: ${m.hofAverage.toLocaleString()}`}
+            >
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 whitespace-nowrap text-[9px] font-medium text-amber-500">
+                HOF Avg
+              </div>
+            </div>
+          </div>
         </div>
       ))}
     </div>
