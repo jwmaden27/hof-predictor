@@ -7,8 +7,26 @@ interface PlayerHeaderProps {
   data: PlayerAnalysis
 }
 
+function getSeasonsLabel(data: PlayerAnalysis): string | null {
+  const { bio, seasonStats } = data
+  if (seasonStats.length > 0) {
+    const seasons = new Set(seasonStats.map((s) => s.season)).size
+    return bio.active ? `${seasons} Seasons (Active)` : `${seasons} Seasons`
+  }
+  if (bio.mlbDebutDate) {
+    const debutYear = new Date(bio.mlbDebutDate).getFullYear()
+    const currentYear = new Date().getFullYear()
+    const years = currentYear - debutYear + (bio.active ? 1 : 0)
+    if (years > 0) {
+      return bio.active ? `${years} Seasons (Active)` : `${years} Seasons`
+    }
+  }
+  return null
+}
+
 export function PlayerHeader({ data }: PlayerHeaderProps) {
   const { bio, hofScore, positionCategory } = data
+  const seasonsLabel = getSeasonsLabel(data)
 
   return (
     <div className="bg-gradient-to-r from-gray-900 to-gray-800 dark:from-gray-950 dark:to-gray-900 text-white">
@@ -37,6 +55,12 @@ export function PlayerHeader({ data }: PlayerHeaderProps) {
               <span>
                 {bio.batSide.description}/{bio.pitchHand.description}
               </span>
+              {seasonsLabel && (
+                <>
+                  <span className="text-gray-600 dark:text-gray-500">|</span>
+                  <span>{seasonsLabel}</span>
+                </>
+              )}
               <Badge variant={bio.active ? 'success' : 'default'}>
                 {bio.active ? 'Active' : 'Retired'}
               </Badge>
