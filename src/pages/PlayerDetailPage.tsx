@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import { PageContainer } from '@/components/layout/PageContainer.tsx'
 import { PlayerHeader } from '@/components/player/PlayerHeader.tsx'
@@ -6,6 +6,7 @@ import { PlayerStatTable } from '@/components/player/PlayerStatTable.tsx'
 import { MilestoneIndicator } from '@/components/player/MilestoneIndicator.tsx'
 import { BallotPrediction } from '@/components/player/BallotPrediction.tsx'
 import { CareerStatsRibbon } from '@/components/player/CareerStatsRibbon.tsx'
+import { HofPathWidget } from '@/components/player/HofPathWidget.tsx'
 import { JawsGauge } from '@/components/jaws/JawsGauge.tsx'
 import { JawsBreakdown } from '@/components/jaws/JawsBreakdown.tsx'
 import { PositionComparison } from '@/components/jaws/PositionComparison.tsx'
@@ -20,6 +21,8 @@ import { LoadingSpinner } from '@/components/ui/LoadingSpinner.tsx'
 import { usePlayerData } from '@/hooks/usePlayerData.ts'
 import { useProjection } from '@/hooks/useProjection.ts'
 import { getPlayerType } from '@/utils/stats-helpers.ts'
+import { projectCareerEnd } from '@/utils/career-projection.ts'
+import { ComparableHOFPlayers } from '@/components/player/ComparableHOFPlayers.tsx'
 
 const TABS_WITH_PROJECTION = [
   { label: 'Overview', value: 'overview' },
@@ -59,6 +62,20 @@ export function PlayerDetailPage() {
       : null
   const { futureWAR, setFutureWAR, projectionData } =
     useProjection(projectionParams)
+
+  const careerProjection = useMemo(() => {
+    if (!data || !data.bio.active || !data.hasWAR || !data.hofScore) return null
+    if (data.hofScore.tier === 'Hall of Famer') return null
+    return projectCareerEnd({
+      warSeasons: data.warSeasons,
+      seasonStats: data.seasonStats,
+      careerStats: data.careerStats,
+      awards: data.awards,
+      positionCategory: data.positionCategory,
+      currentAge: data.bio.currentAge,
+      isPitcher: data.isPitcher,
+    })
+  }, [data])
 
   if (isLoading) {
     return (
@@ -140,10 +157,32 @@ export function PlayerDetailPage() {
                         <MilestoneIndicator
                           careerStats={data.careerStats}
                           playerType={getPlayerType(data.bio.primaryPosition.code)}
+                          milestoneProjections={careerProjection?.milestoneProjections}
                         />
                       </div>
                     )}
                   </div>
+
+                  {data.hasWAR && data.warSeasons.length > 0 && (
+                    <ComparableHOFPlayers
+                      warSeasons={data.warSeasons}
+                      positionCategory={data.positionCategory}
+                      playerId={parseInt(playerId!, 10)}
+                      isHallOfFamer={data.hofScore.tier === 'Hall of Famer'}
+                    />
+                  )}
+
+                  {careerProjection && data.hofScore.tier !== 'Hall of Famer' && (
+                    <div className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-900">
+                      <h3 className="mb-3 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                        HOF Path Projection
+                      </h3>
+                      <HofPathWidget
+                        projection={careerProjection}
+                        currentScore={data.hofScore}
+                      />
+                    </div>
+                  )}
 
                   <div className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-900">
                     <WarProgressionChart seasons={data.warSeasons} />
