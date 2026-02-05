@@ -1,13 +1,16 @@
 import { MILESTONES } from '@/data/milestones.ts'
+import type { MilestoneProjection } from '@/utils/career-projection.ts'
 
 interface MilestoneIndicatorProps {
   careerStats: Record<string, unknown> | null
   playerType: 'hitter' | 'pitcher'
+  milestoneProjections?: MilestoneProjection[]
 }
 
 export function MilestoneIndicator({
   careerStats,
   playerType,
+  milestoneProjections,
 }: MilestoneIndicatorProps) {
   if (!careerStats) return null
 
@@ -27,7 +30,17 @@ export function MilestoneIndicator({
         100,
       )
       const reached = value >= milestone.threshold
-      return { ...milestone, value, progress, hofAveragePercent, reached }
+
+      // Find matching projection for this milestone
+      const proj = milestoneProjections?.find(
+        (p) => p.statKey === milestone.statKey && p.threshold === milestone.threshold,
+      )
+      const projectedPercent = proj
+        ? Math.min((proj.projectedValue / milestone.threshold) * 100, 100)
+        : null
+      const projectedValue = proj?.projectedValue ?? null
+
+      return { ...milestone, value, progress, hofAveragePercent, reached, projectedPercent, projectedValue }
     })
     .filter((m) => m.progress >= 20)
 
@@ -77,6 +90,17 @@ export function MilestoneIndicator({
                 HOF Avg
               </div>
             </div>
+            {m.projectedPercent !== null && !m.reached && m.projectedPercent > m.progress && (
+              <div
+                className="absolute top-0 h-full w-0.5 bg-cyan-500"
+                style={{ left: `${m.projectedPercent}%` }}
+                title={`Projected: ${m.projectedValue?.toLocaleString()}`}
+              >
+                <div className="absolute top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap text-[9px] font-medium text-cyan-500 dark:text-cyan-400">
+                  Proj.
+                </div>
+              </div>
+            )}
           </div>
         </div>
       ))}
