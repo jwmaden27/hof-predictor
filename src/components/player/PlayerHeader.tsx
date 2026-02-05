@@ -1,4 +1,5 @@
 import { Badge } from '@/components/ui/Badge.tsx'
+import { AwardBadges } from '@/components/player/AwardBadges.tsx'
 import { getTierBgColor, getScoreColor } from '@/utils/stats-helpers.ts'
 import { POSITION_LABELS } from '@/data/hof-averages.ts'
 import type { PlayerAnalysis } from '@/hooks/usePlayerData.ts'
@@ -75,6 +76,11 @@ export function PlayerHeader({ data }: PlayerHeaderProps) {
                   {bio.active ? 'Active' : 'Retired'}
                 </Badge>
               </div>
+              {data.awards.length > 0 && (
+                <div className="mt-2">
+                  <AwardBadges awards={data.awards} />
+                </div>
+              )}
             </div>
           </div>
 

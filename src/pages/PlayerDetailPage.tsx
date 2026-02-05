@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom'
 import { PageContainer } from '@/components/layout/PageContainer.tsx'
 import { PlayerHeader } from '@/components/player/PlayerHeader.tsx'
 import { PlayerStatTable } from '@/components/player/PlayerStatTable.tsx'
-import { AwardBadges } from '@/components/player/AwardBadges.tsx'
 import { MilestoneIndicator } from '@/components/player/MilestoneIndicator.tsx'
 import { BallotPrediction } from '@/components/player/BallotPrediction.tsx'
 import { CareerStatsRibbon } from '@/components/player/CareerStatsRibbon.tsx'
@@ -133,12 +132,6 @@ export function PlayerDetailPage() {
                         />
                       </div>
                     )}
-                    <div className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-900">
-                      <h3 className="mb-3 text-sm font-semibold text-gray-700 dark:text-gray-300">
-                        Awards
-                      </h3>
-                      <AwardBadges awards={data.awards} />
-                    </div>
                     {data.hofScore.tier !== 'Hall of Famer' && (
                       <div className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-900">
                         <h3 className="mb-3 text-sm font-semibold text-gray-700 dark:text-gray-300">
@@ -163,17 +156,6 @@ export function PlayerDetailPage() {
                     />
                   </div>
                 </>
-              )}
-
-              {!data.jawsComparison && (
-                <div className="space-y-6">
-                  <div className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-900">
-                    <h3 className="mb-3 text-sm font-semibold text-gray-700 dark:text-gray-300">
-                      Awards
-                    </h3>
-                    <AwardBadges awards={data.awards} />
-                  </div>
-                </div>
               )}
 
               {/* Score Breakdown */}
