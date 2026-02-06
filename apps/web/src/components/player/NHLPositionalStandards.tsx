@@ -1,10 +1,6 @@
 import { useState } from 'react'
 import { Tabs } from '@/components/ui/Tabs.tsx'
-import {
-  NHL_HOF_POSITIONAL_STATS,
-  type NHLHOFSkaterPositionalStats,
-  type NHLHOFGoaliePositionalStats,
-} from '@/data/nhl-hof-positional-stats.ts'
+import { NHL_HOF_POSITIONAL_STATS } from '@/data/nhl-hof-positional-stats.ts'
 import type { NHLPositionCategory } from '@/types/nhl-player.ts'
 
 const POSITION_TABS = [
