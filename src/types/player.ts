@@ -16,6 +16,10 @@ export interface PlayerBio {
   mlbDebutDate: string
   currentTeam?: { id: number; name: string }
   primaryNumber?: string
+  deathDate?: string
+  deathCity?: string
+  deathCountry?: string
+  lastPlayedDate?: string
 }
 
 export interface PositionInfo {

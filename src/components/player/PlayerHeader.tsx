@@ -2,7 +2,7 @@ import { Badge } from '@/components/ui/Badge.tsx'
 import { AwardBadges } from '@/components/player/AwardBadges.tsx'
 import { getTierBgColor, getScoreColor } from '@/utils/stats-helpers.ts'
 import { POSITION_LABELS } from '@/data/hof-averages.ts'
-import type { PlayerAnalysis } from '@/hooks/usePlayerData.ts'
+import type { PlayerAnalysis, HOFEligibility } from '@/hooks/usePlayerData.ts'
 
 interface PlayerHeaderProps {
   data: PlayerAnalysis
@@ -29,9 +29,43 @@ function getSeasonsLabel(data: PlayerAnalysis): string | null {
   return null
 }
 
+function getAgeDisplay(bio: PlayerAnalysis['bio']): string {
+  if (bio.deathDate && bio.birthDate) {
+    const birthYear = new Date(bio.birthDate).getFullYear()
+    const deathYear = new Date(bio.deathDate).getFullYear()
+    const ageAtDeath = deathYear - birthYear
+    return `Age ${ageAtDeath} (${birthYear}-${deathYear})`
+  }
+  return `Age ${bio.currentAge}`
+}
+
+function getEligibilityDisplay(eligibility: HOFEligibility): { text: string; className: string } | null {
+  switch (eligibility.status) {
+    case 'future':
+      return {
+        text: `Eligible ${eligibility.eligibilityStartYear}`,
+        className: 'text-gray-400',
+      }
+    case 'active':
+      return {
+        text: `Year ${eligibility.ballotYear} of 10`,
+        className: 'text-cyan-400',
+      }
+    case 'expired':
+      return {
+        text: 'Ballot Expired',
+        className: 'text-red-400',
+      }
+    default:
+      return null
+  }
+}
+
 export function PlayerHeader({ data }: PlayerHeaderProps) {
-  const { bio, hofScore, positionCategory } = data
+  const { bio, hofScore, positionCategory, hofEligibility } = data
   const seasonsLabel = getSeasonsLabel(data)
+  const ageDisplay = getAgeDisplay(bio)
+  const eligibilityDisplay = getEligibilityDisplay(hofEligibility)
 
   return (
     <div className="bg-gradient-to-r from-gray-900 to-gray-800 dark:from-gray-950 dark:to-gray-900 text-white">
@@ -61,7 +95,7 @@ export function PlayerHeader({ data }: PlayerHeaderProps) {
                   </>
                 )}
                 <span className="text-gray-600 dark:text-gray-500">|</span>
-                <span>Age {bio.currentAge}</span>
+                <span>{ageDisplay}</span>
                 <span className="text-gray-600 dark:text-gray-500">|</span>
                 <span>
                   {bio.batSide.description}/{bio.pitchHand.description}
@@ -102,6 +136,16 @@ export function PlayerHeader({ data }: PlayerHeaderProps) {
                   </div>
                   <div className="mt-1 text-xs text-gray-400 dark:text-gray-500">
                     HOF Probability
+                  </div>
+                </div>
+              )}
+              {eligibilityDisplay && hofScore.tier !== 'Hall of Famer' && (
+                <div className="text-center">
+                  <div className={`text-2xl font-semibold ${eligibilityDisplay.className}`}>
+                    {eligibilityDisplay.text}
+                  </div>
+                  <div className="mt-1 text-xs text-gray-400 dark:text-gray-500">
+                    Ballot Window
                   </div>
                 </div>
               )}

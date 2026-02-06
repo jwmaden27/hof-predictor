@@ -15,6 +15,50 @@ import type {
   PositionCategory,
 } from '@/types/index.ts'
 
+export interface HOFEligibility {
+  status: 'not-eligible' | 'future' | 'active' | 'expired' | 'inducted'
+  eligibilityStartYear?: number
+  eligibilityEndYear?: number
+  yearsUntilEligible?: number
+  ballotYear?: number
+  yearsRemaining?: number
+}
+
+function calculateHOFEligibility(
+  lastPlayedDate: string | undefined,
+  isInducted: boolean,
+  isActive: boolean,
+  currentYear: number,
+): HOFEligibility {
+  if (isInducted) return { status: 'inducted' }
+  if (isActive || !lastPlayedDate) return { status: 'not-eligible' }
+
+  const retirementYear = new Date(lastPlayedDate).getFullYear()
+  const eligibilityStart = retirementYear + 5
+  const eligibilityEnd = eligibilityStart + 9 // 10-year window
+
+  if (currentYear < eligibilityStart) {
+    return {
+      status: 'future',
+      eligibilityStartYear: eligibilityStart,
+      yearsUntilEligible: eligibilityStart - currentYear,
+    }
+  }
+
+  if (currentYear <= eligibilityEnd) {
+    const ballotYear = currentYear - eligibilityStart + 1
+    return {
+      status: 'active',
+      eligibilityStartYear: eligibilityStart,
+      eligibilityEndYear: eligibilityEnd,
+      ballotYear,
+      yearsRemaining: eligibilityEnd - currentYear + 1,
+    }
+  }
+
+  return { status: 'expired', eligibilityEndYear: eligibilityEnd }
+}
+
 export interface PlayerAnalysis {
   bio: PlayerBio
   careerStats: Record<string, unknown> | null
@@ -27,6 +71,7 @@ export interface PlayerAnalysis {
   hasWAR: boolean
   positionCategory: PositionCategory
   isPitcher: boolean
+  hofEligibility: HOFEligibility
 }
 
 export function usePlayerData(playerId: number | null) {
@@ -114,6 +159,14 @@ export function usePlayerData(playerId: number | null) {
 
         if (cancelled) return
 
+        const currentYear = new Date().getFullYear()
+        const hofEligibility = calculateHOFEligibility(
+          bio.lastPlayedDate,
+          isHallOfFamer(playerId),
+          bio.active,
+          currentYear,
+        )
+
         setData({
           bio,
           careerStats,
@@ -126,6 +179,7 @@ export function usePlayerData(playerId: number | null) {
           hasWAR: playerHasWAR,
           positionCategory,
           isPitcher,
+          hofEligibility,
         })
       } catch {
         if (!cancelled) setError('Failed to load player data')

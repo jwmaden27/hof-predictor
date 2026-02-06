@@ -38,6 +38,8 @@ export async function searchPlayers(
 }
 
 export async function getPlayerBio(playerId: number): Promise<PlayerBio> {
+  // The MLB API returns deathDate, deathCity, deathCountry, and lastPlayedDate
+  // when available, so we just need to type them properly in PlayerBio
   const data = await cachedFetch<{ people: PlayerBio[] }>(
     `${BASE_URL}/people/${playerId}`,
   )
