@@ -363,6 +363,7 @@ export function PlayerDetailPage() {
                 playerId={parseInt(playerId!, 10)}
                 seasons={playerSeasons}
                 isPitcher={data.isPitcher}
+                playerName={data.bio.fullName}
               />
             </div>
           )}

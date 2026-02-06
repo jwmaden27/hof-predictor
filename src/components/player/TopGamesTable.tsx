@@ -1,11 +1,15 @@
+import { useState } from 'react'
 import { useTopGames, type TopGame } from '@/hooks/useTopGames.ts'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner.tsx'
+import { YouTubeEmbed, VideoIconButton } from '@/components/ui/YouTubeEmbed.tsx'
+import { generateGameHighlightSearchQuery } from '@/utils/youtube-search.ts'
 import type { HittingStats, PitchingStats } from '@/types/index.ts'
 
 interface TopGamesTableProps {
   playerId: number
   seasons: number[]
   isPitcher: boolean
+  playerName: string
 }
 
 function formatDate(dateStr: string): string {
@@ -17,7 +21,16 @@ function formatDate(dateStr: string): string {
   })
 }
 
-function HitterGameRow({ game, rank }: { game: TopGame; rank: number }) {
+interface GameRowProps {
+  game: TopGame
+  rank: number
+  playerName: string
+  isVideoExpanded: boolean
+  onToggleVideo: () => void
+  isPitcher: boolean
+}
+
+function HitterGameRow({ game, rank, playerName, isVideoExpanded, onToggleVideo }: GameRowProps) {
   const stat = game.stat as HittingStats
   const hits = stat.hits ?? 0
   const atBats = stat.atBats ?? 0
@@ -30,63 +43,84 @@ function HitterGameRow({ game, rank }: { game: TopGame; rank: number }) {
   const triples = stat.triples ?? 0
   const stolenBases = stat.stolenBases ?? 0
 
+  const searchQuery = generateGameHighlightSearchQuery(
+    playerName,
+    game.opponent,
+    game.date,
+    game.isHome,
+  )
+
   return (
-    <tr className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50">
-      <td className="py-3 px-2 text-center font-bold text-gray-400 dark:text-gray-500">
-        {rank}
-      </td>
-      <td className="py-3 px-2">
-        <div className="font-medium text-gray-900 dark:text-gray-100">
-          {formatDate(game.date)}
-        </div>
-        <div className="text-xs text-gray-500 dark:text-gray-400">
-          {game.isHome ? 'vs' : '@'} {game.opponent}
-        </div>
-      </td>
-      <td className="py-3 px-2 text-center">
-        <span className={`inline-flex items-center justify-center w-6 h-6 rounded text-xs font-bold ${
-          game.isWin
-            ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400'
-            : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
-        }`}>
-          {game.isWin ? 'W' : 'L'}
-        </span>
-      </td>
-      <td className="py-3 px-2 text-center font-semibold text-gray-900 dark:text-gray-100">
-        {hits}-{atBats}
-      </td>
-      <td className="py-3 px-2 text-center text-gray-700 dark:text-gray-300">
-        {homeRuns}
-      </td>
-      <td className="py-3 px-2 text-center text-gray-700 dark:text-gray-300">
-        {rbi}
-      </td>
-      <td className="py-3 px-2 text-center text-gray-700 dark:text-gray-300">
-        {runs}
-      </td>
-      <td className="py-3 px-2 text-center text-gray-700 dark:text-gray-300">
-        {doubles}
-      </td>
-      <td className="py-3 px-2 text-center text-gray-700 dark:text-gray-300">
-        {triples}
-      </td>
-      <td className="py-3 px-2 text-center text-gray-700 dark:text-gray-300">
-        {baseOnBalls}
-      </td>
-      <td className="py-3 px-2 text-center text-gray-700 dark:text-gray-300">
-        {strikeOuts}
-      </td>
-      <td className="py-3 px-2 text-center text-gray-700 dark:text-gray-300">
-        {stolenBases}
-      </td>
-      <td className="py-3 px-2 text-center font-bold text-blue-600 dark:text-blue-400">
-        {game.gameScore.toFixed(1)}
-      </td>
-    </tr>
+    <>
+      <tr className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+        <td className="py-3 px-2 text-center font-bold text-gray-400 dark:text-gray-500">
+          {rank}
+        </td>
+        <td className="py-3 px-2">
+          <div className="flex items-center gap-2">
+            <VideoIconButton onClick={onToggleVideo} isActive={isVideoExpanded} />
+            <div>
+              <div className="font-medium text-gray-900 dark:text-gray-100">
+                {formatDate(game.date)}
+              </div>
+              <div className="text-xs text-gray-500 dark:text-gray-400">
+                {game.isHome ? 'vs' : '@'} {game.opponent}
+              </div>
+            </div>
+          </div>
+        </td>
+        <td className="py-3 px-2 text-center">
+          <span className={`inline-flex items-center justify-center w-6 h-6 rounded text-xs font-bold ${
+            game.isWin
+              ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400'
+              : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+          }`}>
+            {game.isWin ? 'W' : 'L'}
+          </span>
+        </td>
+        <td className="py-3 px-2 text-center font-semibold text-gray-900 dark:text-gray-100">
+          {hits}-{atBats}
+        </td>
+        <td className="py-3 px-2 text-center text-gray-700 dark:text-gray-300">
+          {homeRuns}
+        </td>
+        <td className="py-3 px-2 text-center text-gray-700 dark:text-gray-300">
+          {rbi}
+        </td>
+        <td className="py-3 px-2 text-center text-gray-700 dark:text-gray-300">
+          {runs}
+        </td>
+        <td className="py-3 px-2 text-center text-gray-700 dark:text-gray-300">
+          {doubles}
+        </td>
+        <td className="py-3 px-2 text-center text-gray-700 dark:text-gray-300">
+          {triples}
+        </td>
+        <td className="py-3 px-2 text-center text-gray-700 dark:text-gray-300">
+          {baseOnBalls}
+        </td>
+        <td className="py-3 px-2 text-center text-gray-700 dark:text-gray-300">
+          {strikeOuts}
+        </td>
+        <td className="py-3 px-2 text-center text-gray-700 dark:text-gray-300">
+          {stolenBases}
+        </td>
+        <td className="py-3 px-2 text-center font-bold text-blue-600 dark:text-blue-400">
+          {game.gameScore.toFixed(1)}
+        </td>
+      </tr>
+      {isVideoExpanded && (
+        <tr>
+          <td colSpan={13} className="px-2 pb-4">
+            <YouTubeEmbed searchQuery={searchQuery} onClose={onToggleVideo} />
+          </td>
+        </tr>
+      )}
+    </>
   )
 }
 
-function PitcherGameRow({ game, rank }: { game: TopGame; rank: number }) {
+function PitcherGameRow({ game, rank, playerName, isVideoExpanded, onToggleVideo }: GameRowProps) {
   const stat = game.stat as PitchingStats
   const inningsPitched = stat.inningsPitched ?? '0'
   const hits = stat.hits ?? 0
@@ -95,55 +129,81 @@ function PitcherGameRow({ game, rank }: { game: TopGame; rank: number }) {
   const baseOnBalls = stat.baseOnBalls ?? 0
   const homeRuns = stat.homeRuns ?? 0
 
+  const searchQuery = generateGameHighlightSearchQuery(
+    playerName,
+    game.opponent,
+    game.date,
+    game.isHome,
+  )
+
   return (
-    <tr className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50">
-      <td className="py-3 px-2 text-center font-bold text-gray-400 dark:text-gray-500">
-        {rank}
-      </td>
-      <td className="py-3 px-2">
-        <div className="font-medium text-gray-900 dark:text-gray-100">
-          {formatDate(game.date)}
-        </div>
-        <div className="text-xs text-gray-500 dark:text-gray-400">
-          {game.isHome ? 'vs' : '@'} {game.opponent}
-        </div>
-      </td>
-      <td className="py-3 px-2 text-center">
-        <span className={`inline-flex items-center justify-center w-6 h-6 rounded text-xs font-bold ${
-          game.isWin
-            ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400'
-            : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
-        }`}>
-          {game.isWin ? 'W' : 'L'}
-        </span>
-      </td>
-      <td className="py-3 px-2 text-center font-semibold text-gray-900 dark:text-gray-100">
-        {inningsPitched}
-      </td>
-      <td className="py-3 px-2 text-center text-gray-700 dark:text-gray-300">
-        {hits}
-      </td>
-      <td className="py-3 px-2 text-center text-gray-700 dark:text-gray-300">
-        {earnedRuns}
-      </td>
-      <td className="py-3 px-2 text-center text-gray-700 dark:text-gray-300">
-        {strikeOuts}
-      </td>
-      <td className="py-3 px-2 text-center text-gray-700 dark:text-gray-300">
-        {baseOnBalls}
-      </td>
-      <td className="py-3 px-2 text-center text-gray-700 dark:text-gray-300">
-        {homeRuns}
-      </td>
-      <td className="py-3 px-2 text-center font-bold text-blue-600 dark:text-blue-400">
-        {game.gameScore.toFixed(1)}
-      </td>
-    </tr>
+    <>
+      <tr className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+        <td className="py-3 px-2 text-center font-bold text-gray-400 dark:text-gray-500">
+          {rank}
+        </td>
+        <td className="py-3 px-2">
+          <div className="flex items-center gap-2">
+            <VideoIconButton onClick={onToggleVideo} isActive={isVideoExpanded} />
+            <div>
+              <div className="font-medium text-gray-900 dark:text-gray-100">
+                {formatDate(game.date)}
+              </div>
+              <div className="text-xs text-gray-500 dark:text-gray-400">
+                {game.isHome ? 'vs' : '@'} {game.opponent}
+              </div>
+            </div>
+          </div>
+        </td>
+        <td className="py-3 px-2 text-center">
+          <span className={`inline-flex items-center justify-center w-6 h-6 rounded text-xs font-bold ${
+            game.isWin
+              ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400'
+              : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+          }`}>
+            {game.isWin ? 'W' : 'L'}
+          </span>
+        </td>
+        <td className="py-3 px-2 text-center font-semibold text-gray-900 dark:text-gray-100">
+          {inningsPitched}
+        </td>
+        <td className="py-3 px-2 text-center text-gray-700 dark:text-gray-300">
+          {hits}
+        </td>
+        <td className="py-3 px-2 text-center text-gray-700 dark:text-gray-300">
+          {earnedRuns}
+        </td>
+        <td className="py-3 px-2 text-center text-gray-700 dark:text-gray-300">
+          {strikeOuts}
+        </td>
+        <td className="py-3 px-2 text-center text-gray-700 dark:text-gray-300">
+          {baseOnBalls}
+        </td>
+        <td className="py-3 px-2 text-center text-gray-700 dark:text-gray-300">
+          {homeRuns}
+        </td>
+        <td className="py-3 px-2 text-center font-bold text-blue-600 dark:text-blue-400">
+          {game.gameScore.toFixed(1)}
+        </td>
+      </tr>
+      {isVideoExpanded && (
+        <tr>
+          <td colSpan={10} className="px-2 pb-4">
+            <YouTubeEmbed searchQuery={searchQuery} onClose={onToggleVideo} />
+          </td>
+        </tr>
+      )}
+    </>
   )
 }
 
-export function TopGamesTable({ playerId, seasons, isPitcher }: TopGamesTableProps) {
+export function TopGamesTable({ playerId, seasons, isPitcher, playerName }: TopGamesTableProps) {
   const { topGames, isLoading, error } = useTopGames(playerId, seasons, isPitcher, 10)
+  const [expandedVideoIndex, setExpandedVideoIndex] = useState<number | null>(null)
+
+  const handleToggleVideo = (index: number) => {
+    setExpandedVideoIndex(expandedVideoIndex === index ? null : index)
+  }
 
   if (isLoading) {
     return (
@@ -244,9 +304,25 @@ export function TopGamesTable({ playerId, seasons, isPitcher }: TopGamesTablePro
         <tbody>
           {topGames.map((game, index) =>
             isPitcher ? (
-              <PitcherGameRow key={game.gamePk} game={game} rank={index + 1} />
+              <PitcherGameRow
+                key={game.gamePk}
+                game={game}
+                rank={index + 1}
+                playerName={playerName}
+                isVideoExpanded={expandedVideoIndex === index}
+                onToggleVideo={() => handleToggleVideo(index)}
+                isPitcher={true}
+              />
             ) : (
-              <HitterGameRow key={game.gamePk} game={game} rank={index + 1} />
+              <HitterGameRow
+                key={game.gamePk}
+                game={game}
+                rank={index + 1}
+                playerName={playerName}
+                isVideoExpanded={expandedVideoIndex === index}
+                onToggleVideo={() => handleToggleVideo(index)}
+                isPitcher={false}
+              />
             )
           )}
         </tbody>
@@ -257,6 +333,9 @@ export function TopGamesTable({ playerId, seasons, isPitcher }: TopGamesTablePro
         ) : (
           <p>Game Score: 1B=1, 2B=2, 3B=3, HR=4, RBI=1, R=1, BB=0.5, SB=0.5, K=-0.25</p>
         )}
+        <p className="mt-1 text-gray-400 dark:text-gray-500">
+          Click the video icon to search for game highlights on YouTube.
+        </p>
       </div>
     </div>
   )
