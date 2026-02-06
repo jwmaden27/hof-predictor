@@ -24,18 +24,21 @@ import { getPlayerType } from '@/utils/stats-helpers.ts'
 import { projectCareerEnd } from '@/utils/career-projection.ts'
 import { ComparableHOFPlayers } from '@/components/player/ComparableHOFPlayers.tsx'
 import { HofRequirementsWidget } from '@/components/player/HofRequirementsWidget.tsx'
+import { TopGamesTable } from '@/components/player/TopGamesTable.tsx'
 
 const TABS_WITH_PROJECTION = [
   { label: 'Overview', value: 'overview' },
   { label: 'JAWS Analysis', value: 'jaws' },
   { label: 'Projections', value: 'projections' },
   { label: 'Career Stats', value: 'stats' },
+  { label: 'Top Games', value: 'topgames' },
 ]
 
 const TABS_WITHOUT_PROJECTION = [
   { label: 'Overview', value: 'overview' },
   { label: 'JAWS Analysis', value: 'jaws' },
   { label: 'Career Stats', value: 'stats' },
+  { label: 'Top Games', value: 'topgames' },
 ]
 
 export function PlayerDetailPage() {
@@ -83,6 +86,12 @@ export function PlayerDetailPage() {
       currentAge: data.bio.currentAge,
       isPitcher: data.isPitcher,
     })
+  }, [data])
+
+  // Get list of seasons for top games query
+  const playerSeasons = useMemo(() => {
+    if (!data?.seasonStats) return []
+    return [...new Set(data.seasonStats.map((s) => parseInt(s.season, 10)))].sort((a, b) => b - a)
   }, [data])
 
   if (isLoading) {
@@ -332,6 +341,19 @@ export function PlayerDetailPage() {
               <PlayerStatTable
                 careerStats={data.careerStats}
                 seasonStats={data.seasonStats}
+                isPitcher={data.isPitcher}
+              />
+            </div>
+          )}
+
+          {activeTab === 'topgames' && (
+            <div className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-900">
+              <h3 className="mb-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                Top 10 Games by Performance
+              </h3>
+              <TopGamesTable
+                playerId={parseInt(playerId!, 10)}
+                seasons={playerSeasons}
                 isPitcher={data.isPitcher}
               />
             </div>

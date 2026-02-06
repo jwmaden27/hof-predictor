@@ -89,6 +89,61 @@ export async function getPlayerAwards(playerId: number): Promise<Award[]> {
   return data.people?.[0]?.awards ?? []
 }
 
+export interface GameLogEntry {
+  date: string
+  season: string
+  opponent: { id: number; name: string }
+  isHome: boolean
+  isWin: boolean
+  stat: HittingStats | PitchingStats
+  game: { gamePk: number }
+}
+
+export async function getPlayerGameLog(
+  playerId: number,
+  season: number,
+  group: 'hitting' | 'pitching',
+): Promise<GameLogEntry[]> {
+  const data = await cachedFetch<{
+    stats: Array<{
+      splits: Array<{
+        date: string
+        season: string
+        stat: HittingStats | PitchingStats
+        opponent: { id: number; name: string }
+        isHome: boolean
+        isWin: boolean
+        game: { gamePk: number }
+        gameType: string
+      }>
+    }>
+  }>(`${BASE_URL}/people/${playerId}/stats?stats=gameLog&season=${season}&group=${group}`)
+
+  const splits = data.stats?.[0]?.splits ?? []
+  return splits
+    .filter((s) => s.gameType === 'R')
+    .map((s) => ({
+      date: s.date,
+      season: s.season,
+      opponent: s.opponent,
+      isHome: s.isHome,
+      isWin: s.isWin,
+      stat: s.stat,
+      game: s.game,
+    }))
+}
+
+export async function getPlayerAllGameLogs(
+  playerId: number,
+  seasons: number[],
+  group: 'hitting' | 'pitching',
+): Promise<GameLogEntry[]> {
+  const allLogs = await Promise.all(
+    seasons.map((season) => getPlayerGameLog(playerId, season, group))
+  )
+  return allLogs.flat()
+}
+
 export async function getPlayerComplete(playerId: number) {
   const bio = await getPlayerBio(playerId)
   const isPitcher = bio.primaryPosition.code === '1'
