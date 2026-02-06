@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { usePlayerSearch } from '@/hooks/usePlayerSearch.ts'
 import { SearchResults } from './SearchResults.tsx'
 
@@ -10,15 +10,18 @@ interface SearchBarProps {
 
 export function SearchBar({ variant = 'default', className = '' }: SearchBarProps) {
   const navigate = useNavigate()
+  const location = useLocation()
   const { query, setQuery, results, isLoading, clearSearch } = usePlayerSearch()
   const [isFocused, setIsFocused] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
+
+  const sportPrefix = location.pathname.startsWith('/nhl') ? '/nhl' : '/mlb'
 
   const handleSelect = (playerId: number) => {
     clearSearch()
     setIsFocused(false)
     inputRef.current?.blur()
-    navigate(`/player/${playerId}`)
+    navigate(`${sportPrefix}/player/${playerId}`)
   }
 
   const inputClasses =

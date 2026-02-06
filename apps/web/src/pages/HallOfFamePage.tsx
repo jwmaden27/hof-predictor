@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { PageContainer } from '@/components/layout/PageContainer.tsx'
 import { getAllPlayersWithWAR, isHallOfFamer } from '@/services/war-service.ts'
 import { HOF_BALLOT_DATA } from '@/data/hof-ballot-data.ts'
@@ -21,6 +21,9 @@ function getHeadshotUrl(playerId: number): string {
 }
 
 export function HallOfFamePage() {
+  const location = useLocation()
+  const sportPrefix = location.pathname.startsWith('/nhl') ? '/nhl' : '/mlb'
+
   const hofPlayers = useMemo(() => {
     const allPlayers = getAllPlayersWithWAR()
     const players: HOFPlayer[] = []
@@ -86,7 +89,7 @@ export function HallOfFamePage() {
             {players.map((player) => (
               <Link
                 key={player.playerId}
-                to={`/player/${player.playerId}`}
+                to={`${sportPrefix}/player/${player.playerId}`}
                 className="flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-3 transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-gray-900"
               >
                 <img

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Badge } from '@/components/ui/Badge.tsx'
 import { formatWAR } from '@/utils/stats-helpers.ts'
 import type { BallotLeaderboardEntry } from '@/hooks/useBallotLeaderboard.ts'
@@ -31,6 +31,9 @@ function getTierBadgeStyles(tier: string): string {
 }
 
 export function BallotPlayerCard({ player }: BallotPlayerCardProps) {
+  const location = useLocation()
+  const sportPrefix = location.pathname.startsWith('/nhl') ? '/nhl' : '/mlb'
+
   const voteColor = player.isElected
     ? 'text-emerald-600 dark:text-emerald-400'
     : (player.votePercentage ?? 0) >= 75
@@ -47,7 +50,7 @@ export function BallotPlayerCard({ player }: BallotPlayerCardProps) {
 
   return (
     <Link
-      to={`/player/${player.playerId}`}
+      to={`${sportPrefix}/player/${player.playerId}`}
       className="group block rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-4 shadow-sm transition-all hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-md"
     >
       <div className="flex items-start gap-3">

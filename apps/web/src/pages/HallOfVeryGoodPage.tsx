@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { PageContainer } from '@/components/layout/PageContainer.tsx'
 import { getAllPlayersWithWAR } from '@/services/war-service.ts'
 import { HOF_BALLOT_DATA } from '@/data/hof-ballot-data.ts'
@@ -30,6 +30,9 @@ function extractFellOffYear(ballotLabel: string): number | null {
 }
 
 export function HallOfVeryGoodPage() {
+  const location = useLocation()
+  const sportPrefix = location.pathname.startsWith('/nhl') ? '/nhl' : '/mlb'
+
   const hovgPlayers = useMemo(() => {
     const allPlayers = getAllPlayersWithWAR()
     const players: HOVGPlayer[] = []
@@ -114,7 +117,7 @@ export function HallOfVeryGoodPage() {
               {players.map((player) => (
                 <Link
                   key={player.playerId}
-                  to={`/player/${player.playerId}`}
+                  to={`${sportPrefix}/player/${player.playerId}`}
                   className="flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-3 transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-gray-900"
                 >
                   <img

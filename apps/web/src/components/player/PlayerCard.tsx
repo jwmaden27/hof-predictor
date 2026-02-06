@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Badge } from '@/components/ui/Badge.tsx'
 import { formatWAR, getTierBgColor } from '@/utils/stats-helpers.ts'
 import type { LeaderboardEntry } from '@/hooks/useLeaderboard.ts'
@@ -8,9 +8,12 @@ interface PlayerCardProps {
 }
 
 export function PlayerCard({ player }: PlayerCardProps) {
+  const location = useLocation()
+  const sportPrefix = location.pathname.startsWith('/nhl') ? '/nhl' : '/mlb'
+
   return (
     <Link
-      to={`/player/${player.playerId}`}
+      to={`${sportPrefix}/player/${player.playerId}`}
       className="group block rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-5 shadow-sm transition-all hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-md"
     >
       <div className="mb-3 flex items-start justify-between">

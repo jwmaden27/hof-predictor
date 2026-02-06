@@ -3,22 +3,33 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { ThemeToggle } from '@/components/ui/ThemeToggle.tsx'
 import { SearchBar } from '@/components/search/SearchBar.tsx'
 
-const navLinks = [
-  { to: '/', label: 'HOF Predictor' },
-  { to: '/players', label: 'All Players' },
-  { to: '/hall-of-fame', label: 'Hall of Fame' },
-  { to: '/hall-of-very-good', label: 'Hall of Very Good' },
-]
+function getSportPrefix(pathname: string): string {
+  if (pathname.startsWith('/nhl')) return '/nhl'
+  return '/mlb'
+}
+
+function isNhlSport(pathname: string): boolean {
+  return pathname.startsWith('/nhl')
+}
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const location = useLocation()
-  const isDashboard = location.pathname === '/'
+  const prefix = getSportPrefix(location.pathname)
+  const isDashboard = location.pathname === prefix || location.pathname === `${prefix}/`
+  const isNhl = isNhlSport(location.pathname)
+
+  const navLinks = [
+    { to: prefix, label: 'HOF Predictor' },
+    { to: `${prefix}/players`, label: 'All Players' },
+    { to: `${prefix}/hall-of-fame`, label: 'Hall of Fame' },
+    { to: `${prefix}/hall-of-very-good`, label: 'Hall of Very Good' },
+  ]
 
   return (
     <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur dark:border-gray-800 dark:bg-gray-900/95">
       <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6 lg:px-8">
-        <NavLink to="/" className="flex shrink-0 items-center gap-2">
+        <NavLink to={prefix} className="flex shrink-0 items-center gap-2">
           <span className="text-xl font-bold text-gray-900 dark:text-gray-100">HOF Predictor</span>
         </NavLink>
 
@@ -28,7 +39,7 @@ export function Navbar() {
             <NavLink
               key={link.to}
               to={link.to}
-              end={link.to === '/'}
+              end={link.to === prefix}
               className={({ isActive }) =>
                 `text-sm font-medium whitespace-nowrap transition-colors ${
                   isActive
@@ -42,8 +53,8 @@ export function Navbar() {
           ))}
         </nav>
 
-        {/* Persistent search bar — hidden on dashboard which has its own */}
-        {!isDashboard && (
+        {/* Persistent search bar — hidden on dashboard and NHL (coming soon) */}
+        {!isDashboard && !isNhl && (
           <div className="hidden flex-1 md:block md:max-w-sm lg:max-w-md">
             <SearchBar />
           </div>
@@ -76,7 +87,7 @@ export function Navbar() {
             <NavLink
               key={link.to}
               to={link.to}
-              end={link.to === '/'}
+              end={link.to === prefix}
               onClick={() => setMobileOpen(false)}
               className={({ isActive }) =>
                 `block rounded-md px-3 py-2 text-sm font-medium ${
@@ -90,7 +101,7 @@ export function Navbar() {
             </NavLink>
           ))}
           {/* Mobile search bar */}
-          {!isDashboard && (
+          {!isDashboard && !isNhl && (
             <div className="mt-2 px-3">
               <SearchBar />
             </div>

@@ -1,10 +1,12 @@
 import { Outlet } from 'react-router-dom'
 import { Navbar } from '@/components/layout/Navbar.tsx'
 import { Footer } from '@/components/layout/Footer.tsx'
+import { SportSwitcher } from '@/components/SportSwitcher.tsx'
 
 export function App() {
   return (
     <div className="flex min-h-screen flex-col bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100">
+      <SportSwitcher />
       <Navbar />
       <main className="flex-1">
         <Outlet />
