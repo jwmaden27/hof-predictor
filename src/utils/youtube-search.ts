@@ -4,22 +4,29 @@
 
 /**
  * Generate a YouTube search query for MLB game highlights
+ * Searches for game highlights (team vs team) rather than player-specific
  */
 export function generateGameHighlightSearchQuery(
-  playerName: string,
   opponent: string,
   date: string,
   isHome: boolean,
+  playerTeam?: string,
 ): string {
   const gameDate = new Date(date)
   const year = gameDate.getFullYear()
   const month = gameDate.toLocaleDateString('en-US', { month: 'long' })
   const day = gameDate.getDate()
 
-  // Create a search-friendly query
-  // Format: "Player Name highlights vs Opponent Month Day Year"
-  const vsAt = isHome ? 'vs' : '@'
-  return `${playerName} highlights ${vsAt} ${opponent} ${month} ${day} ${year} MLB`
+  // If we have the player's team, use it for a more specific search
+  if (playerTeam) {
+    // Format: "Team vs Opponent Month Day Year highlights" or "Opponent vs Team" for away games
+    const homeTeam = isHome ? playerTeam : opponent
+    const awayTeam = isHome ? opponent : playerTeam
+    return `${awayTeam} vs ${homeTeam} ${month} ${day} ${year} MLB highlights`
+  }
+
+  // Fallback: just use opponent and date
+  return `${opponent} ${month} ${day} ${year} MLB game highlights`
 }
 
 /**

@@ -6,6 +6,7 @@ export interface TopGame {
   date: string
   season: string
   opponent: string
+  team: string
   isHome: boolean
   isWin: boolean
   gameScore: number
@@ -108,6 +109,7 @@ export function useTopGames(
             date: game.date,
             season: game.season,
             opponent: game.opponent.name,
+            team: game.team.name,
             isHome: game.isHome,
             isWin: game.isWin,
             gameScore,

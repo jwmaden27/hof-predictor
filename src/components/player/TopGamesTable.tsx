@@ -9,7 +9,6 @@ interface TopGamesTableProps {
   playerId: number
   seasons: number[]
   isPitcher: boolean
-  playerName: string
 }
 
 function formatDate(dateStr: string): string {
@@ -24,13 +23,12 @@ function formatDate(dateStr: string): string {
 interface GameRowProps {
   game: TopGame
   rank: number
-  playerName: string
   isVideoExpanded: boolean
   onToggleVideo: () => void
   isPitcher: boolean
 }
 
-function HitterGameRow({ game, rank, playerName, isVideoExpanded, onToggleVideo }: GameRowProps) {
+function HitterGameRow({ game, rank, isVideoExpanded, onToggleVideo }: GameRowProps) {
   const stat = game.stat as HittingStats
   const hits = stat.hits ?? 0
   const atBats = stat.atBats ?? 0
@@ -44,10 +42,10 @@ function HitterGameRow({ game, rank, playerName, isVideoExpanded, onToggleVideo 
   const stolenBases = stat.stolenBases ?? 0
 
   const searchQuery = generateGameHighlightSearchQuery(
-    playerName,
     game.opponent,
     game.date,
     game.isHome,
+    game.team,
   )
 
   return (
@@ -120,7 +118,7 @@ function HitterGameRow({ game, rank, playerName, isVideoExpanded, onToggleVideo 
   )
 }
 
-function PitcherGameRow({ game, rank, playerName, isVideoExpanded, onToggleVideo }: GameRowProps) {
+function PitcherGameRow({ game, rank, isVideoExpanded, onToggleVideo }: GameRowProps) {
   const stat = game.stat as PitchingStats
   const inningsPitched = stat.inningsPitched ?? '0'
   const hits = stat.hits ?? 0
@@ -130,10 +128,10 @@ function PitcherGameRow({ game, rank, playerName, isVideoExpanded, onToggleVideo
   const homeRuns = stat.homeRuns ?? 0
 
   const searchQuery = generateGameHighlightSearchQuery(
-    playerName,
     game.opponent,
     game.date,
     game.isHome,
+    game.team,
   )
 
   return (
@@ -197,7 +195,7 @@ function PitcherGameRow({ game, rank, playerName, isVideoExpanded, onToggleVideo
   )
 }
 
-export function TopGamesTable({ playerId, seasons, isPitcher, playerName }: TopGamesTableProps) {
+export function TopGamesTable({ playerId, seasons, isPitcher }: TopGamesTableProps) {
   const { topGames, isLoading, error } = useTopGames(playerId, seasons, isPitcher, 10)
   const [expandedVideoIndex, setExpandedVideoIndex] = useState<number | null>(null)
 
@@ -308,7 +306,6 @@ export function TopGamesTable({ playerId, seasons, isPitcher, playerName }: TopG
                 key={game.gamePk}
                 game={game}
                 rank={index + 1}
-                playerName={playerName}
                 isVideoExpanded={expandedVideoIndex === index}
                 onToggleVideo={() => handleToggleVideo(index)}
                 isPitcher={true}
@@ -318,7 +315,6 @@ export function TopGamesTable({ playerId, seasons, isPitcher, playerName }: TopG
                 key={game.gamePk}
                 game={game}
                 rank={index + 1}
-                playerName={playerName}
                 isVideoExpanded={expandedVideoIndex === index}
                 onToggleVideo={() => handleToggleVideo(index)}
                 isPitcher={false}

@@ -93,6 +93,7 @@ export interface GameLogEntry {
   date: string
   season: string
   opponent: { id: number; name: string }
+  team: { id: number; name: string }
   isHome: boolean
   isWin: boolean
   stat: HittingStats | PitchingStats
@@ -111,6 +112,7 @@ export async function getPlayerGameLog(
         season: string
         stat: HittingStats | PitchingStats
         opponent: { id: number; name: string }
+        team: { id: number; name: string }
         isHome: boolean
         isWin: boolean
         game: { gamePk: number }
@@ -126,6 +128,7 @@ export async function getPlayerGameLog(
       date: s.date,
       season: s.season,
       opponent: s.opponent,
+      team: s.team,
       isHome: s.isHome,
       isWin: s.isWin,
       stat: s.stat,
