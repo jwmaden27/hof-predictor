@@ -2,7 +2,9 @@ import { useMemo } from 'react'
 import { getAllBallotCandidates, CURRENT_BALLOT_YEAR } from '@/data/current-ballot.ts'
 import { getPlayerWAR, isHallOfFamer } from '@/services/war-service.ts'
 import { calculateJAWS, compareToHOFAverage } from '@/utils/jaws.ts'
-import type { PositionCategory, HOFTier } from '@/types/index.ts'
+import { calculateHOFProbability, predictBallot } from '@/utils/hof-probability.ts'
+import { calculateJAWSComponent, calculateTrajectoryComponent, assignTier } from '@/utils/scoring.ts'
+import type { PositionCategory, HOFTier, JAWSComparison, SeasonWAR } from '@/types/index.ts'
 
 export interface BallotLeaderboardEntry {
   playerId: number
@@ -17,20 +19,30 @@ export interface BallotLeaderboardEntry {
   votePercentage: number | null
   isElected: boolean
   isNewToAllot: boolean
+  hofScore: number
+  hofProbability: number
+  ballotPrediction: { ballot: string; description: string }
 }
 
 /**
- * Assigns a tier based on JAWS ratio and WAR trajectory.
+ * Calculates a simplified HOF score for ballot candidates
+ * Uses JAWS as primary component plus trajectory
  */
-function assignJAWSTier(jawsRatio: number, careerWARRatio: number, peakWARRatio: number): HOFTier {
-  const composite = jawsRatio * 0.6 + careerWARRatio * 0.2 + peakWARRatio * 0.2
+function calculateBallotHOFScore(
+  jawsComparison: JAWSComparison,
+  seasons: SeasonWAR[],
+): number {
+  const jawsComponent = calculateJAWSComponent(jawsComparison)
+  // Use 35 as age since these are retired players, not active
+  const trajectoryComponent = calculateTrajectoryComponent(seasons, 35, false)
 
-  if (composite >= 1.15) return 'First Ballot Lock'
-  if (composite >= 0.95) return 'Strong Candidate'
-  if (composite >= 0.75) return 'Solid Candidate'
-  if (composite >= 0.55) return 'Borderline'
-  if (composite >= 0.35) return 'Unlikely'
-  return 'Not HOF Caliber'
+  // Simplified scoring: JAWS (40 max) + Trajectory (15 max) = 55 max from these components
+  // Scale up to approximate full score range
+  const baseScore = jawsComponent + trajectoryComponent
+  // Add bonus based on career WAR ratio to approximate awards/milestones component
+  const careerBonus = Math.min(jawsComparison.careerWARRatio * 20, 25)
+
+  return Math.min(Math.round(baseScore + careerBonus), 100)
 }
 
 export function useBallotLeaderboard(positionFilter?: PositionCategory, tierFilters: HOFTier[] = []) {
@@ -47,6 +59,9 @@ export function useBallotLeaderboard(positionFilter?: PositionCategory, tierFilt
       let jaws = 0
       let jawsRatio = 0
       let tier: HOFTier = 'Not HOF Caliber'
+      let hofScore = 0
+      let hofProbability = 0
+      let ballotPrediction = { ballot: 'Unlikely', description: 'Insufficient data for prediction.' }
 
       if (warEntry && warEntry.seasons.length > 0) {
         const jawsResult = calculateJAWS(warEntry.seasons, candidate.positionCategory)
@@ -57,9 +72,14 @@ export function useBallotLeaderboard(positionFilter?: PositionCategory, tierFilt
         jaws = jawsResult.jaws
         jawsRatio = comparison.jawsRatio
 
+        // Calculate HOF score and prediction
+        hofScore = calculateBallotHOFScore(comparison, warEntry.seasons)
+        hofProbability = calculateHOFProbability(hofScore)
+        ballotPrediction = predictBallot(hofScore)
+
         tier = isHallOfFamer(candidate.playerId)
           ? 'Hall of Famer'
-          : assignJAWSTier(comparison.jawsRatio, comparison.careerWARRatio, comparison.peakWARRatio)
+          : assignTier(hofScore)
       }
 
       leaderboard.push({
@@ -75,6 +95,9 @@ export function useBallotLeaderboard(positionFilter?: PositionCategory, tierFilt
         votePercentage: candidate.votePercentage,
         isElected: candidate.isElected,
         isNewToAllot: candidate.isNewToAllot,
+        hofScore,
+        hofProbability,
+        ballotPrediction,
       })
     }
 

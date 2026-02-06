@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Badge } from '@/components/ui/Badge.tsx'
-import { formatWAR, getTierBgColor } from '@/utils/stats-helpers.ts'
+import { formatWAR } from '@/utils/stats-helpers.ts'
 import type { BallotLeaderboardEntry } from '@/hooks/useBallotLeaderboard.ts'
 
 interface BallotPlayerCardProps {
@@ -9,6 +9,25 @@ interface BallotPlayerCardProps {
 
 function getHeadshotUrl(playerId: number): string {
   return `https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_213,q_auto:best/v1/people/${playerId}/headshot/67/current`
+}
+
+function getTierBadgeStyles(tier: string): string {
+  switch (tier) {
+    case 'Hall of Famer':
+      return 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300'
+    case 'First Ballot Lock':
+      return 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'
+    case 'Strong Candidate':
+      return 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300'
+    case 'Solid Candidate':
+      return 'bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300'
+    case 'Borderline':
+      return 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300'
+    case 'Unlikely':
+      return 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300'
+    default:
+      return 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400'
+  }
 }
 
 export function BallotPlayerCard({ player }: BallotPlayerCardProps) {
@@ -21,6 +40,10 @@ export function BallotPlayerCard({ player }: BallotPlayerCardProps) {
         : (player.votePercentage ?? 0) >= 5
           ? 'text-amber-600 dark:text-amber-400'
           : 'text-gray-500 dark:text-gray-400'
+
+  // Determine what prediction to show
+  const showPrediction = !player.isElected && player.hofScore > 0
+  const isLikelyHOF = player.ballotPrediction.ballot !== 'Unlikely' && player.ballotPrediction.ballot !== 'Veterans Committee'
 
   return (
     <Link
@@ -98,6 +121,29 @@ export function BallotPlayerCard({ player }: BallotPlayerCardProps) {
         </div>
       </div>
 
+      {/* Prediction and Tier */}
+      {showPrediction && (
+        <div className="mt-3 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <Badge className={`${getTierBadgeStyles(player.tier)} text-[10px]`}>
+              {player.tier}
+            </Badge>
+          </div>
+          <div className="text-right">
+            {isLikelyHOF ? (
+              <div className="text-xs">
+                <span className="text-gray-500 dark:text-gray-400">Predicted: </span>
+                <span className="font-medium text-gray-700 dark:text-gray-300">{player.ballotPrediction.ballot}</span>
+              </div>
+            ) : (
+              <div className="text-xs text-gray-500 dark:text-gray-400">
+                {player.hofProbability > 0 ? `${player.hofProbability}% chance` : 'Low probability'}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* WAR stats row */}
       {player.careerWAR > 0 && (
         <div className="mt-2 grid grid-cols-3 gap-2 text-center text-xs">
@@ -110,10 +156,8 @@ export function BallotPlayerCard({ player }: BallotPlayerCardProps) {
             <div className="font-semibold text-gray-700 dark:text-gray-300">{formatWAR(player.peakWAR)}</div>
           </div>
           <div>
-            <div className="text-gray-400 dark:text-gray-500">Tier</div>
-            <div className={`font-semibold ${getTierBgColor(player.tier).replace('border-', 'text-').split(' ')[0]}`}>
-              {player.tier.split(' ')[0]}
-            </div>
+            <div className="text-gray-400 dark:text-gray-500">Score</div>
+            <div className="font-semibold text-gray-700 dark:text-gray-300">{player.hofScore}</div>
           </div>
         </div>
       )}
