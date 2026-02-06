@@ -7,6 +7,7 @@ import { DashboardPage } from './pages/DashboardPage.tsx'
 import { PlayerDetailPage } from './pages/PlayerDetailPage.tsx'
 import { SearchPage } from './pages/SearchPage.tsx'
 import { HallOfFamePage } from './pages/HallOfFamePage.tsx'
+import { HallOfVeryGoodPage } from './pages/HallOfVeryGoodPage.tsx'
 import { AllPlayersPage } from './pages/AllPlayersPage.tsx'
 import { AboutPage } from './pages/AboutPage.tsx'
 import { TermsPage } from './pages/TermsPage.tsx'
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
       { path: 'search', element: <SearchPage /> },
       { path: 'players', element: <AllPlayersPage /> },
       { path: 'hall-of-fame', element: <HallOfFamePage /> },
+      { path: 'hall-of-very-good', element: <HallOfVeryGoodPage /> },
       { path: 'about', element: <AboutPage /> },
       { path: 'terms', element: <TermsPage /> },
       { path: 'privacy', element: <PrivacyPage /> },

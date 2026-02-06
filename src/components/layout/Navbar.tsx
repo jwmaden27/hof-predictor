@@ -4,10 +4,10 @@ import { ThemeToggle } from '@/components/ui/ThemeToggle.tsx'
 import { SearchBar } from '@/components/search/SearchBar.tsx'
 
 const navLinks = [
-  { to: '/', label: 'Dashboard' },
+  { to: '/', label: 'HOF Predictor' },
   { to: '/players', label: 'All Players' },
   { to: '/hall-of-fame', label: 'Hall of Fame' },
-  { to: '/about', label: 'About' },
+  { to: '/hall-of-very-good', label: 'Hall of Very Good' },
 ]
 
 export function Navbar() {
