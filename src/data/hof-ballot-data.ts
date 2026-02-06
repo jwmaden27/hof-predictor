@@ -634,4 +634,66 @@ export const HOF_BALLOT_DATA: Record<number, HOFBallotInfo> = {
     inductionYear: null, ballotType: 'BBWAA', ballotNumber: 10,
     ballotLabel: 'Fell Off Ballot (2024)', votePercentage: 63.9,
   },
+
+  // === 1990s Ballot Candidates (not inducted via BBWAA) ===
+  114641: { // Steve Garvey - 1B (fell off ballot 2000, inducted via Era Committee 2025)
+    inductionYear: 2025, ballotType: 'Era Committee', ballotNumber: null,
+    ballotLabel: 'Era Committee', votePercentage: null,
+  },
+  119545: { // Dale Murphy - CF (fell off ballot 2000)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 15,
+    ballotLabel: 'Fell Off Ballot (2000)', votePercentage: 23.2,
+  },
+  116550: { // Tommy John - SP (fell off ballot 2009)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 15,
+    ballotLabel: 'Fell Off Ballot (2009)', votePercentage: 31.7,
+  },
+  112549: { // Dave Concepcion - SS (fell off ballot 2008)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 15,
+    ballotLabel: 'Fell Off Ballot (2008)', votePercentage: 12.7,
+  },
+  115826: { // Keith Hernandez - 1B (fell off ballot 2004)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 15,
+    ballotLabel: 'Fell Off Ballot (2004)', votePercentage: 10.8,
+  },
+  119531: { // Thurman Munson - C (fell off ballot 1991)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 10,
+    ballotLabel: 'Fell Off Ballot (1991)', votePercentage: 15.5,
+  },
+  111189: { // Bobby Bonds - RF (fell off ballot 1999)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 15,
+    ballotLabel: 'Fell Off Ballot (1999)', votePercentage: 5.7,
+  },
+  123331: { // Luis Tiant - SP (fell off ballot 2002)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 15,
+    ballotLabel: 'Fell Off Ballot (2002)', votePercentage: 29.5,
+  },
+  117875: { // Mickey Lolich - SP (fell off ballot 2000)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 15,
+    ballotLabel: 'Fell Off Ballot (2000)', votePercentage: 9.0,
+  },
+  119720: { // Graig Nettles - 3B (fell off ballot 1997)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 6,
+    ballotLabel: 'Fell Off Ballot (1997)', votePercentage: 7.4,
+  },
+  113936: { // Dwight Evans - RF (fell off ballot 1999)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 3,
+    ballotLabel: 'Fell Off Ballot (1999)', votePercentage: 10.4,
+  },
+  114333: { // George Foster - LF (fell off ballot 1996)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 4,
+    ballotLabel: 'Fell Off Ballot (1996)', votePercentage: 6.1,
+  },
+  115228: { // Ron Guidry - SP (fell off ballot 2000)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 8,
+    ballotLabel: 'Fell Off Ballot (2000)', votePercentage: 6.6,
+  },
+  111119: { // Vida Blue - SP (fell off ballot 1996)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 4,
+    ballotLabel: 'Fell Off Ballot (1996)', votePercentage: 7.5,
+  },
+  122699: { // Rusty Staub - RF (fell off ballot 1997)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 5,
+    ballotLabel: 'Fell Off Ballot (1997)', votePercentage: 5.9,
+  },
 }
