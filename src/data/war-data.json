@@ -108661,7 +108661,7 @@
     ]
   },
   {
-    "playerId": 221697,
+    "playerId": 121673,
     "playerName": "Reggie Sanders",
     "bbrefId": "sandere02",
     "positionCategory": "RF",
@@ -110830,9 +110830,9 @@
     ]
   },
   {
-    "playerId": 221697,
+    "playerId": 122111,
     "playerName": "Gary Sheffield",
-    "bbrefId": "shMDMga01",
+    "bbrefId": "sheffga01",
     "positionCategory": "RF",
     "careerWAR": 60.5,
     "seasons": [

@@ -630,7 +630,7 @@ export const HOF_BALLOT_DATA: Record<number, HOFBallotInfo> = {
     inductionYear: null, ballotType: 'BBWAA', ballotNumber: 10,
     ballotLabel: 'Fell Off Ballot (2016)', votePercentage: 12.3,
   },
-  221697: { // Gary Sheffield - RF (fell off ballot 2024)
+  122111: { // Gary Sheffield - RF (fell off ballot 2024)
     inductionYear: null, ballotType: 'BBWAA', ballotNumber: 10,
     ballotLabel: 'Fell Off Ballot (2024)', votePercentage: 63.9,
   },
