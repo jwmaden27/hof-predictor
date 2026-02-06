@@ -29,7 +29,7 @@ export function HallOfFamePage() {
       if (!isHallOfFamer(player.playerId)) continue
 
       const ballotInfo = HOF_BALLOT_DATA[player.playerId]
-      if (!ballotInfo) continue
+      if (!ballotInfo || ballotInfo.inductionYear === null) continue
 
       const careerWAR = player.seasons.reduce((sum, s) => sum + s.war, 0)
 

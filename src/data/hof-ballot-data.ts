@@ -1,5 +1,5 @@
 export interface HOFBallotInfo {
-  inductionYear: number
+  inductionYear: number | null  // null for players who fell off ballot without induction
   ballotType: 'BBWAA' | 'Veterans Committee' | 'Era Committee' | 'Special Election'
   ballotNumber: number | null
   ballotLabel: string
@@ -577,5 +577,61 @@ export const HOF_BALLOT_DATA: Record<number, HOFBallotInfo> = {
   118365: { // Edgar Martinez
     inductionYear: 2019, ballotType: 'BBWAA', ballotNumber: 10,
     ballotLabel: '10th Ballot', votePercentage: 85.4,
+  },
+  120074: { // David Ortiz
+    inductionYear: 2022, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: '1st Ballot', votePercentage: 77.9,
+  },
+
+  // === 2020s Inductees (missing from above sections) ===
+  115732: { // Todd Helton - 1B
+    inductionYear: 2024, ballotType: 'BBWAA', ballotNumber: 6,
+    ballotLabel: '6th Ballot', votePercentage: 79.7,
+  },
+  118730: { // Fred McGriff - 1B
+    inductionYear: 2023, ballotType: 'Era Committee', ballotNumber: null,
+    ballotLabel: 'Era Committee (Unanimous)', votePercentage: 100.0,
+  },
+  282332: { // CC Sabathia - SP
+    inductionYear: 2025, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: '1st Ballot', votePercentage: 86.8,
+  },
+  123790: { // Billy Wagner - RP
+    inductionYear: 2025, ballotType: 'BBWAA', ballotNumber: 10,
+    ballotLabel: '10th Ballot', votePercentage: 82.5,
+  },
+  136860: { // Carlos Beltrán - CF
+    inductionYear: 2026, ballotType: 'BBWAA', ballotNumber: 4,
+    ballotLabel: '4th Ballot', votePercentage: 84.2,
+  },
+  116662: { // Andruw Jones - CF
+    inductionYear: 2026, ballotType: 'BBWAA', ballotNumber: 9,
+    ballotLabel: '9th Ballot', votePercentage: 78.4,
+  },
+
+  // === Notable Ballot Candidates (5%+ votes, not inducted via BBWAA) ===
+  111188: { // Barry Bonds - LF (fell off ballot 2022)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 10,
+    ballotLabel: 'Fell Off Ballot (2022)', votePercentage: 66.0,
+  },
+  112388: { // Roger Clemens - SP (fell off ballot 2022)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 10,
+    ballotLabel: 'Fell Off Ballot (2022)', votePercentage: 65.2,
+  },
+  121811: { // Curt Schilling - SP (fell off ballot 2022)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 10,
+    ballotLabel: 'Fell Off Ballot (2022)', votePercentage: 58.6,
+  },
+  122544: { // Sammy Sosa - RF (fell off ballot 2022)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 10,
+    ballotLabel: 'Fell Off Ballot (2022)', votePercentage: 18.5,
+  },
+  118743: { // Mark McGwire - 1B (fell off ballot 2016)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 10,
+    ballotLabel: 'Fell Off Ballot (2016)', votePercentage: 12.3,
+  },
+  221697: { // Gary Sheffield - RF (fell off ballot 2024)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 10,
+    ballotLabel: 'Fell Off Ballot (2024)', votePercentage: 63.9,
   },
 }
