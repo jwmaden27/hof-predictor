@@ -12,7 +12,10 @@ import { AllPlayersPage } from './pages/AllPlayersPage.tsx'
 import { AboutPage } from './pages/AboutPage.tsx'
 import { TermsPage } from './pages/TermsPage.tsx'
 import { PrivacyPage } from './pages/PrivacyPage.tsx'
-import { ComingSoonPage } from './pages/ComingSoonPage.tsx'
+import { NHLDashboardPage } from './pages/NHLDashboardPage.tsx'
+import { NHLPlayerDetailPage } from './pages/NHLPlayerDetailPage.tsx'
+import { NHLSearchPage } from './pages/NHLSearchPage.tsx'
+import { NHLHallOfFamePage } from './pages/NHLHallOfFamePage.tsx'
 import './index.css'
 
 const mlbRoutes = [
@@ -25,8 +28,10 @@ const mlbRoutes = [
 ]
 
 const nhlRoutes = [
-  { index: true, element: <ComingSoonPage sport="nhl" sportName="NHL" /> },
-  { path: '*', element: <ComingSoonPage sport="nhl" sportName="NHL" /> },
+  { index: true, element: <NHLDashboardPage /> },
+  { path: 'player/:playerId', element: <NHLPlayerDetailPage /> },
+  { path: 'search', element: <NHLSearchPage /> },
+  { path: 'hall-of-fame', element: <NHLHallOfFamePage /> },
 ]
 
 const router = createBrowserRouter([

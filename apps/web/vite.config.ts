@@ -10,4 +10,18 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  server: {
+    proxy: {
+      '/nhl-api': {
+        target: 'https://api-web.nhle.com',
+        changeOrigin: true,
+        rewrite: (p) => p.replace(/^\/nhl-api/, ''),
+      },
+      '/nhl-search-api': {
+        target: 'https://search.d3.nhle.com',
+        changeOrigin: true,
+        rewrite: (p) => p.replace(/^\/nhl-search-api/, ''),
+      },
+    },
+  },
 })

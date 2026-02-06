@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { ThemeToggle } from '@/components/ui/ThemeToggle.tsx'
 import { SearchBar } from '@/components/search/SearchBar.tsx'
+import { NHLSearchBar } from '@/components/search/NHLSearchBar.tsx'
 
 function getSportPrefix(pathname: string): string {
   if (pathname.startsWith('/nhl')) return '/nhl'
@@ -19,12 +20,18 @@ export function Navbar() {
   const isDashboard = location.pathname === prefix || location.pathname === `${prefix}/`
   const isNhl = isNhlSport(location.pathname)
 
-  const navLinks = [
-    { to: prefix, label: 'HOF Predictor' },
-    { to: `${prefix}/players`, label: 'All Players' },
-    { to: `${prefix}/hall-of-fame`, label: 'Hall of Fame' },
-    { to: `${prefix}/hall-of-very-good`, label: 'Hall of Very Good' },
-  ]
+  const navLinks = isNhl
+    ? [
+        { to: prefix, label: 'HHOF Predictor' },
+        { to: `${prefix}/search`, label: 'Search' },
+        { to: `${prefix}/hall-of-fame`, label: 'Hall of Fame' },
+      ]
+    : [
+        { to: prefix, label: 'HOF Predictor' },
+        { to: `${prefix}/players`, label: 'All Players' },
+        { to: `${prefix}/hall-of-fame`, label: 'Hall of Fame' },
+        { to: `${prefix}/hall-of-very-good`, label: 'Hall of Very Good' },
+      ]
 
   return (
     <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur dark:border-gray-800 dark:bg-gray-900/95">
@@ -53,10 +60,10 @@ export function Navbar() {
           ))}
         </nav>
 
-        {/* Persistent search bar — hidden on dashboard and NHL (coming soon) */}
-        {!isDashboard && !isNhl && (
+        {/* Persistent search bar — hidden on dashboard */}
+        {!isDashboard && (
           <div className="hidden flex-1 md:block md:max-w-sm lg:max-w-md">
-            <SearchBar />
+            {isNhl ? <NHLSearchBar /> : <SearchBar />}
           </div>
         )}
 
@@ -101,9 +108,9 @@ export function Navbar() {
             </NavLink>
           ))}
           {/* Mobile search bar */}
-          {!isDashboard && !isNhl && (
+          {!isDashboard && (
             <div className="mt-2 px-3">
-              <SearchBar />
+              {isNhl ? <NHLSearchBar /> : <SearchBar />}
             </div>
           )}
         </nav>
