@@ -5,6 +5,7 @@ import { SearchBar } from '@/components/search/SearchBar.tsx'
 
 const navLinks = [
   { to: '/', label: 'Dashboard' },
+  { to: '/players', label: 'All Players' },
   { to: '/hall-of-fame', label: 'Hall of Fame' },
   { to: '/about', label: 'About' },
 ]
