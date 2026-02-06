@@ -25,6 +25,7 @@ import { projectCareerEnd } from '@/utils/career-projection.ts'
 import { ComparableHOFPlayers } from '@/components/player/ComparableHOFPlayers.tsx'
 import { HofRequirementsWidget } from '@/components/player/HofRequirementsWidget.tsx'
 import { TopGamesTable } from '@/components/player/TopGamesTable.tsx'
+import { PlayerDescription } from '@/components/player/PlayerDescription.tsx'
 
 const TABS_WITH_PROJECTION = [
   { label: 'Overview', value: 'overview' },
@@ -127,6 +128,13 @@ export function PlayerDetailPage() {
       <CareerStatsRibbon data={data} />
 
       <PageContainer>
+        {/* Player Description */}
+        <div className="mb-6">
+          <PlayerDescription
+            playerId={parseInt(playerId!, 10)}
+            playerName={data.bio.fullName}
+          />
+        </div>
         {!data.hasWAR && (
           <div className="mb-6 rounded-lg border border-yellow-200 bg-yellow-50 px-4 py-3 text-sm text-yellow-800 dark:border-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300">
             WAR data is not available for this player. JAWS analysis cannot be
