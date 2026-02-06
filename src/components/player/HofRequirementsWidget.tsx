@@ -9,12 +9,15 @@ import { HOF_AVERAGES } from '@/data/hof-averages.ts'
 import { calculatePeakWAR } from '@/utils/jaws.ts'
 import { getTierBgColor } from '@/utils/stats-helpers.ts'
 
-const RETIREMENT_AGE = 39
+const RETIREMENT_AGE_HITTER = 39
+const RETIREMENT_AGE_PITCHER = 38
 
 const AWARD_IDS = {
   MVP: ['ALMVP', 'NLMVP'],
+  CY_YOUNG: ['ALCY', 'NLCY', 'MLBCY'],
   ALL_STAR: ['ALAS', 'NLAS'],
   SILVER_SLUGGER: ['ALSS', 'NLSS'],
+  GOLD_GLOVE: ['ALGG', 'NLGG', 'MLGG'],
 } as const
 
 function countAward(awards: Award[], ids: readonly string[]): number {
@@ -28,6 +31,7 @@ interface HofRequirementsWidgetProps {
   awards: Award[]
   currentAge: number
   positionCategory: PositionCategory
+  isPitcher: boolean
 }
 
 interface RequiredSeasonLine {
@@ -61,7 +65,7 @@ function getStatNum(stats: Record<string, unknown> | null, key: string): number 
   return 0
 }
 
-function computeRequirements(
+function computePitcherRequirements(
   hofScore: HOFScore,
   careerStats: Record<string, unknown> | null,
   warSeasons: SeasonWAR[],
@@ -69,7 +73,177 @@ function computeRequirements(
   currentAge: number,
   positionCategory: PositionCategory,
 ): Requirements | null {
-  const remainingSeasons = Math.max(RETIREMENT_AGE - currentAge, 1)
+  const remainingSeasons = Math.max(RETIREMENT_AGE_PITCHER - currentAge, 1)
+  const currentScore = hofScore.overall
+
+  // Determine target tier
+  let targetScore: number
+  let targetTier: string
+  if (currentScore < 60) {
+    targetScore = 60
+    targetTier = 'Solid Candidate'
+  } else if (currentScore < 75) {
+    targetScore = 75
+    targetTier = 'Strong Candidate'
+  } else {
+    targetScore = 90
+    targetTier = 'First Ballot Lock'
+  }
+
+  const gap = targetScore - currentScore
+  if (gap <= 0) return null
+
+  // --- WAR per season calculation ---
+  const currentCareerWAR = warSeasons.reduce((sum, s) => sum + s.war, 0)
+  const hofAvg = HOF_AVERAGES[positionCategory]
+
+  // Estimate additional awards/milestones gains
+  const currentAwardsPoints = hofScore.awardsComponent
+  const realisticAwardsGain = Math.min(gap * 0.15, 25 - currentAwardsPoints, 5)
+  const realisticMilestonesGain = Math.min(gap * 0.1, 20 - hofScore.milestonesComponent, 4)
+
+  const nonJAWSGain = realisticAwardsGain + realisticMilestonesGain
+  const jawsTrajectoryTarget = gap - nonJAWSGain
+
+  // Current elite/solid seasons
+  const currentElite = warSeasons.filter((s) => s.war >= 5.0).length
+  const currentSolid = warSeasons.filter((s) => s.war >= 3.0).length
+
+  // Binary search for WAR/season
+  let lo = 0
+  let hi = 10
+  for (let iter = 0; iter < 30; iter++) {
+    const mid = (lo + hi) / 2
+    const projCareerWAR = currentCareerWAR + mid * remainingSeasons
+
+    const projSeasons: SeasonWAR[] = [...warSeasons]
+    for (let y = 1; y <= remainingSeasons; y++) {
+      projSeasons.push({ season: 2025 + y, war: mid, age: currentAge + y })
+    }
+    const { peakWAR: projPeakWAR } = calculatePeakWAR(projSeasons)
+    const projJAWS = (projCareerWAR + projPeakWAR) / 2
+
+    const jawsRatio = projJAWS / hofAvg.jaws
+    const careerWARRatio = projCareerWAR / hofAvg.careerWAR
+    const peakWARRatio = projPeakWAR / hofAvg.peakWAR
+    const compositeRatio = jawsRatio * 0.6 + careerWARRatio * 0.2 + peakWARRatio * 0.2
+
+    let jawsComponent: number
+    if (compositeRatio >= 1.25) jawsComponent = 40
+    else if (compositeRatio >= 1.0) jawsComponent = 32 + (compositeRatio - 1.0) * 32
+    else if (compositeRatio >= 0.75) jawsComponent = 20 + (compositeRatio - 0.75) * 48
+    else if (compositeRatio >= 0.5) jawsComponent = 10 + (compositeRatio - 0.5) * 40
+    else jawsComponent = compositeRatio * 20
+
+    const futureElite = mid >= 5.0 ? remainingSeasons : 0
+    const futureSolid = mid >= 3.0 ? remainingSeasons : 0
+    const projElite = currentElite + futureElite
+    const projSolid = currentSolid + futureSolid
+    let trajectoryComponent = Math.min(projElite * 1.5, 7.5) + Math.min(projSolid * 0.5, 5)
+    trajectoryComponent = Math.min(trajectoryComponent, 15)
+
+    const jawsTrajectoryGain =
+      (jawsComponent - hofScore.jawsComponent) +
+      (trajectoryComponent - hofScore.trajectoryComponent)
+
+    if (jawsTrajectoryGain < jawsTrajectoryTarget) {
+      lo = mid
+    } else {
+      hi = mid
+    }
+  }
+  const warPerSeason = Math.max(Math.round(((lo + hi) / 2) * 10) / 10, 3.0)
+
+  // --- Pitcher stats per season ---
+  const currentERA = getStatNum(careerStats, 'era')
+  const currentWHIP = getStatNum(careerStats, 'whip')
+
+  // Base stat rates for a 5.0 WAR pitcher season
+  const BASE_WAR = 5.0
+  const warRatio = Math.max(warPerSeason / BASE_WAR, 0.4)
+
+  // A ~5 WAR SP season: ~15 W, ~200 K, ~200 IP, 2.80 ERA, 1.10 WHIP
+  const targetWins = Math.round(Math.min(Math.max(15 * warRatio, 8), 20))
+  const targetKs = Math.round(Math.min(Math.max(200 * warRatio, 100), 280))
+  const targetIP = Math.round(Math.min(Math.max(200 * warRatio, 120), 230))
+
+  const seasonLines: RequiredSeasonLine[] = []
+
+  // ERA — rate stat (lower is better)
+  if (currentERA > 0 && currentERA <= 3.00) {
+    seasonLines.push({ label: 'ERA', value: currentERA.toFixed(2), note: 'Maintain' })
+  } else if (currentERA > 0 && currentERA <= 3.50) {
+    seasonLines.push({ label: 'ERA', value: '< 3.00', note: 'Target' })
+  } else {
+    seasonLines.push({ label: 'ERA', value: '< 3.20', note: 'Target' })
+  }
+
+  // WHIP — rate stat (lower is better)
+  if (currentWHIP > 0 && currentWHIP <= 1.10) {
+    seasonLines.push({ label: 'WHIP', value: currentWHIP.toFixed(2), note: 'Maintain' })
+  } else if (currentWHIP > 0 && currentWHIP <= 1.20) {
+    seasonLines.push({ label: 'WHIP', value: '< 1.10', note: 'Target' })
+  } else {
+    seasonLines.push({ label: 'WHIP', value: '< 1.18', note: 'Target' })
+  }
+
+  // Counting stats
+  seasonLines.push({ label: 'W', value: String(targetWins) })
+  seasonLines.push({ label: 'K', value: String(targetKs) })
+  seasonLines.push({ label: 'IP', value: String(targetIP) })
+
+  // --- Awards path for pitchers ---
+  const currentCYs = countAward(awards, AWARD_IDS.CY_YOUNG)
+  const currentAS = countAward(awards, AWARD_IDS.ALL_STAR)
+  const awardsGapTarget = Math.max(realisticAwardsGain, 0)
+
+  const awardPath: AwardSuggestion[] = []
+  let awardsPointsNeeded = Math.max(awardsGapTarget, 0)
+
+  // All-Stars (0.5 pts each, max 5 pts)
+  if (currentAS < 10 && awardsPointsNeeded > 0) {
+    const asNeeded = Math.min(
+      Math.ceil(Math.min(awardsPointsNeeded, 5 - currentAS * 0.5) / 0.5),
+      remainingSeasons,
+      10 - currentAS,
+    )
+    if (asNeeded > 0) {
+      awardPath.push({ label: 'All-Star', count: asNeeded })
+      awardsPointsNeeded -= asNeeded * 0.5
+    }
+  }
+
+  // Cy Young (5 pts each, max 10 pts = 2 selections)
+  if (currentCYs < 2 && awardsPointsNeeded > 2) {
+    const cyNeeded = Math.min(
+      Math.ceil(awardsPointsNeeded / 5),
+      2 - currentCYs,
+      Math.floor(remainingSeasons / 3),
+    )
+    if (cyNeeded > 0) {
+      awardPath.push({ label: 'Cy Young', count: cyNeeded })
+    }
+  }
+
+  return {
+    targetTier,
+    targetScore,
+    remainingSeasons,
+    warPerSeason,
+    seasonLines,
+    awardPath,
+  }
+}
+
+function computeHitterRequirements(
+  hofScore: HOFScore,
+  careerStats: Record<string, unknown> | null,
+  warSeasons: SeasonWAR[],
+  awards: Award[],
+  currentAge: number,
+  positionCategory: PositionCategory,
+): Requirements | null {
+  const remainingSeasons = Math.max(RETIREMENT_AGE_HITTER - currentAge, 1)
   const currentScore = hofScore.overall
 
   // Determine target tier
@@ -269,18 +443,30 @@ export function HofRequirementsWidget({
   awards,
   currentAge,
   positionCategory,
+  isPitcher,
 }: HofRequirementsWidgetProps) {
+  const retirementAge = isPitcher ? RETIREMENT_AGE_PITCHER : RETIREMENT_AGE_HITTER
+
   const requirements = useMemo(
     () =>
-      computeRequirements(
-        hofScore,
-        careerStats,
-        warSeasons,
-        awards,
-        currentAge,
-        positionCategory,
-      ),
-    [hofScore, careerStats, warSeasons, awards, currentAge, positionCategory],
+      isPitcher
+        ? computePitcherRequirements(
+            hofScore,
+            careerStats,
+            warSeasons,
+            awards,
+            currentAge,
+            positionCategory,
+          )
+        : computeHitterRequirements(
+            hofScore,
+            careerStats,
+            warSeasons,
+            awards,
+            currentAge,
+            positionCategory,
+          ),
+    [hofScore, careerStats, warSeasons, awards, currentAge, positionCategory, isPitcher],
   )
 
   if (!requirements) return null
@@ -299,7 +485,7 @@ export function HofRequirementsWidget({
           </span>
         </div>
         <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-          Assuming retirement at age {RETIREMENT_AGE} ({requirements.remainingSeasons} season{requirements.remainingSeasons !== 1 ? 's' : ''} remaining)
+          Assuming retirement at age {retirementAge} ({requirements.remainingSeasons} season{requirements.remainingSeasons !== 1 ? 's' : ''} remaining)
         </p>
       </div>
 
