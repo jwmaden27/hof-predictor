@@ -142,6 +142,11 @@ export function usePlayerData(playerId: number | null) {
             warSeasons.reduce((sum, s) => sum + s.war, 0) * 10,
           ) / 10
 
+          // Get debut year for milestone filtering (RP saves vs holds)
+          const debutYear = bio.mlbDebutDate
+            ? new Date(bio.mlbDebutDate).getFullYear()
+            : undefined
+
           hofScore = calculateHOFScore(
             jawsComparison,
             awards,
@@ -151,6 +156,7 @@ export function usePlayerData(playerId: number | null) {
             bio.currentAge,
             bio.active,
             positionCategory,
+            debutYear,
           )
 
           if (playerId && isHallOfFamer(playerId)) {

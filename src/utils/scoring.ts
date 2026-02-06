@@ -61,9 +61,18 @@ function calculateMilestonesComponent(
   careerStats: Record<string, number>,
   playerType: 'hitter' | 'pitcher',
   positionCategory?: string,
+  debutYear?: number,
 ): { points: number; milestoneHits: string[] } {
   const milestoneType = getMilestonePlayerType(playerType, positionCategory)
-  const applicable = MILESTONES.filter((m) => m.playerType === milestoneType)
+  const applicable = MILESTONES.filter((m) => {
+    if (m.playerType !== milestoneType) return false
+    // Filter by debut year constraints
+    if (m.maxDebutYear !== undefined && debutYear !== undefined && debutYear > m.maxDebutYear) return false
+    if (m.minDebutYear !== undefined && debutYear !== undefined && debutYear < m.minDebutYear) return false
+    // If no debut year provided, include milestones without year constraints
+    if (debutYear === undefined && (m.maxDebutYear !== undefined || m.minDebutYear !== undefined)) return false
+    return true
+  })
   const milestoneHits: string[] = []
   let points = 0
 
@@ -134,11 +143,12 @@ export function calculateHOFScore(
   currentAge: number,
   isActive: boolean,
   positionCategory?: string,
+  debutYear?: number,
 ): HOFScore {
   const jawsComponent = calculateJAWSComponent(jawsComparison)
   const awardsComponent = calculateAwardsComponent(awards)
   const { points: milestonesComponent, milestoneHits } =
-    calculateMilestonesComponent(careerStats, playerType, positionCategory)
+    calculateMilestonesComponent(careerStats, playerType, positionCategory, debutYear)
   const trajectoryComponent = calculateTrajectoryComponent(
     seasons,
     currentAge,

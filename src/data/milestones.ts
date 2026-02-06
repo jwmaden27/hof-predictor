@@ -11,6 +11,10 @@ export interface Milestone {
   rateFloor?: number
   /** For rate stats where lower is better (ERA, WHIP) */
   lowerIsBetter?: boolean
+  /** For milestones that only apply to players debuting before a certain year */
+  maxDebutYear?: number
+  /** For milestones that only apply to players debuting on or after a certain year */
+  minDebutYear?: number
 }
 
 export const MILESTONES: Milestone[] = [
@@ -31,7 +35,11 @@ export const MILESTONES: Milestone[] = [
   { label: '1.18 Career WHIP', statKey: 'whip', threshold: 1.18, playerType: 'sp', hofWeight: 0.6, hofAverage: 1.22, isRate: true, rateFloor: 0.90, lowerIsBetter: true },
   { label: '3,000 Innings', statKey: 'inningsPitched', threshold: 3000, playerType: 'sp', hofWeight: 0.5, hofAverage: 3200 },
   { label: '1,500 Innings', statKey: 'inningsPitched', threshold: 1500, playerType: 'sp', hofWeight: 0.3, hofAverage: 3200 },
-  // Relief Pitcher milestones (to be expanded later)
-  { label: '500 Saves', statKey: 'saves', threshold: 500, playerType: 'rp', hofWeight: 0.9, hofAverage: 350 },
-  { label: '300 Saves', statKey: 'saves', threshold: 300, playerType: 'rp', hofWeight: 0.6, hofAverage: 350 },
+  // Relief Pitcher milestones - saves for pre-2018 debut, holds for 2018+ debut
+  // HOF RP average saves: 414, 20% above = 496
+  { label: '496 Saves', statKey: 'saves', threshold: 496, playerType: 'rp', hofWeight: 1.0, hofAverage: 414, maxDebutYear: 2017 },
+  { label: '300 Saves', statKey: 'saves', threshold: 300, playerType: 'rp', hofWeight: 0.6, hofAverage: 414, maxDebutYear: 2017 },
+  // Holds milestones for modern relievers (2018+ debut) - career leader ~246
+  { label: '200 Holds', statKey: 'holds', threshold: 200, playerType: 'rp', hofWeight: 1.0, hofAverage: 150, minDebutYear: 2018 },
+  { label: '100 Holds', statKey: 'holds', threshold: 100, playerType: 'rp', hofWeight: 0.6, hofAverage: 150, minDebutYear: 2018 },
 ]
