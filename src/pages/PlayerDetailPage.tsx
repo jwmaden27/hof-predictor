@@ -34,6 +34,7 @@ const TABS_WITH_PROJECTION = [
   { label: 'Projections', value: 'projections' },
   { label: 'Career Stats', value: 'stats' },
   { label: 'Top Games', value: 'topgames' },
+  { label: 'Highlights', value: 'highlights' },
 ]
 
 const TABS_WITHOUT_PROJECTION = [
@@ -41,6 +42,7 @@ const TABS_WITHOUT_PROJECTION = [
   { label: 'JAWS Analysis', value: 'jaws' },
   { label: 'Career Stats', value: 'stats' },
   { label: 'Top Games', value: 'topgames' },
+  { label: 'Highlights', value: 'highlights' },
 ]
 
 export function PlayerDetailPage() {
@@ -282,8 +284,6 @@ export function PlayerDetailPage() {
                 </div>
               )}
 
-              {/* Career Highlights Video */}
-              <PlayerHighlights playerName={data.bio.fullName} />
             </div>
           )}
 
@@ -369,6 +369,10 @@ export function PlayerDetailPage() {
                 isPitcher={data.isPitcher}
               />
             </div>
+          )}
+
+          {activeTab === 'highlights' && (
+            <PlayerHighlights playerName={data.bio.fullName} />
           )}
         </div>
       </PageContainer>
