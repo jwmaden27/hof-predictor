@@ -8,10 +8,8 @@ import type {
   NHLPositionCategory,
 } from '@/types/nhl-player.ts'
 
-// Use Vite proxy in dev to bypass CORS, direct URLs in production
+// Use Vite proxy in dev, Vercel serverless proxy in production (NHL API has no CORS headers)
 const isDev = import.meta.env.DEV
-const BASE_URL = isDev ? '/nhl-api/v1' : 'https://api-web.nhle.com/v1'
-const SEARCH_URL = isDev ? '/nhl-search-api/api/v1/search/player' : 'https://search.d3.nhle.com/api/v1/search/player'
 
 const cache = new Map<string, { data: unknown; timestamp: number }>()
 const CACHE_TTL = 5 * 60 * 1000 // 5 minutes
@@ -36,6 +34,10 @@ export async function searchNHLPlayers(
 ): Promise<NHLSearchResult[]> {
   if (query.length < 2) return []
 
+  const url = isDev
+    ? `/nhl-search-api/api/v1/search/player?culture=en-us&limit=20&q=${encodeURIComponent(query)}`
+    : `/api/nhl-search?q=${encodeURIComponent(query)}&limit=20`
+
   const data = await cachedFetch<
     Array<{
       playerId: string
@@ -46,7 +48,7 @@ export async function searchNHLPlayers(
       active: string
       sweaterNumber: number | null
     }>
-  >(`${SEARCH_URL}?culture=en-us&limit=20&q=${encodeURIComponent(query)}`)
+  >(url)
 
   return data.map((p) => ({
     playerId: p.playerId,
@@ -101,9 +103,10 @@ interface NHLLandingResponse {
 export async function getNHLPlayerLanding(
   playerId: number,
 ): Promise<NHLLandingResponse> {
-  return cachedFetch<NHLLandingResponse>(
-    `${BASE_URL}/player/${playerId}/landing`,
-  )
+  const url = isDev
+    ? `/nhl-api/v1/player/${playerId}/landing`
+    : `/api/nhl-player?id=${playerId}`
+  return cachedFetch<NHLLandingResponse>(url)
 }
 
 function parseSkaterStats(raw: Record<string, number>): NHLSkaterStats {
