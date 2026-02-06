@@ -50,22 +50,46 @@ function calculateAwardsComponent(awards: Award[]): number {
   return Math.min(points, 25)
 }
 
+function getMilestonePlayerType(playerType: 'hitter' | 'pitcher', positionCategory?: string): 'hitter' | 'sp' | 'rp' {
+  if (playerType === 'hitter') return 'hitter'
+  // For pitchers, check if they're a reliever based on position category
+  if (positionCategory === 'RP') return 'rp'
+  return 'sp'
+}
+
 function calculateMilestonesComponent(
   careerStats: Record<string, number>,
   playerType: 'hitter' | 'pitcher',
+  positionCategory?: string,
 ): { points: number; milestoneHits: string[] } {
-  const applicable = MILESTONES.filter((m) => m.playerType === playerType)
+  const milestoneType = getMilestonePlayerType(playerType, positionCategory)
+  const applicable = MILESTONES.filter((m) => m.playerType === milestoneType)
   const milestoneHits: string[] = []
   let points = 0
 
   for (const milestone of applicable) {
     const statValue = careerStats[milestone.statKey] ?? 0
-    if (statValue >= milestone.threshold) {
-      milestoneHits.push(milestone.label)
-      points += milestone.hofWeight * 10
-    } else if (statValue >= milestone.threshold * 0.8) {
-      const progress = statValue / milestone.threshold
-      points += milestone.hofWeight * 10 * ((progress - 0.8) / 0.2) * 0.5
+
+    // Handle "lower is better" stats like ERA and WHIP
+    if (milestone.lowerIsBetter) {
+      // For these stats, being at or below the threshold is good
+      if (statValue > 0 && statValue <= milestone.threshold) {
+        milestoneHits.push(milestone.label)
+        points += milestone.hofWeight * 10
+      } else if (statValue > 0 && statValue <= milestone.threshold * 1.15) {
+        // Partial credit if within 15% above threshold
+        const ratio = milestone.threshold / statValue
+        points += milestone.hofWeight * 10 * ((ratio - 0.87) / 0.13) * 0.5
+      }
+    } else {
+      // Standard "higher is better" logic
+      if (statValue >= milestone.threshold) {
+        milestoneHits.push(milestone.label)
+        points += milestone.hofWeight * 10
+      } else if (statValue >= milestone.threshold * 0.8) {
+        const progress = statValue / milestone.threshold
+        points += milestone.hofWeight * 10 * ((progress - 0.8) / 0.2) * 0.5
+      }
     }
   }
 
@@ -109,11 +133,12 @@ export function calculateHOFScore(
   seasons: SeasonWAR[],
   currentAge: number,
   isActive: boolean,
+  positionCategory?: string,
 ): HOFScore {
   const jawsComponent = calculateJAWSComponent(jawsComparison)
   const awardsComponent = calculateAwardsComponent(awards)
   const { points: milestonesComponent, milestoneHits } =
-    calculateMilestonesComponent(careerStats, playerType)
+    calculateMilestonesComponent(careerStats, playerType, positionCategory)
   const trajectoryComponent = calculateTrajectoryComponent(
     seasons,
     currentAge,

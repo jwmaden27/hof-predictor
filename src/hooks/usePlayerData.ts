@@ -150,6 +150,7 @@ export function usePlayerData(playerId: number | null) {
             warSeasons,
             bio.currentAge,
             bio.active,
+            positionCategory,
           )
 
           if (playerId && isHallOfFamer(playerId)) {
