@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useTopGames, type TopGame } from '@/hooks/useTopGames.ts'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner.tsx'
-import { YouTubeEmbed, VideoIconButton, isVideoAvailable } from '@/components/ui/YouTubeEmbed.tsx'
+import { YouTubeEmbed, VideoIconButton, useVideoAvailability, isVideoDateEligible } from '@/components/ui/YouTubeEmbed.tsx'
 import { generateGameHighlightSearchQuery } from '@/utils/youtube-search.ts'
 import type { HittingStats, PitchingStats } from '@/types/index.ts'
 
@@ -41,13 +41,15 @@ function HitterGameRow({ game, rank, isVideoExpanded, onToggleVideo }: GameRowPr
   const triples = stat.triples ?? 0
   const stolenBases = stat.stolenBases ?? 0
 
-  const videoAvailable = isVideoAvailable(game.date)
-  const searchQuery = generateGameHighlightSearchQuery(
-    game.opponent,
-    game.date,
-    game.isHome,
-    game.team,
-  )
+  const dateEligible = isVideoDateEligible(game.date)
+  const searchQuery = dateEligible
+    ? generateGameHighlightSearchQuery(game.opponent, game.date, game.isHome, game.team)
+    : null
+
+  const { isAvailable } = useVideoAvailability(searchQuery)
+
+  // Show video icon only if date is eligible AND video is confirmed available (or not yet checked with API)
+  const showVideoIcon = dateEligible && isAvailable !== false
 
   return (
     <>
@@ -57,7 +59,9 @@ function HitterGameRow({ game, rank, isVideoExpanded, onToggleVideo }: GameRowPr
         </td>
         <td className="py-3 px-2">
           <div className="flex items-center gap-2">
-            <VideoIconButton onClick={onToggleVideo} isActive={isVideoExpanded} disabled={!videoAvailable} />
+            {showVideoIcon && (
+              <VideoIconButton onClick={onToggleVideo} isActive={isVideoExpanded} />
+            )}
             <div>
               <div className="font-medium text-gray-900 dark:text-gray-100">
                 {formatDate(game.date)}
@@ -108,7 +112,7 @@ function HitterGameRow({ game, rank, isVideoExpanded, onToggleVideo }: GameRowPr
           {game.gameScore.toFixed(1)}
         </td>
       </tr>
-      {isVideoExpanded && videoAvailable && (
+      {isVideoExpanded && searchQuery && (
         <tr>
           <td colSpan={13} className="px-2 pb-4">
             <YouTubeEmbed searchQuery={searchQuery} onClose={onToggleVideo} />
@@ -128,13 +132,15 @@ function PitcherGameRow({ game, rank, isVideoExpanded, onToggleVideo }: GameRowP
   const baseOnBalls = stat.baseOnBalls ?? 0
   const homeRuns = stat.homeRuns ?? 0
 
-  const videoAvailable = isVideoAvailable(game.date)
-  const searchQuery = generateGameHighlightSearchQuery(
-    game.opponent,
-    game.date,
-    game.isHome,
-    game.team,
-  )
+  const dateEligible = isVideoDateEligible(game.date)
+  const searchQuery = dateEligible
+    ? generateGameHighlightSearchQuery(game.opponent, game.date, game.isHome, game.team)
+    : null
+
+  const { isAvailable } = useVideoAvailability(searchQuery)
+
+  // Show video icon only if date is eligible AND video is confirmed available (or not yet checked with API)
+  const showVideoIcon = dateEligible && isAvailable !== false
 
   return (
     <>
@@ -144,7 +150,9 @@ function PitcherGameRow({ game, rank, isVideoExpanded, onToggleVideo }: GameRowP
         </td>
         <td className="py-3 px-2">
           <div className="flex items-center gap-2">
-            <VideoIconButton onClick={onToggleVideo} isActive={isVideoExpanded} disabled={!videoAvailable} />
+            {showVideoIcon && (
+              <VideoIconButton onClick={onToggleVideo} isActive={isVideoExpanded} />
+            )}
             <div>
               <div className="font-medium text-gray-900 dark:text-gray-100">
                 {formatDate(game.date)}
@@ -186,7 +194,7 @@ function PitcherGameRow({ game, rank, isVideoExpanded, onToggleVideo }: GameRowP
           {game.gameScore.toFixed(1)}
         </td>
       </tr>
-      {isVideoExpanded && videoAvailable && (
+      {isVideoExpanded && searchQuery && (
         <tr>
           <td colSpan={10} className="px-2 pb-4">
             <YouTubeEmbed searchQuery={searchQuery} onClose={onToggleVideo} />
@@ -331,9 +339,6 @@ export function TopGamesTable({ playerId, seasons, isPitcher }: TopGamesTablePro
         ) : (
           <p>Game Score: 1B=1, 2B=2, 3B=3, HR=4, RBI=1, R=1, BB=0.5, SB=0.5, K=-0.25</p>
         )}
-        <p className="mt-1 text-gray-400 dark:text-gray-500">
-          Click the video icon to search for game highlights on YouTube.
-        </p>
       </div>
     </div>
   )

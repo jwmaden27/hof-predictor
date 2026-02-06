@@ -26,6 +26,7 @@ import { ComparableHOFPlayers } from '@/components/player/ComparableHOFPlayers.t
 import { HofRequirementsWidget } from '@/components/player/HofRequirementsWidget.tsx'
 import { TopGamesTable } from '@/components/player/TopGamesTable.tsx'
 import { PlayerDescription } from '@/components/player/PlayerDescription.tsx'
+import { PlayerHighlights } from '@/components/player/PlayerHighlights.tsx'
 
 const TABS_WITH_PROJECTION = [
   { label: 'Overview', value: 'overview' },
@@ -280,6 +281,9 @@ export function PlayerDetailPage() {
                   </div>
                 </div>
               )}
+
+              {/* Career Highlights Video */}
+              <PlayerHighlights playerName={data.bio.fullName} />
             </div>
           )}
 
