@@ -22,7 +22,7 @@ export const CURRENT_BALLOT_YEAR = 2026
 
 export const CURRENT_BALLOT: BallotCandidate[] = [
   // Elected
-  { playerId: 111062, playerName: 'Carlos Beltrán', positionCategory: 'CF', ballotYear: 4, votePercentage: 84.2, votes: 358, isElected: true, isNewToAllot: false },
+  { playerId: 136860, playerName: 'Carlos Beltrán', positionCategory: 'CF', ballotYear: 4, votePercentage: 84.2, votes: 358, isElected: true, isNewToAllot: false },
   { playerId: 116662, playerName: 'Andruw Jones', positionCategory: 'CF', ballotYear: 9, votePercentage: 78.4, votes: 333, isElected: true, isNewToAllot: false },
 
   // Returning candidates (in order of vote percentage)
