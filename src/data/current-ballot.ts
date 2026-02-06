@@ -36,10 +36,10 @@ export const CURRENT_BALLOT: BallotCandidate[] = [
   { playerId: 430935, playerName: 'Cole Hamels', positionCategory: 'SP', ballotYear: 1, votePercentage: 23.8, votes: 101, isElected: false, isNewToAllot: true },
   { playerId: 456030, playerName: 'Dustin Pedroia', positionCategory: '2B', ballotYear: 2, votePercentage: 20.7, votes: 88, isElected: false, isNewToAllot: false },
   { playerId: 279824, playerName: 'Mark Buehrle', positionCategory: 'SP', ballotYear: 6, votePercentage: 20.0, votes: 85, isElected: false, isNewToAllot: false },
-  { playerId: 113781, playerName: 'Omar Vizquel', positionCategory: 'SS', ballotYear: 9, votePercentage: 18.4, votes: 78, isElected: false, isNewToAllot: false },
+  { playerId: 123744, playerName: 'Omar Vizquel', positionCategory: 'SS', ballotYear: 9, votePercentage: 18.4, votes: 78, isElected: false, isNewToAllot: false },
   { playerId: 431151, playerName: 'David Wright', positionCategory: '3B', ballotYear: 3, votePercentage: 14.8, votes: 63, isElected: false, isNewToAllot: false },
   { playerId: 408061, playerName: 'Francisco Rodríguez', positionCategory: 'RP', ballotYear: 4, votePercentage: 11.8, votes: 50, isElected: false, isNewToAllot: false },
-  { playerId: 408312, playerName: 'Torii Hunter', positionCategory: 'CF', ballotYear: 6, votePercentage: 5.1, votes: 22, isElected: false, isNewToAllot: false },
+  { playerId: 116338, playerName: 'Torii Hunter', positionCategory: 'CF', ballotYear: 6, votePercentage: 5.1, votes: 22, isElected: false, isNewToAllot: false },
 
   // First-year candidates (new to ballot in 2026)
   { playerId: 501981, playerName: 'Ryan Braun', positionCategory: 'LF', ballotYear: 1, votePercentage: 4.0, votes: 17, isElected: false, isNewToAllot: true },
