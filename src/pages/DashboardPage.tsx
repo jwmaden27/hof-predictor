@@ -1,48 +1,10 @@
-import { useCallback } from 'react'
-import { useSearchParams } from 'react-router-dom'
 import { PageContainer } from '@/components/layout/PageContainer.tsx'
 import { SearchBar } from '@/components/search/SearchBar.tsx'
-import { PlayerFilters } from '@/components/search/PlayerFilters.tsx'
 import { BallotPlayerCard } from '@/components/player/BallotPlayerCard.tsx'
 import { useBallotLeaderboard } from '@/hooks/useBallotLeaderboard.ts'
-import type { PositionCategory, HOFTier } from '@/types/index.ts'
 
 export function DashboardPage() {
-  const [searchParams, setSearchParams] = useSearchParams()
-  const positionFilter = (searchParams.get('position') as PositionCategory) || undefined
-  const tierFilters: HOFTier[] = searchParams.get('tier')
-    ? (searchParams.get('tier')!.split(',') as HOFTier[])
-    : []
-
-  const setPositionFilter = useCallback(
-    (value: PositionCategory | undefined) => {
-      setSearchParams((prev) => {
-        if (value) {
-          prev.set('position', value)
-        } else {
-          prev.delete('position')
-        }
-        return prev
-      }, { replace: true })
-    },
-    [setSearchParams],
-  )
-
-  const setTierFilters = useCallback(
-    (tiers: HOFTier[]) => {
-      setSearchParams((prev) => {
-        if (tiers.length > 0) {
-          prev.set('tier', tiers.join(','))
-        } else {
-          prev.delete('tier')
-        }
-        return prev
-      }, { replace: true })
-    },
-    [setSearchParams],
-  )
-
-  const { entries: ballotCandidates, ballotYear } = useBallotLeaderboard(positionFilter, tierFilters)
+  const { entries: ballotCandidates, ballotYear } = useBallotLeaderboard()
 
   // Separate elected from still on ballot
   const elected = ballotCandidates.filter(c => c.isElected)
@@ -68,26 +30,12 @@ export function DashboardPage() {
       <PageContainer>
         {/* Section Header */}
         <div className="mb-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-                {ballotYear} BBWAA Hall of Fame Ballot
-              </h2>
-              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                75% of the vote required for election
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Filters */}
-        <div className="mb-6">
-          <PlayerFilters
-            positionFilter={positionFilter}
-            onPositionChange={setPositionFilter}
-            tierFilters={tierFilters}
-            onTierChange={setTierFilters}
-          />
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
+            {ballotYear} BBWAA Hall of Fame Ballot
+          </h2>
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+            75% of the vote required for election
+          </p>
         </div>
 
         {/* Elected Section */}
@@ -118,12 +66,6 @@ export function DashboardPage() {
                 <BallotPlayerCard key={entry.playerId} player={entry} />
               ))}
             </div>
-          </div>
-        )}
-
-        {ballotCandidates.length === 0 && (
-          <div className="py-12 text-center text-gray-500 dark:text-gray-400">
-            No ballot candidates found for the selected filters
           </div>
         )}
       </PageContainer>
