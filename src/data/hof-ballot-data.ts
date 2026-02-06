@@ -46,11 +46,35 @@ export const HOF_BALLOT_DATA: Record<number, HOFBallotInfo> = {
     inductionYear: 2025, ballotType: 'BBWAA', ballotNumber: 1,
     ballotLabel: '1st Ballot', votePercentage: 76.3,
   },
+  113340: { // Bill Dickey
+    inductionYear: 1954, ballotType: 'BBWAA', ballotNumber: 9,
+    ballotLabel: '9th Ballot', votePercentage: 80.2,
+  },
+  115572: { // Gabby Hartnett
+    inductionYear: 1955, ballotType: 'BBWAA', ballotNumber: 9,
+    ballotLabel: '9th Ballot', votePercentage: 77.7,
+  },
+  112437: { // Mickey Cochrane
+    inductionYear: 1947, ballotType: 'BBWAA', ballotNumber: 7,
+    ballotLabel: '7th Ballot', votePercentage: 79.5,
+  },
 
   // === First Basemen ===
   110432: { // Jeff Bagwell
     inductionYear: 2017, ballotType: 'BBWAA', ballotNumber: 7,
     ballotLabel: '7th Ballot', votePercentage: 86.2,
+  },
+  114367: { // Jimmie Foxx
+    inductionYear: 1951, ballotType: 'BBWAA', ballotNumber: 6,
+    ballotLabel: '6th Ballot', votePercentage: 79.2,
+  },
+  123203: { // Bill Terry
+    inductionYear: 1954, ballotType: 'BBWAA', ballotNumber: 8,
+    ballotLabel: '8th Ballot', votePercentage: 77.4,
+  },
+  115096: { // Hank Greenberg
+    inductionYear: 1956, ballotType: 'BBWAA', ballotNumber: 10,
+    ballotLabel: '10th Ballot', votePercentage: 85.0,
   },
   123272: { // Jim Thome
     inductionYear: 2018, ballotType: 'BBWAA', ballotNumber: 1,
@@ -67,6 +91,18 @@ export const HOF_BALLOT_DATA: Record<number, HOFBallotInfo> = {
   118605: { // Willie McCovey
     inductionYear: 1986, ballotType: 'BBWAA', ballotNumber: 1,
     ballotLabel: '1st Ballot', votePercentage: 81.4,
+  },
+  122280: { // George Sisler
+    inductionYear: 1939, ballotType: 'BBWAA', ballotNumber: 4,
+    ballotLabel: '4th Ballot', votePercentage: 85.8,
+  },
+  117051: { // Harmon Killebrew
+    inductionYear: 1984, ballotType: 'BBWAA', ballotNumber: 4,
+    ballotLabel: '4th Ballot', votePercentage: 83.1,
+  },
+  120404: { // Tony Perez
+    inductionYear: 2000, ballotType: 'BBWAA', ballotNumber: 9,
+    ballotLabel: '9th Ballot', votePercentage: 77.2,
   },
 
   // === Second Basemen ===
@@ -90,11 +126,39 @@ export const HOF_BALLOT_DATA: Record<number, HOFBallotInfo> = {
     inductionYear: 1991, ballotType: 'BBWAA', ballotNumber: 1,
     ballotLabel: '1st Ballot', votePercentage: 90.5,
   },
+  116156: { // Rogers Hornsby
+    inductionYear: 1942, ballotType: 'BBWAA', ballotNumber: 5,
+    ballotLabel: '5th Ballot', votePercentage: 78.1,
+  },
+  114448: { // Frankie Frisch
+    inductionYear: 1947, ballotType: 'BBWAA', ballotNumber: 7,
+    ballotLabel: '7th Ballot', votePercentage: 84.5,
+  },
+  114682: { // Charlie Gehringer
+    inductionYear: 1949, ballotType: 'BBWAA', ballotNumber: 8,
+    ballotLabel: '8th Ballot', votePercentage: 85.0,
+  },
+  117414: { // Nap Lajoie
+    inductionYear: 1937, ballotType: 'BBWAA', ballotNumber: 3,
+    ballotLabel: '3rd Ballot', votePercentage: 83.6,
+  },
+  112506: { // Eddie Collins Sr.
+    inductionYear: 1939, ballotType: 'BBWAA', ballotNumber: 4,
+    ballotLabel: '4th Ballot', votePercentage: 77.7,
+  },
+  121314: { // Jackie Robinson
+    inductionYear: 1962, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: '1st Ballot', votePercentage: 77.5,
+  },
 
   // === Shortstops ===
   121222: { // Cal Ripken Jr.
     inductionYear: 2007, ballotType: 'BBWAA', ballotNumber: 1,
     ballotLabel: '1st Ballot', votePercentage: 98.5,
+  },
+  112854: { // Joe Cronin
+    inductionYear: 1956, ballotType: 'BBWAA', ballotNumber: 10,
+    ballotLabel: '10th Ballot', votePercentage: 78.8,
   },
   116539: { // Derek Jeter
     inductionYear: 2020, ballotType: 'BBWAA', ballotNumber: 1,
@@ -119,6 +183,22 @@ export const HOF_BALLOT_DATA: Record<number, HOFBallotInfo> = {
   123437: { // Alan Trammell
     inductionYear: 2018, ballotType: 'Era Committee', ballotNumber: null,
     ballotLabel: 'Era Committee', votePercentage: null,
+  },
+  123784: { // Honus Wagner
+    inductionYear: 1936, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: '1st Ballot (Inaugural)', votePercentage: 95.1,
+  },
+  110297: { // Luke Appling
+    inductionYear: 1964, ballotType: 'BBWAA', ballotNumber: 7,
+    ballotLabel: '7th Ballot', votePercentage: 94.0,
+  },
+  111272: { // Lou Boudreau
+    inductionYear: 1970, ballotType: 'BBWAA', ballotNumber: 12,
+    ballotLabel: '12th Ballot', votePercentage: 77.3,
+  },
+  110290: { // Luis Aparicio
+    inductionYear: 1984, ballotType: 'BBWAA', ballotNumber: 6,
+    ballotLabel: '6th Ballot', votePercentage: 84.6,
   },
 
   // === Third Basemen ===
@@ -146,6 +226,18 @@ export const HOF_BALLOT_DATA: Record<number, HOFBallotInfo> = {
     inductionYear: 2023, ballotType: 'BBWAA', ballotNumber: 6,
     ballotLabel: '6th Ballot', votePercentage: 76.3,
   },
+  123446: { // Pie Traynor
+    inductionYear: 1948, ballotType: 'BBWAA', ballotNumber: 9,
+    ballotLabel: '9th Ballot', votePercentage: 76.9,
+  },
+  118416: { // Eddie Mathews
+    inductionYear: 1978, ballotType: 'BBWAA', ballotNumber: 5,
+    ballotLabel: '5th Ballot', votePercentage: 79.4,
+  },
+  121301: { // Brooks Robinson
+    inductionYear: 1983, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: '1st Ballot', votePercentage: 92.0,
+  },
 
   // === Center Fielders ===
   115135: { // Ken Griffey Jr.
@@ -163,6 +255,22 @@ export const HOF_BALLOT_DATA: Record<number, HOFBallotInfo> = {
   113376: { // Joe DiMaggio
     inductionYear: 1955, ballotType: 'BBWAA', ballotNumber: 4,
     ballotLabel: '4th Ballot', votePercentage: 88.8,
+  },
+  112431: { // Ty Cobb
+    inductionYear: 1936, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: '1st Ballot (Inaugural)', votePercentage: 98.2,
+  },
+  122566: { // Tris Speaker
+    inductionYear: 1937, ballotType: 'BBWAA', ballotNumber: 2,
+    ballotLabel: '2nd Ballot', votePercentage: 82.1,
+  },
+  122488: { // Duke Snider
+    inductionYear: 1980, ballotType: 'BBWAA', ballotNumber: 11,
+    ballotLabel: '11th Ballot', votePercentage: 86.5,
+  },
+  120790: { // Kirby Puckett
+    inductionYear: 2001, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: '1st Ballot', votePercentage: 82.1,
   },
 
   // === Right Fielders ===
@@ -182,6 +290,10 @@ export const HOF_BALLOT_DATA: Record<number, HOFBallotInfo> = {
     inductionYear: 1982, ballotType: 'BBWAA', ballotNumber: 1,
     ballotLabel: '1st Ballot', votePercentage: 89.2,
   },
+  119602: { // Stan Musial
+    inductionYear: 1969, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: '1st Ballot', votePercentage: 93.2,
+  },
   115270: { // Tony Gwynn
     inductionYear: 2007, ballotType: 'BBWAA', ballotNumber: 1,
     ballotLabel: '1st Ballot', votePercentage: 97.6,
@@ -197,6 +309,38 @@ export const HOF_BALLOT_DATA: Record<number, HOFBallotInfo> = {
   123833: { // Larry Walker
     inductionYear: 2020, ballotType: 'BBWAA', ballotNumber: 10,
     ballotLabel: '10th Ballot', votePercentage: 76.6,
+  },
+  120117: { // Mel Ott
+    inductionYear: 1951, ballotType: 'BBWAA', ballotNumber: 5,
+    ballotLabel: '5th Ballot', votePercentage: 87.2,
+  },
+  123905: { // Paul Waner
+    inductionYear: 1952, ballotType: 'BBWAA', ballotNumber: 7,
+    ballotLabel: '7th Ballot', votePercentage: 83.3,
+  },
+  115705: { // Harry Heilmann
+    inductionYear: 1952, ballotType: 'BBWAA', ballotNumber: 14,
+    ballotLabel: '14th Ballot', votePercentage: 86.8,
+  },
+  112806: { // Sam Crawford
+    inductionYear: 1957, ballotType: 'Veterans Committee', ballotNumber: null,
+    ballotLabel: 'Veterans Committee', votePercentage: null,
+  },
+  116891: { // Willie Keeler
+    inductionYear: 1939, ballotType: 'BBWAA', ballotNumber: 5,
+    ballotLabel: '5th Ballot', votePercentage: 75.6,
+  },
+  116822: { // Al Kaline
+    inductionYear: 1980, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: '1st Ballot', votePercentage: 88.3,
+  },
+  124290: { // Billy Williams
+    inductionYear: 1987, ballotType: 'BBWAA', ballotNumber: 6,
+    ballotLabel: '6th Ballot', votePercentage: 85.7,
+  },
+  113151: { // Andre Dawson
+    inductionYear: 2010, ballotType: 'BBWAA', ballotNumber: 9,
+    ballotLabel: '9th Ballot', votePercentage: 77.9,
   },
 
   // === Left Fielders ===
@@ -215,6 +359,38 @@ export const HOF_BALLOT_DATA: Record<number, HOFBallotInfo> = {
   124448: { // Dave Winfield
     inductionYear: 2001, ballotType: 'BBWAA', ballotNumber: 1,
     ballotLabel: '1st Ballot', votePercentage: 84.5,
+  },
+  122240: { // Al Simmons
+    inductionYear: 1953, ballotType: 'BBWAA', ballotNumber: 7,
+    ballotLabel: '7th Ballot', votePercentage: 75.4,
+  },
+  124134: { // Zack Wheat
+    inductionYear: 1959, ballotType: 'Veterans Committee', ballotNumber: null,
+    ballotLabel: 'Veterans Committee', votePercentage: null,
+  },
+  118904: { // Joe Medwick
+    inductionYear: 1968, ballotType: 'BBWAA', ballotNumber: 9,
+    ballotLabel: '9th Ballot', votePercentage: 84.8,
+  },
+  117072: { // Ralph Kiner
+    inductionYear: 1975, ballotType: 'BBWAA', ballotNumber: 15,
+    ballotLabel: '15th Ballot', votePercentage: 75.4,
+  },
+  111495: { // Lou Brock
+    inductionYear: 1985, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: '1st Ballot', votePercentage: 79.7,
+  },
+  122685: { // Willie Stargell
+    inductionYear: 1988, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: '1st Ballot', votePercentage: 82.4,
+  },
+  121140: { // Jim Rice
+    inductionYear: 2009, ballotType: 'BBWAA', ballotNumber: 15,
+    ballotLabel: '15th Ballot', votePercentage: 76.4,
+  },
+  120891: { // Tim Raines Sr.
+    inductionYear: 2017, ballotType: 'BBWAA', ballotNumber: 10,
+    ballotLabel: '10th Ballot', votePercentage: 86.0,
   },
 
   // === Starting Pitchers ===
@@ -266,6 +442,106 @@ export const HOF_BALLOT_DATA: Record<number, HOFBallotInfo> = {
     inductionYear: 2014, ballotType: 'BBWAA', ballotNumber: 1,
     ballotLabel: '1st Ballot', votePercentage: 91.9,
   },
+  113168: { // Dizzy Dean
+    inductionYear: 1953, ballotType: 'BBWAA', ballotNumber: 6,
+    ballotLabel: '6th Ballot', votePercentage: 79.2,
+  },
+  118055: { // Ted Lyons
+    inductionYear: 1955, ballotType: 'BBWAA', ballotNumber: 6,
+    ballotLabel: '6th Ballot', votePercentage: 86.5,
+  },
+  123630: { // Dazzy Vance
+    inductionYear: 1955, ballotType: 'BBWAA', ballotNumber: 10,
+    ballotLabel: '10th Ballot', votePercentage: 81.7,
+  },
+  115201: { // Lefty Grove
+    inductionYear: 1947, ballotType: 'BBWAA', ballotNumber: 6,
+    ballotLabel: '6th Ballot', votePercentage: 76.4,
+  },
+  116249: { // Carl Hubbell
+    inductionYear: 1947, ballotType: 'BBWAA', ballotNumber: 4,
+    ballotLabel: '4th Ballot', votePercentage: 87.0,
+  },
+  120386: { // Herb Pennock
+    inductionYear: 1948, ballotType: 'BBWAA', ballotNumber: 9,
+    ballotLabel: '9th Ballot', votePercentage: 77.7,
+  },
+  116635: { // Walter Johnson
+    inductionYear: 1936, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: '1st Ballot (Inaugural)', votePercentage: 83.6,
+  },
+  118422: { // Christy Mathewson
+    inductionYear: 1936, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: '1st Ballot (Inaugural)', votePercentage: 90.7,
+  },
+  124692: { // Cy Young
+    inductionYear: 1937, ballotType: 'BBWAA', ballotNumber: 3,
+    ballotLabel: '3rd Ballot', votePercentage: 76.1,
+  },
+  110127: { // Grover Alexander
+    inductionYear: 1938, ballotType: 'BBWAA', ballotNumber: 3,
+    ballotLabel: '3rd Ballot', votePercentage: 80.9,
+  },
+  114055: { // Bob Feller
+    inductionYear: 1962, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: '1st Ballot', votePercentage: 93.8,
+  },
+  121547: { // Red Ruffing
+    inductionYear: 1967, ballotType: 'BBWAA', ballotNumber: 15,
+    ballotLabel: '15th Ballot (Runoff)', votePercentage: 86.9,
+  },
+  124633: { // Early Wynn
+    inductionYear: 1972, ballotType: 'BBWAA', ballotNumber: 4,
+    ballotLabel: '4th Ballot', votePercentage: 76.0,
+  },
+  122557: { // Warren Spahn
+    inductionYear: 1973, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: '1st Ballot', votePercentage: 82.9,
+  },
+  114299: { // Whitey Ford
+    inductionYear: 1974, ballotType: 'BBWAA', ballotNumber: 2,
+    ballotLabel: '2nd Ballot', votePercentage: 77.8,
+  },
+  117671: { // Bob Lemon
+    inductionYear: 1976, ballotType: 'BBWAA', ballotNumber: 14,
+    ballotLabel: '14th Ballot', votePercentage: 78.6,
+  },
+  121283: { // Robin Roberts
+    inductionYear: 1976, ballotType: 'BBWAA', ballotNumber: 4,
+    ballotLabel: '4th Ballot', votePercentage: 86.9,
+  },
+  118283: { // Juan Marichal
+    inductionYear: 1983, ballotType: 'BBWAA', ballotNumber: 3,
+    ballotLabel: '3rd Ballot', votePercentage: 83.7,
+  },
+  113581: { // Don Drysdale
+    inductionYear: 1984, ballotType: 'BBWAA', ballotNumber: 10,
+    ballotLabel: '10th Ballot', votePercentage: 78.4,
+  },
+  116334: { // Catfish Hunter
+    inductionYear: 1987, ballotType: 'BBWAA', ballotNumber: 3,
+    ballotLabel: '3rd Ballot', votePercentage: 76.3,
+  },
+  120196: { // Jim Palmer
+    inductionYear: 1990, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: '1st Ballot', votePercentage: 92.6,
+  },
+  120438: { // Gaylord Perry
+    inductionYear: 1991, ballotType: 'BBWAA', ballotNumber: 3,
+    ballotLabel: '3rd Ballot', votePercentage: 77.2,
+  },
+  116522: { // Fergie Jenkins
+    inductionYear: 1991, ballotType: 'BBWAA', ballotNumber: 3,
+    ballotLabel: '3rd Ballot', votePercentage: 75.4,
+  },
+  119786: { // Phil Niekro
+    inductionYear: 1997, ballotType: 'BBWAA', ballotNumber: 5,
+    ballotLabel: '5th Ballot', votePercentage: 80.3,
+  },
+  111126: { // Bert Blyleven
+    inductionYear: 2011, ballotType: 'BBWAA', ballotNumber: 14,
+    ballotLabel: '14th Ballot', votePercentage: 79.7,
+  },
 
   // === Relief Pitchers ===
   121250: { // Mariano Rivera
@@ -279,5 +555,27 @@ export const HOF_BALLOT_DATA: Record<number, HOFBallotInfo> = {
   113726: { // Dennis Eckersley
     inductionYear: 2004, ballotType: 'BBWAA', ballotNumber: 1,
     ballotLabel: '1st Ballot', votePercentage: 83.2,
+  },
+  124261: { // Hoyt Wilhelm
+    inductionYear: 1985, ballotType: 'BBWAA', ballotNumber: 8,
+    ballotLabel: '8th Ballot', votePercentage: 83.8,
+  },
+  123004: { // Bruce Sutter
+    inductionYear: 2006, ballotType: 'BBWAA', ballotNumber: 13,
+    ballotLabel: '13th Ballot', votePercentage: 76.9,
+  },
+  114989: { // Goose Gossage
+    inductionYear: 2008, ballotType: 'BBWAA', ballotNumber: 9,
+    ballotLabel: '9th Ballot', votePercentage: 85.8,
+  },
+
+  // === Designated Hitters ===
+  119236: { // Paul Molitor
+    inductionYear: 2004, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: '1st Ballot', votePercentage: 85.2,
+  },
+  118365: { // Edgar Martinez
+    inductionYear: 2019, ballotType: 'BBWAA', ballotNumber: 10,
+    ballotLabel: '10th Ballot', votePercentage: 85.4,
   },
 }
