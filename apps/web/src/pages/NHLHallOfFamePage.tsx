@@ -2,7 +2,6 @@ import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { PageContainer } from '@/components/layout/PageContainer.tsx'
 import { NHL_HOF_DATA } from '@/data/nhl-hof-ballot-data.ts'
-import { NHLPositionalStandards } from '@/components/player/NHLPositionalStandards.tsx'
 
 interface NHLHOFPlayer {
   playerId: number
@@ -58,18 +57,6 @@ export function NHLHallOfFamePage() {
         <p className="text-gray-600 dark:text-gray-400">
           {hofPlayers.length} players inducted into the Hockey Hall of Fame
         </p>
-      </div>
-
-      {/* Positional Standards */}
-      <div className="mb-10 rounded-xl border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-900">
-        <h2 className="mb-2 text-xl font-bold text-gray-900 dark:text-gray-100">
-          HHOF Positional Standards
-        </h2>
-        <p className="mb-4 text-sm text-gray-600 dark:text-gray-400">
-          Average career stats for inducted Hall of Famers by position.
-          Compare any player against these benchmarks to evaluate HOF credentials.
-        </p>
-        <NHLPositionalStandards />
       </div>
 
       {byDecade.map(([decade, players]) => (
