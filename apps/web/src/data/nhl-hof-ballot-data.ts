@@ -12,6 +12,10 @@ export interface NHLHOFInfo {
  * The HHOF uses a selection committee rather than a ballot/voting
  * percentage system like the Baseball HOF.
  *
+ * Note: Only players with NHL API IDs are included. Pre-NHL era players
+ * (mostly 1945-1962 induction classes) without API data are omitted.
+ * Women's hockey inductees are also excluded (no NHL API IDs).
+ *
  * Sources: Hockey Hall of Fame (hhof.com), Hockey Reference, NHL Records
  * Last updated: February 2025 (through 2025 induction class)
  */
@@ -124,6 +128,10 @@ export const NHL_HOF_DATA: Record<number, NHLHOFInfo> = {
     name: 'Guy Carbonneau', inductionYear: 2019, inductionCategory: 'Player',
     description: 'Inducted 2019',
   },
+  8449809: {
+    name: 'Vaclav Nedomansky', inductionYear: 2019, inductionCategory: 'Player',
+    description: 'Inducted 2019',
+  },
 
   // =====================================================================
   // 2018 INDUCTION CLASS
@@ -135,6 +143,10 @@ export const NHL_HOF_DATA: Record<number, NHLHOFInfo> = {
   8466378: {
     name: 'Martin St. Louis', inductionYear: 2018, inductionCategory: 'Player',
     description: 'Inducted 2018',
+  },
+  8448064: {
+    name: 'Willie O\'Ree', inductionYear: 2018, inductionCategory: 'Player',
+    description: 'Inducted 2018 (first Black NHL player)',
   },
 
   // =====================================================================
@@ -166,6 +178,10 @@ export const NHL_HOF_DATA: Record<number, NHLHOFInfo> = {
   },
   8449163: {
     name: 'Sergei Makarov', inductionYear: 2016, inductionCategory: 'Player',
+    description: 'Inducted 2016',
+  },
+  8452122: {
+    name: 'Rogie Vachon', inductionYear: 2016, inductionCategory: 'Player',
     description: 'Inducted 2016',
   },
 
@@ -440,6 +456,10 @@ export const NHL_HOF_DATA: Record<number, NHLHOFInfo> = {
     name: 'Peter Stastny', inductionYear: 1998, inductionCategory: 'Player',
     description: 'Inducted 1998',
   },
+  8445517: {
+    name: 'Roy Conacher', inductionYear: 1998, inductionCategory: 'Player',
+    description: 'Inducted 1998',
+  },
 
   // =====================================================================
   // 1997 INDUCTION CLASS
@@ -460,6 +480,10 @@ export const NHL_HOF_DATA: Record<number, NHLHOFInfo> = {
     name: 'Borje Salming', inductionYear: 1996, inductionCategory: 'Player',
     description: 'Inducted 1996',
   },
+  8445034: {
+    name: 'Bobby Bauer', inductionYear: 1996, inductionCategory: 'Player',
+    description: 'Inducted 1996',
+  },
 
   // =====================================================================
   // 1995 INDUCTION CLASS
@@ -467,6 +491,38 @@ export const NHL_HOF_DATA: Record<number, NHLHOFInfo> = {
   8450936: {
     name: 'Larry Robinson', inductionYear: 1995, inductionCategory: 'Player',
     description: 'Inducted 1995',
+  },
+
+  // =====================================================================
+  // 1994 INDUCTION CLASS
+  // =====================================================================
+  8445514: {
+    name: 'Lionel Conacher', inductionYear: 1994, inductionCategory: 'Player',
+    description: 'Inducted 1994',
+  },
+  8449369: {
+    name: 'Harry Watson', inductionYear: 1994, inductionCategory: 'Player',
+    description: 'Inducted 1994',
+  },
+
+  // =====================================================================
+  // 1993 INDUCTION CLASS
+  // =====================================================================
+  8451354: {
+    name: 'Steve Shutt', inductionYear: 1993, inductionCategory: 'Player',
+    description: 'Inducted 1993',
+  },
+  8448694: {
+    name: 'Guy Lapointe', inductionYear: 1993, inductionCategory: 'Player',
+    description: 'Inducted 1993',
+  },
+  8451525: {
+    name: 'Billy Smith', inductionYear: 1993, inductionCategory: 'Player',
+    description: 'Inducted 1993',
+  },
+  8447326: {
+    name: 'Edgar Laprade', inductionYear: 1993, inductionCategory: 'Player',
+    description: 'Inducted 1993',
   },
 
   // =====================================================================
@@ -482,6 +538,10 @@ export const NHL_HOF_DATA: Record<number, NHLHOFInfo> = {
   },
   8446998: {
     name: 'Bob Gainey', inductionYear: 1992, inductionCategory: 'Player',
+    description: 'Inducted 1992',
+  },
+  8445961: {
+    name: 'Woody Dumart', inductionYear: 1992, inductionCategory: 'Player',
     description: 'Inducted 1992',
   },
 
@@ -500,6 +560,10 @@ export const NHL_HOF_DATA: Record<number, NHLHOFInfo> = {
     name: 'Bob Pulford', inductionYear: 1991, inductionCategory: 'Player',
     description: 'Inducted 1991',
   },
+  8449068: {
+    name: 'Clint Smith', inductionYear: 1991, inductionCategory: 'Player',
+    description: 'Inducted 1991',
+  },
 
   // =====================================================================
   // 1990 INDUCTION CLASS
@@ -512,12 +576,24 @@ export const NHL_HOF_DATA: Record<number, NHLHOFInfo> = {
     name: 'Bill Barber', inductionYear: 1990, inductionCategory: 'Player',
     description: 'Inducted 1990',
   },
+  8446318: {
+    name: 'Fern Flaman', inductionYear: 1990, inductionCategory: 'Player',
+    description: 'Inducted 1990',
+  },
 
   // =====================================================================
   // 1989 INDUCTION CLASS
   // =====================================================================
   8451386: {
     name: 'Darryl Sittler', inductionYear: 1989, inductionCategory: 'Player',
+    description: 'Inducted 1989',
+  },
+  8458257: {
+    name: 'Vladislav Tretiak', inductionYear: 1989, inductionCategory: 'Player',
+    description: 'Inducted 1989 (Soviet goaltender)',
+  },
+  8447484: {
+    name: 'Herbie Lewis', inductionYear: 1989, inductionCategory: 'Player',
     description: 'Inducted 1989',
   },
 
@@ -536,12 +612,24 @@ export const NHL_HOF_DATA: Record<number, NHLHOFInfo> = {
     name: 'Brad Park', inductionYear: 1988, inductionCategory: 'Player',
     description: 'Inducted 1988',
   },
+  8448042: {
+    name: 'Buddy O\'Connor', inductionYear: 1988, inductionCategory: 'Player',
+    description: 'Inducted 1988',
+  },
 
   // =====================================================================
   // 1987 INDUCTION CLASS
   // =====================================================================
   8446098: {
     name: 'Bobby Clarke', inductionYear: 1987, inductionCategory: 'Player',
+    description: 'Inducted 1987',
+  },
+  8449979: {
+    name: 'Eddie Giacomin', inductionYear: 1987, inductionCategory: 'Player',
+    description: 'Inducted 1987',
+  },
+  8447325: {
+    name: 'Jacques Laperriere', inductionYear: 1987, inductionCategory: 'Player',
     description: 'Inducted 1987',
   },
 
@@ -556,6 +644,10 @@ export const NHL_HOF_DATA: Record<number, NHLHOFInfo> = {
     name: 'Dave Keon', inductionYear: 1986, inductionCategory: 'Player',
     description: 'Inducted 1986',
   },
+  8445111: {
+    name: 'Leo Boivin', inductionYear: 1986, inductionCategory: 'Player',
+    description: 'Inducted 1986',
+  },
 
   // =====================================================================
   // 1985 INDUCTION CLASS
@@ -566,6 +658,10 @@ export const NHL_HOF_DATA: Record<number, NHLHOFInfo> = {
   },
   8450646: {
     name: 'Jean Ratelle', inductionYear: 1985, inductionCategory: 'Player',
+    description: 'Inducted 1985',
+  },
+  8448057: {
+    name: 'Bert Olmstead', inductionYear: 1985, inductionCategory: 'Player',
     description: 'Inducted 1985',
   },
 
@@ -628,6 +724,22 @@ export const NHL_HOF_DATA: Record<number, NHLHOFInfo> = {
     name: 'Frank Mahovlich', inductionYear: 1981, inductionCategory: 'Player',
     description: 'Inducted 1981',
   },
+  8449155: {
+    name: 'Allan Stanley', inductionYear: 1981, inductionCategory: 'Player',
+    description: 'Inducted 1981',
+  },
+
+  // =====================================================================
+  // 1980 INDUCTION CLASS
+  // =====================================================================
+  8450019: {
+    name: 'Harry Lumley', inductionYear: 1980, inductionCategory: 'Player',
+    description: 'Inducted 1980',
+  },
+  8450152: {
+    name: 'Gump Worsley', inductionYear: 1980, inductionCategory: 'Player',
+    description: 'Inducted 1980',
+  },
 
   // =====================================================================
   // 1979 INDUCTION CLASS
@@ -635,6 +747,14 @@ export const NHL_HOF_DATA: Record<number, NHLHOFInfo> = {
   8450070: {
     name: 'Bobby Orr', inductionYear: 1979, inductionCategory: 'Player',
     description: 'Inducted 1979 (waiting period waived)',
+  },
+  8446926: {
+    name: 'Harry Howell', inductionYear: 1979, inductionCategory: 'Player',
+    description: 'Inducted 1979',
+  },
+  8448320: {
+    name: 'Henri Richard', inductionYear: 1979, inductionCategory: 'Player',
+    description: 'Inducted 1979',
   },
 
   // =====================================================================
@@ -666,11 +786,67 @@ export const NHL_HOF_DATA: Record<number, NHLHOFInfo> = {
   },
 
   // =====================================================================
+  // 1976 INDUCTION CLASS
+  // =====================================================================
+  8449835: {
+    name: 'Johnny Bower', inductionYear: 1976, inductionCategory: 'Player',
+    description: 'Inducted 1976',
+  },
+  8448235: {
+    name: 'Bill Quackenbush', inductionYear: 1976, inductionCategory: 'Player',
+    description: 'Inducted 1976',
+  },
+
+  // =====================================================================
   // 1975 INDUCTION CLASS
   // =====================================================================
   8449988: {
     name: 'Glenn Hall', inductionYear: 1975, inductionCategory: 'Player',
     description: 'Inducted 1975',
+  },
+  8444971: {
+    name: 'George Armstrong', inductionYear: 1975, inductionCategory: 'Player',
+    description: 'Inducted 1975',
+  },
+  8444998: {
+    name: 'Ace Bailey', inductionYear: 1975, inductionCategory: 'Player',
+    description: 'Inducted 1975',
+  },
+  8445950: {
+    name: 'Gordie Drillon', inductionYear: 1975, inductionCategory: 'Player',
+    description: 'Inducted 1975',
+  },
+  8448152: {
+    name: 'Pierre Pilote', inductionYear: 1975, inductionCategory: 'Player',
+    description: 'Inducted 1975',
+  },
+
+  // =====================================================================
+  // 1974 INDUCTION CLASS
+  // =====================================================================
+  8445255: {
+    name: 'Billy Burch', inductionYear: 1974, inductionCategory: 'Player',
+    description: 'Inducted 1974',
+  },
+  8445742: {
+    name: 'Art Coulter', inductionYear: 1974, inductionCategory: 'Player',
+    description: 'Inducted 1974',
+  },
+  8447886: {
+    name: 'Dickie Moore', inductionYear: 1974, inductionCategory: 'Player',
+    description: 'Inducted 1974',
+  },
+
+  // =====================================================================
+  // 1973 INDUCTION CLASS
+  // =====================================================================
+  8446728: {
+    name: 'Doug Harvey', inductionYear: 1973, inductionCategory: 'Player',
+    description: 'Inducted 1973',
+  },
+  8450096: {
+    name: 'Chuck Rayner', inductionYear: 1973, inductionCategory: 'Player',
+    description: 'Inducted 1973',
   },
 
   // =====================================================================
@@ -688,6 +864,46 @@ export const NHL_HOF_DATA: Record<number, NHLHOFInfo> = {
     name: 'Gordie Howe', inductionYear: 1972, inductionCategory: 'Player',
     description: 'Inducted 1972',
   },
+  8449997: {
+    name: 'Hap Holmes', inductionYear: 1972, inductionCategory: 'Player',
+    description: 'Inducted 1972',
+  },
+  8449077: {
+    name: 'Hooley Smith', inductionYear: 1972, inductionCategory: 'Player',
+    description: 'Inducted 1972',
+  },
+
+  // =====================================================================
+  // 1971 INDUCTION CLASS
+  // =====================================================================
+  8447025: {
+    name: 'Busher Jackson', inductionYear: 1971, inductionCategory: 'Player',
+    description: 'Inducted 1971',
+  },
+  8450111: {
+    name: 'Terry Sawchuk', inductionYear: 1971, inductionCategory: 'Player',
+    description: 'Inducted 1971',
+  },
+  8449381: {
+    name: 'Cooney Weiland', inductionYear: 1971, inductionCategory: 'Player',
+    description: 'Inducted 1971',
+  },
+
+  // =====================================================================
+  // 1970 INDUCTION CLASS
+  // =====================================================================
+  8445972: {
+    name: 'Babe Dye', inductionYear: 1970, inductionCategory: 'Player',
+    description: 'Inducted 1970',
+  },
+  8446513: {
+    name: 'Bill Gadsby', inductionYear: 1970, inductionCategory: 'Player',
+    description: 'Inducted 1970',
+  },
+  8447101: {
+    name: 'Tom Johnson', inductionYear: 1970, inductionCategory: 'Player',
+    description: 'Inducted 1970',
+  },
 
   // =====================================================================
   // 1969 INDUCTION CLASS
@@ -696,26 +912,302 @@ export const NHL_HOF_DATA: Record<number, NHLHOFInfo> = {
     name: 'Red Kelly', inductionYear: 1969, inductionCategory: 'Player',
     description: 'Inducted 1969',
   },
+  8444857: {
+    name: 'Sid Abel', inductionYear: 1969, inductionCategory: 'Player',
+    description: 'Inducted 1969',
+  },
+  8446850: {
+    name: 'Bryan Hextall', inductionYear: 1969, inductionCategory: 'Player',
+    description: 'Inducted 1969',
+  },
+  8450153: {
+    name: 'Roy Worters', inductionYear: 1969, inductionCategory: 'Player',
+    description: 'Inducted 1969',
+  },
 
   // =====================================================================
-  // PRE-1960s (select inductees with NHL API IDs)
+  // 1968 INDUCTION CLASS
   // =====================================================================
-  8451354: {
-    name: 'Steve Shutt', inductionYear: 1993, inductionCategory: 'Player',
-    description: 'Inducted 1993',
+  8445754: {
+    name: 'Bill Cowley', inductionYear: 1968, inductionCategory: 'Player',
+    description: 'Inducted 1968',
   },
-  8448694: {
-    name: 'Guy Lapointe', inductionYear: 1993, inductionCategory: 'Player',
-    description: 'Inducted 1993',
+
+  // =====================================================================
+  // 1967 INDUCTION CLASS
+  // =====================================================================
+  8449837: {
+    name: 'Turk Broda', inductionYear: 1967, inductionCategory: 'Player',
+    description: 'Inducted 1967',
   },
-  8458361: {
-    name: 'Doug Weight', inductionYear: null, inductionCategory: 'Player',
-    description: 'Not inducted',
+  8445509: {
+    name: 'Neil Colville', inductionYear: 1967, inductionCategory: 'Player',
+    description: 'Inducted 1967',
+  },
+  8448055: {
+    name: 'Harry Oliver', inductionYear: 1967, inductionCategory: 'Player',
+    description: 'Inducted 1967',
+  },
+
+  // =====================================================================
+  // 1966 INDUCTION CLASS
+  // =====================================================================
+  8445063: {
+    name: 'Max Bentley', inductionYear: 1966, inductionCategory: 'Player',
+    description: 'Inducted 1966',
+  },
+  8445098: {
+    name: 'Toe Blake', inductionYear: 1966, inductionCategory: 'Player',
+    description: 'Inducted 1966',
+  },
+  8445132: {
+    name: 'Butch Bouchard', inductionYear: 1966, inductionCategory: 'Player',
+    description: 'Inducted 1966',
+  },
+  8449836: {
+    name: 'Frank Brimsek', inductionYear: 1966, inductionCategory: 'Player',
+    description: 'Inducted 1966',
+  },
+  8447166: {
+    name: 'Ted Kennedy', inductionYear: 1966, inductionCategory: 'Player',
+    description: 'Inducted 1966',
+  },
+  8447271: {
+    name: 'Elmer Lach', inductionYear: 1966, inductionCategory: 'Player',
+    description: 'Inducted 1966',
+  },
+  8447500: {
+    name: 'Ted Lindsay', inductionYear: 1966, inductionCategory: 'Player',
+    description: 'Inducted 1966',
+  },
+  8448187: {
+    name: 'Babe Pratt', inductionYear: 1966, inductionCategory: 'Player',
+    description: 'Inducted 1966',
+  },
+  8448257: {
+    name: 'Ken Reardon', inductionYear: 1966, inductionCategory: 'Player',
+    description: 'Inducted 1966',
+  },
+
+  // =====================================================================
+  // 1965 INDUCTION CLASS
+  // =====================================================================
+  8445026: {
+    name: 'Marty Barry', inductionYear: 1965, inductionCategory: 'Player',
+    description: 'Inducted 1965',
+  },
+  8449817: {
+    name: 'Clint Benedict', inductionYear: 1965, inductionCategory: 'Player',
+    description: 'Inducted 1965',
+  },
+  8446915: {
+    name: 'Red Horner', inductionYear: 1965, inductionCategory: 'Player',
+    description: 'Inducted 1965',
+  },
+  8446924: {
+    name: 'Syd Howe', inductionYear: 1965, inductionCategory: 'Player',
+    description: 'Inducted 1965',
+  },
+  8447902: {
+    name: 'Bill Mosienko', inductionYear: 1965, inductionCategory: 'Player',
+    description: 'Inducted 1965',
+  },
+
+  // =====================================================================
+  // 1964 INDUCTION CLASS
+  // =====================================================================
+  8445062: {
+    name: 'Doug Bentley', inductionYear: 1964, inductionCategory: 'Player',
+    description: 'Inducted 1964',
+  },
+  8449910: {
+    name: 'Bill Durnan', inductionYear: 1964, inductionCategory: 'Player',
+    description: 'Inducted 1964',
+  },
+  8449038: {
+    name: 'Babe Siebert', inductionYear: 1964, inductionCategory: 'Player',
+    description: 'Inducted 1964',
+  },
+  8449184: {
+    name: 'Jack Stewart', inductionYear: 1964, inductionCategory: 'Player',
+    description: 'Inducted 1964',
+  },
+
+  // =====================================================================
+  // 1963 INDUCTION CLASS
+  // =====================================================================
+  8446612: {
+    name: 'Ebbie Goodfellow', inductionYear: 1963, inductionCategory: 'Player',
+    description: 'Inducted 1963',
+  },
+  8448197: {
+    name: 'Joe Primeau', inductionYear: 1963, inductionCategory: 'Player',
+    description: 'Inducted 1963',
+  },
+  8448951: {
+    name: 'Earl Seibert', inductionYear: 1963, inductionCategory: 'Player',
+    description: 'Inducted 1963',
+  },
+
+  // =====================================================================
+  // 1962 INDUCTION CLASS
+  // =====================================================================
+  8445168: {
+    name: 'Punch Broadbent', inductionYear: 1962, inductionCategory: 'Player',
+    description: 'Inducted 1962',
+  },
+  8445314: {
+    name: 'Harry Cameron', inductionYear: 1962, inductionCategory: 'Player',
+    description: 'Inducted 1962',
+  },
+  8446644: {
+    name: 'Shorty Green', inductionYear: 1962, inductionCategory: 'Player',
+    description: 'Inducted 1962',
+  },
+  8448013: {
+    name: 'Reg Noble', inductionYear: 1962, inductionCategory: 'Player',
+    description: 'Inducted 1962',
+  },
+  8448946: {
+    name: 'Sweeney Schriner', inductionYear: 1962, inductionCategory: 'Player',
+    description: 'Inducted 1962',
+  },
+  8449189: {
+    name: 'Nels Stewart', inductionYear: 1962, inductionCategory: 'Player',
+    description: 'Inducted 1962',
+  },
+  8448154: {
+    name: 'Didier Pitre', inductionYear: 1962, inductionCategory: 'Player',
+    description: 'Inducted 1962',
+  },
+
+  // =====================================================================
+  // 1961 INDUCTION CLASS
+  // =====================================================================
+  8444954: {
+    name: 'Syl Apps', inductionYear: 1961, inductionCategory: 'Player',
+    description: 'Inducted 1961',
+  },
+  8445512: {
+    name: 'Charlie Conacher', inductionYear: 1961, inductionCategory: 'Player',
+    description: 'Inducted 1961',
+  },
+  8445854: {
+    name: 'Hap Day', inductionYear: 1961, inductionCategory: 'Player',
+    description: 'Inducted 1961',
+  },
+  8449987: {
+    name: 'George Hainsworth', inductionYear: 1961, inductionCategory: 'Player',
+    description: 'Inducted 1961',
+  },
+  8448321: {
+    name: 'Maurice Richard', inductionYear: 1961, inductionCategory: 'Player',
+    description: 'Inducted 1961',
+  },
+  8448931: {
+    name: 'Milt Schmidt', inductionYear: 1961, inductionCategory: 'Player',
+    description: 'Inducted 1961',
+  },
+
+  // =====================================================================
+  // 1960 INDUCTION CLASS
+  // =====================================================================
+  8447606: {
+    name: 'Sylvio Mantha', inductionYear: 1960, inductionCategory: 'Player',
+    description: 'Inducted 1960',
+  },
+
+  // =====================================================================
+  // 1959 INDUCTION CLASS
+  // =====================================================================
+  8444861: {
+    name: 'Jack Adams', inductionYear: 1959, inductionCategory: 'Player',
+    description: 'Inducted 1959',
+  },
+  8445874: {
+    name: 'Cy Denneny', inductionYear: 1959, inductionCategory: 'Player',
+    description: 'Inducted 1959',
+  },
+  8450127: {
+    name: 'Tiny Thompson', inductionYear: 1959, inductionCategory: 'Player',
+    description: 'Inducted 1959',
+  },
+
+  // =====================================================================
+  // 1958 INDUCTION CLASS
+  // =====================================================================
+  8445134: {
+    name: 'Frank Boucher', inductionYear: 1958, inductionCategory: 'Player',
+    description: 'Inducted 1958',
+  },
+  8445471: {
+    name: 'King Clancy', inductionYear: 1958, inductionCategory: 'Player',
+    description: 'Inducted 1958',
+  },
+  8445497: {
+    name: 'Sprague Cleghorn', inductionYear: 1958, inductionCategory: 'Player',
+    description: 'Inducted 1958',
+  },
+  8445969: {
+    name: 'Red Dutton', inductionYear: 1958, inductionCategory: 'Player',
+    description: 'Inducted 1958',
+  },
+  8447143: {
+    name: 'Duke Keats', inductionYear: 1958, inductionCategory: 'Player',
+    description: 'Inducted 1958',
+  },
+  8449856: {
+    name: 'Alex Connell', inductionYear: 1958, inductionCategory: 'Player',
+    description: 'Inducted 1958',
+  },
+
+  // =====================================================================
+  // 1952 INDUCTION CLASS
+  // =====================================================================
+  8445529: {
+    name: 'Bill Cook', inductionYear: 1952, inductionCategory: 'Player',
+    description: 'Inducted 1952',
+  },
+
+  // =====================================================================
+  // 1950 INDUCTION CLASS
+  // =====================================================================
+  8447289: {
+    name: 'Newsy Lalonde', inductionYear: 1950, inductionCategory: 'Player',
+    description: 'Inducted 1950',
+  },
+  8447594: {
+    name: 'Joe Malone', inductionYear: 1950, inductionCategory: 'Player',
+    description: 'Inducted 1950',
+  },
+
+  // =====================================================================
+  // 1947 INDUCTION CLASS (inaugural)
+  // =====================================================================
+  8449024: {
+    name: 'Eddie Shore', inductionYear: 1947, inductionCategory: 'Player',
+    description: 'Inducted 1947 (inaugural class)',
+  },
+  8445474: {
+    name: 'Dit Clapper', inductionYear: 1947, inductionCategory: 'Player',
+    description: 'Inducted 1947 (inaugural class)',
+  },
+  8447110: {
+    name: 'Aurel Joliat', inductionYear: 1947, inductionCategory: 'Player',
+    description: 'Inducted 1947 (inaugural class)',
+  },
+  8448011: {
+    name: 'Frank Nighbor', inductionYear: 1947, inductionCategory: 'Player',
+    description: 'Inducted 1947 (inaugural class)',
   },
 
   // =====================================================================
   // NOTABLE ACTIVE / NOT-YET-ELIGIBLE PLAYERS
   // =====================================================================
+  8458361: {
+    name: 'Doug Weight', inductionYear: null, inductionCategory: 'Player',
+    description: 'Not inducted',
+  },
   8471675: {
     name: 'Sidney Crosby', inductionYear: null, inductionCategory: 'Player',
     description: 'Not yet eligible (active)',

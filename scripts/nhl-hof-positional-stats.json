@@ -1,54 +1,54 @@
 {
   "C": {
-    "sampleSize": 39,
+    "sampleSize": 66,
     "stats": {
       "gamesPlayed": {
-        "mean": 1250.7,
-        "median": 1282
+        "mean": 953.5,
+        "median": 965
       },
       "goals": {
-        "mean": 487.7,
-        "median": 490
+        "mean": 360.5,
+        "median": 358
       },
       "assists": {
-        "mean": 833,
-        "median": 813
+        "mean": 583.3,
+        "median": 597
       },
       "points": {
-        "mean": 1320.7,
-        "median": 1281
+        "mean": 943.7,
+        "median": 999.5
       },
       "plusMinus": {
-        "mean": 135,
-        "median": 114
+        "mean": 78.3,
+        "median": 0
       },
       "pim": {
-        "mean": 816.1,
-        "median": 820
+        "mean": 616.8,
+        "median": 531.5
       },
       "powerPlayGoals": {
-        "mean": 145.4,
-        "median": 150
+        "mean": 93.2,
+        "median": 92.5
       },
       "powerPlayPoints": {
-        "mean": 443,
-        "median": 432
+        "mean": 282.2,
+        "median": 299
       },
       "shorthandedGoals": {
-        "mean": 19.9,
-        "median": 12
+        "mean": 12.2,
+        "median": 7
       },
       "shorthandedPoints": {
-        "mean": 36.4,
-        "median": 31
+        "mean": 22.4,
+        "median": 11.5
       },
       "gameWinningGoals": {
-        "mean": 68.8,
-        "median": 68
+        "mean": 52,
+        "median": 50
       },
       "shots": {
-        "mean": 2923.2,
-        "median": 3068
+        "mean": 1740.6,
+        "median": 1774.5
       },
       "shootingPctg": {
         "mean": 0.15,
@@ -61,55 +61,55 @@
     }
   },
   "LW": {
-    "sampleSize": 15,
+    "sampleSize": 30,
     "stats": {
       "gamesPlayed": {
-        "mean": 1188.1,
-        "median": 1089
+        "mean": 896.6,
+        "median": 916.5
       },
       "goals": {
-        "mean": 464.8,
-        "median": 424
+        "mean": 339,
+        "median": 275
       },
       "assists": {
-        "mean": 536.8,
-        "median": 570
+        "mean": 386.1,
+        "median": 354
       },
       "points": {
-        "mean": 1001.6,
-        "median": 1041
+        "mean": 725.1,
+        "median": 604.5
       },
       "plusMinus": {
-        "mean": 112.2,
-        "median": 71
+        "mean": 56.1,
+        "median": 0
       },
       "pim": {
-        "mean": 861.1,
-        "median": 743
+        "mean": 667.8,
+        "median": 604
       },
       "powerPlayGoals": {
-        "mean": 137.3,
-        "median": 138
+        "mean": 83.1,
+        "median": 56
       },
       "powerPlayPoints": {
-        "mean": 312.9,
-        "median": 324
+        "mean": 192.7,
+        "median": 151
       },
       "shorthandedGoals": {
-        "mean": 12.4,
-        "median": 11
+        "mean": 7,
+        "median": 2
       },
       "shorthandedPoints": {
-        "mean": 19.1,
-        "median": 16
+        "mean": 10.8,
+        "median": 4
       },
       "gameWinningGoals": {
-        "mean": 66.5,
-        "median": 63
+        "mean": 51.6,
+        "median": 47
       },
       "shots": {
-        "mean": 2248.5,
-        "median": 2403
+        "mean": 1124.2,
+        "median": 0
       },
       "shootingPctg": {
         "mean": 0.14,
@@ -122,55 +122,55 @@
     }
   },
   "RW": {
-    "sampleSize": 24,
+    "sampleSize": 39,
     "stats": {
       "gamesPlayed": {
-        "mean": 1137.7,
-        "median": 1127.5
+        "mean": 887.8,
+        "median": 978
       },
       "goals": {
-        "mean": 514.7,
-        "median": 501
+        "mean": 391.2,
+        "median": 406
       },
       "assists": {
-        "mean": 610.4,
-        "median": 612
+        "mean": 438.7,
+        "median": 435
       },
       "points": {
-        "mean": 1125.1,
-        "median": 1112.5
+        "mean": 829.9,
+        "median": 966
       },
       "plusMinus": {
-        "mean": 114.6,
-        "median": 67.5
+        "mean": 70.5,
+        "median": 0
       },
       "pim": {
-        "mean": 701.9,
-        "median": 584.5
+        "mean": 573.3,
+        "median": 488
       },
       "powerPlayGoals": {
-        "mean": 157.6,
-        "median": 150.5
+        "mean": 104.9,
+        "median": 121
       },
       "powerPlayPoints": {
-        "mean": 374.3,
-        "median": 361.5
+        "mean": 246.5,
+        "median": 311
       },
       "shorthandedGoals": {
-        "mean": 14.3,
-        "median": 12
+        "mean": 9.4,
+        "median": 4
       },
       "shorthandedPoints": {
-        "mean": 22.4,
-        "median": 17.5
+        "mean": 15.1,
+        "median": 6
       },
       "gameWinningGoals": {
-        "mean": 75.8,
-        "median": 73
+        "mean": 58.8,
+        "median": 61
       },
       "shots": {
-        "mean": 2938,
-        "median": 3136
+        "mean": 1808,
+        "median": 2150
       },
       "shootingPctg": {
         "mean": 0.15,
@@ -183,55 +183,55 @@
     }
   },
   "D": {
-    "sampleSize": 31,
+    "sampleSize": 55,
     "stats": {
       "gamesPlayed": {
-        "mean": 1236.9,
-        "median": 1254
+        "mean": 1007.4,
+        "median": 1060
       },
       "goals": {
-        "mean": 207.8,
-        "median": 208
+        "mean": 148.4,
+        "median": 106
       },
       "assists": {
-        "mean": 620.4,
-        "median": 590
+        "mean": 434.3,
+        "median": 403
       },
       "points": {
-        "mean": 828.1,
-        "median": 787
+        "mean": 582.7,
+        "median": 518
       },
       "plusMinus": {
-        "mean": 251.1,
-        "median": 260
+        "mean": 146.2,
+        "median": 0
       },
       "pim": {
-        "mean": 1142.5,
-        "median": 893
+        "mean": 1019.6,
+        "median": 884
       },
       "powerPlayGoals": {
-        "mean": 80.4,
-        "median": 81
+        "mean": 48.8,
+        "median": 26
       },
       "powerPlayPoints": {
-        "mean": 341.5,
-        "median": 324
+        "mean": 213.2,
+        "median": 169
       },
       "shorthandedGoals": {
-        "mean": 8.1,
-        "median": 6
+        "mean": 5.2,
+        "median": 4
       },
       "shorthandedPoints": {
-        "mean": 25.1,
-        "median": 21
+        "mean": 16.5,
+        "median": 14
       },
       "gameWinningGoals": {
-        "mean": 29.3,
-        "median": 29
+        "mean": 21.8,
+        "median": 17
       },
       "shots": {
-        "mean": 2701,
-        "median": 2765
+        "mean": 1546.4,
+        "median": 1237
       },
       "shootingPctg": {
         "mean": 0.07,
@@ -244,47 +244,47 @@
     }
   },
   "G": {
-    "sampleSize": 15,
+    "sampleSize": 32,
     "stats": {
       "gamesPlayed": {
-        "mean": 826.9,
-        "median": 868
+        "mean": 687.8,
+        "median": 707
       },
       "gamesStarted": {
-        "mean": 807.1,
-        "median": 832
+        "mean": 674.9,
+        "median": 678
       },
       "wins": {
-        "mean": 416.2,
-        "median": 407
+        "mean": 330.4,
+        "median": 317.5
       },
       "losses": {
-        "mean": 269.3,
-        "median": 295
+        "mean": 238.3,
+        "median": 231.5
       },
       "otLosses": {
-        "mean": 17.5,
+        "mean": 8.2,
         "median": 0
       },
       "goalsAgainstAvg": {
-        "mean": 2.62,
-        "median": 2.52
+        "mean": 2.61,
+        "median": 2.51
       },
       "savePctg": {
-        "mean": 0.9078,
-        "median": 0.9102
+        "mean": 0.906,
+        "median": 0.9063
       },
       "shutouts": {
-        "mean": 63.1,
-        "median": 66
+        "mean": 58.9,
+        "median": 59
       },
       "shotsAgainst": {
-        "mean": 19719.5,
-        "median": 22079
+        "mean": 11074,
+        "median": 5541.5
       },
       "goalsAgainst": {
-        "mean": 2097.7,
-        "median": 2223
+        "mean": 1757,
+        "median": 1816
       }
     }
   }
