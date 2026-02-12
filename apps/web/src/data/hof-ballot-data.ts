@@ -1,6 +1,6 @@
 export interface HOFBallotInfo {
   inductionYear: number | null  // null for players who fell off ballot without induction
-  ballotType: 'BBWAA' | 'Veterans Committee' | 'Era Committee' | 'Special Election'
+  ballotType: 'BBWAA' | 'Veterans Committee' | 'Era Committee' | 'Special Election' | null
   ballotNumber: number | null
   ballotLabel: string
   votePercentage: number | null
@@ -695,5 +695,443 @@ export const HOF_BALLOT_DATA: Record<number, HOFBallotInfo> = {
   122699: { // Rusty Staub - RF (fell off ballot 1997)
     inductionYear: null, ballotType: 'BBWAA', ballotNumber: 5,
     ballotLabel: 'Fell Off Ballot (1997)', votePercentage: 5.9,
+  },
+
+  // === 1990–2009 era players with 10+ WAR (Group 1: highest WAR) ===
+
+  121347: { // Alex Rodriguez - SS - WAR: 113.6 (currently on ballot)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 5,
+    ballotLabel: 'On Ballot (2026)', votePercentage: 40.0,
+  },
+  120903: { // Manny Ramirez - LF - WAR: 69.4 (10th/final year on ballot)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 10,
+    ballotLabel: 'On Ballot (2026)', votePercentage: 38.8,
+  },
+  111554: { // Kevin Brown - SP - WAR: 68.0
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2011)', votePercentage: 2.1,
+  },
+  112552: { // David Cone - SP - WAR: 62.1
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2009)', votePercentage: 3.9,
+  },
+  400284: { // Chase Utley - 2B - WAR: 61.6 (currently on ballot)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 3,
+    ballotLabel: 'On Ballot (2026)', votePercentage: 59.1,
+  },
+  120485: { // Andy Pettitte - SP - WAR: 60.7 (currently on ballot)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 8,
+    ballotLabel: 'On Ballot (2026)', votePercentage: 48.5,
+  },
+  114087: { // Jim Edmonds - CF - WAR: 60.4
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2016)', votePercentage: 2.5,
+  },
+  110029: { // Bobby Abreu - RF - WAR: 60.2 (currently on ballot)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 7,
+    ballotLabel: 'On Ballot (2026)', votePercentage: 30.8,
+  },
+  121604: { // Bret Saberhagen - SP - WAR: 58.9
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2007)', votePercentage: 1.3,
+  },
+  114133: { // Chuck Finley - SP - WAR: 57.8
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2008)', votePercentage: 0.2,
+  },
+  116566: { // Will Clark - 1B - WAR: 56.5
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2006)', votePercentage: 4.4,
+  },
+  113853: { // Johnny Damon - LF - WAR: 56.3
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2018)', votePercentage: 1.9,
+  },
+  116999: { // Jeff Kent - 2B - WAR: 56.0 (inducted 2026 Veterans Committee)
+    inductionYear: 2026, ballotType: 'Veterans Committee', ballotNumber: 10,
+    ballotLabel: 'Veterans Committee (2026)', votePercentage: 46.5,
+  },
+  115861: { // Orel Hershiser - SP - WAR: 56.0
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 2,
+    ballotLabel: 'Fell Off Ballot (2007)', votePercentage: 4.4,
+  },
+  117585: { // Kenny Lofton - CF - WAR: 55.3
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2013)', votePercentage: 3.2,
+  },
+  120871: { // Rafael Palmeiro - 1B - WAR: 55.2
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 4,
+    ballotLabel: 'Fell Off Ballot (2014)', votePercentage: 4.4,
+  },
+  431145: { // Russell Martin - C - WAR: 54.6
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2025)', votePercentage: 2.3,
+  },
+  110681: { // Kevin Appier - SP - WAR: 54.5
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2010)', votePercentage: 0.2,
+  },
+  433587: { // Felix Hernandez - SP - WAR: 54.2 (currently on ballot)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 2,
+    ballotLabel: 'On Ballot (2026)', votePercentage: 46.1,
+  },
+  124071: { // David Wells - SP - WAR: 53.4
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2013)', votePercentage: 0.9,
+  },
+  400061: { // Roy Oswalt - SP - WAR: 52.7
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2019)', votePercentage: 0.9,
+  },
+  279824: { // Mark Buehrle - SP - WAR: 52.2 (currently on ballot)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 6,
+    ballotLabel: 'On Ballot (2026)', votePercentage: 20.0,
+  },
+  435263: { // Brian McCann - C - WAR: 52.1
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2025)', votePercentage: 1.8,
+  },
+  110710: { // Lance Berkman - 1B - WAR: 52.0
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2019)', votePercentage: 1.2,
+  },
+  114935: { // Luis Gonzalez - LF - WAR: 51.8
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2014)', votePercentage: 0.9,
+  },
+  119361: { // John Olerud - 1B - WAR: 51.4
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2011)', votePercentage: 0.7,
+  },
+  431151: { // David Wright - 3B - WAR: 51.3 (currently on ballot)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 3,
+    ballotLabel: 'On Ballot (2026)', votePercentage: 14.8,
+  },
+  114789: { // Brian Giles - RF - WAR: 51.3
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2015)', votePercentage: 0.0,
+  },
+  112526: { // Bartolo Colon - SP - WAR: 51.1
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2024)', votePercentage: 1.3,
+  },
+  114793: { // Jason Giambi - 1B - WAR: 50.5
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2020)', votePercentage: 1.5,
+  },
+  112560: { // Ellis Burks - RF - WAR: 49.8
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2010)', votePercentage: 0.4,
+  },
+  276519: { // Jimmy Rollins - SS - WAR: 49.7 (currently on ballot)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 5,
+    ballotLabel: 'On Ballot (2026)', votePercentage: 25.4,
+  },
+  123497: { // Bernie Williams - CF - WAR: 49.6
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 2,
+    ballotLabel: 'Fell Off Ballot (2013)', votePercentage: 3.3,
+  },
+  119469: { // Jamie Moyer - SP - WAR: 49.6
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2018)', votePercentage: 2.4,
+  },
+  407812: { // Matt Holliday - LF - WAR: 49.5
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2024)', votePercentage: 1.0,
+  },
+  218596: { // Tim Hudson - SP - WAR: 49.0
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 2,
+    ballotLabel: 'Fell Off Ballot (2022)', votePercentage: 3.0,
+  },
+  118371: { // Dennis Martinez - SP - WAR: 48.7
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2004)', votePercentage: 3.2,
+  },
+  424324: { // Cliff Lee - SP - WAR: 48.2
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2020)', votePercentage: 0.5,
+  },
+  114085: { // Steve Finley - CF - WAR: 48.0
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2013)', votePercentage: 0.7,
+  },
+  435079: { // Ian Kinsler - 2B - WAR: 47.4
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2025)', votePercentage: 2.5,
+  },
+  123173: { // Miguel Tejada - SS - WAR: 47.3
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2019)', votePercentage: 1.2,
+  },
+  434158: { // Curtis Granderson - CF - WAR: 47.0
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2025)', votePercentage: 0.8,
+  },
+  112507: { // Mike Cameron - CF - WAR: 46.7
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2017)', votePercentage: 0.0,
+  },
+  116610: { // Mark Grace - 1B - WAR: 46.4
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2009)', votePercentage: 4.1,
+  },
+  134320: { // Javier Vazquez - SP - WAR: 45.6 (never placed on ballot)
+    inductionYear: null, ballotType: null, ballotNumber: null,
+    ballotLabel: 'Not on Ballot', votePercentage: null,
+  },
+  123744: { // Omar Vizquel - SS - WAR: 45.5 (currently on ballot)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 9,
+    ballotLabel: 'On Ballot (2026)', votePercentage: 18.4,
+  },
+  120878: { // Brad Radke - SP - WAR: 45.3
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2012)', votePercentage: 0.3,
+  },
+  407893: { // Mark Teixeira - 1B - WAR: 45.0
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2022)', votePercentage: 1.5,
+  },
+  114031: { // J.D. Drew - RF - WAR: 44.9
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2017)', votePercentage: 0.0,
+  },
+  456030: { // Dustin Pedroia - 2B - WAR: 44.5 (currently on ballot)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 2,
+    ballotLabel: 'On Ballot (2026)', votePercentage: 20.7,
+  },
+  113232: { // Carlos Delgado - 1B - WAR: 44.4
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2015)', votePercentage: 3.8,
+  },
+  216539: { // Nomar Garciaparra - SS - WAR: 44.3
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 2,
+    ballotLabel: 'Fell Off Ballot (2016)', votePercentage: 1.8,
+  },
+  408314: { // Jose Reyes - SS - WAR: 44.0
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2024)', votePercentage: 0.0,
+  },
+  408241: { // Jake Peavy - SP - WAR: 43.7
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2022)', votePercentage: 0.0,
+  },
+  407793: { // John Lackey - SP - WAR: 43.3
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2023)', votePercentage: 0.3,
+  },
+  116338: { // Torii Hunter - CF - WAR: 42.8 (currently on ballot)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 6,
+    ballotLabel: 'On Ballot (2026)', votePercentage: 8.7,
+  },
+  450314: { // Ben Zobrist - 2B - WAR: 42.7
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2025)', votePercentage: 0.0,
+  },
+  120691: { // Jorge Posada - C - WAR: 42.7
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2017)', votePercentage: 3.8,
+  },
+
+  // === 1990–2009 era players with 10+ WAR (Group 2: 30-42 WAR range) ===
+
+  150359: { // A.J. Burnett - SP
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2021)', votePercentage: 0.0,
+  },
+  112466: { // Jose Canseco - RF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2007)', votePercentage: 1.1,
+  },
+  113686: { // Lenny Dykstra - CF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2002)', votePercentage: 0.2,
+  },
+  122864: { // Darryl Strawberry - LF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2005)', votePercentage: 1.2,
+  },
+  216156: { // Gary Gaetti - 3B
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2006)', votePercentage: 0.8,
+  },
+  434670: { // Hanley Ramirez - SS
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2025)', votePercentage: 0.0,
+  },
+  135784: { // Placido Polanco - 2B
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2019)', votePercentage: 0.5,
+  },
+  116974: { // Jason Kendall - C
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2016)', votePercentage: 0.5,
+  },
+  123357: { // Devon White - CF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2007)', votePercentage: 0.0,
+  },
+  408307: { // Carl Crawford - LF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2022)', votePercentage: 0.0,
+  },
+  117569: { // Kenny Rogers - SP
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2014)', votePercentage: 0.2,
+  },
+  120225: { // Dave Parker - RF (inducted 2025 via Classic Baseball Era Committee)
+    inductionYear: 2025, ballotType: 'Era Committee', ballotNumber: 15,
+    ballotLabel: 'Era Committee (2025)', votePercentage: 15.3,
+  },
+  122690: { // Robin Ventura - 3B
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2010)', votePercentage: 1.3,
+  },
+  120989: { // Tim Salmon - RF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2012)', votePercentage: 0.9,
+  },
+  429717: { // Dan Haren - SP
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2021)', votePercentage: 0.0,
+  },
+  117652: { // Al Leiter - SP
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2011)', votePercentage: 0.7,
+  },
+  110810: { // Albert Belle - LF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 2,
+    ballotLabel: 'Fell Off Ballot (2007)', votePercentage: 3.5,
+  },
+  210690: { // Moises Alou - RF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2014)', votePercentage: 1.1,
+  },
+  150093: { // Alfonso Soriano - LF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2020)', votePercentage: 1.5,
+  },
+  114932: { // Juan Gonzalez - RF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 2,
+    ballotLabel: 'Fell Off Ballot (2012)', votePercentage: 4.0,
+  },
+  110456: { // Harold Baines - DH (inducted 2019 via Today's Game Era Committee)
+    inductionYear: 2019, ballotType: 'Era Committee', ballotNumber: 5,
+    ballotLabel: 'Era Committee (2019)', votePercentage: 4.8,
+  },
+  133380: { // Aramis Ramirez - 3B
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2021)', votePercentage: 1.0,
+  },
+  113012: { // Eric Chavez - 3B
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2020)', votePercentage: 1.5,
+  },
+  117484: { // Ray Lankford - CF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2010)', votePercentage: 0.0,
+  },
+  116787: { // David Justice - LF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2008)', votePercentage: 0.2,
+  },
+  136267: { // Troy Glaus - 3B
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2016)', votePercentage: 0.0,
+  },
+  453064: { // Troy Tulowitzki - SS
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2025)', votePercentage: 1.0,
+  },
+  110502: { // Jay Bell - SS
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2009)', votePercentage: 0.4,
+  },
+  408236: { // Adrian Gonzalez - 1B
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2024)', votePercentage: 0.8,
+  },
+  116483: { // Marquis Grissom - CF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2011)', votePercentage: 0.7,
+  },
+  150029: { // Jayson Werth - RF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2023)', votePercentage: 0.0,
+  },
+  113858: { // Eric Davis - CF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2007)', votePercentage: 0.6,
+  },
+  430832: { // Jose Bautista - RF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2024)', votePercentage: 1.6,
+  },
+  117197: { // Chuck Knoblauch - 2B
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2008)', votePercentage: 0.2,
+  },
+  110674: { // Brady Anderson - CF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2008)', votePercentage: 0.0,
+  },
+  115094: { // Shawn Green - RF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2013)', votePercentage: 0.4,
+  },
+  117601: { // Derrek Lee - 1B
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2017)', votePercentage: 0.0,
+  },
+  113068: { // Jeff Cirillo - 3B
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2013)', votePercentage: 0.0,
+  },
+  117955: { // Derek Lowe - SP
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2019)', votePercentage: 0.0,
+  },
+  120587: { // Paul O'Neill - RF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2007)', votePercentage: 2.2,
+  },
+  116533: { // Ron Gant - LF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2009)', votePercentage: 0.0,
+  },
+  112473: { // Ken Caminiti - 3B
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2007)', votePercentage: 0.4,
+  },
+  119370: { // Magglio Ordonez - RF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2017)', votePercentage: 0.7,
+  },
+  122426: { // Lee Smith - RP (inducted 2019 via Today's Game Era Committee)
+    inductionYear: 2019, ballotType: 'Era Committee', ballotNumber: 15,
+    ballotLabel: 'Era Committee (2019)', votePercentage: 34.2,
+  },
+  122775: { // Dave Stewart - SP
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 2,
+    ballotLabel: 'Fell Off Ballot (2002)', votePercentage: 4.9,
+  },
+  123787: { // John Wetteland - RP
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2006)', votePercentage: 0.8,
+  },
+  119718: { // Robb Nen - RP
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2008)', votePercentage: 0.4,
+  },
+  114374: { // John Franco - RP
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2011)', votePercentage: 4.6,
+  },
+  114342: { // Keith Foulke - RP (never placed on ballot)
+    inductionYear: null, ballotType: null, ballotNumber: null,
+    ballotLabel: 'Not on Ballot', votePercentage: null,
+  },
+  119399: { // Jack Morris - SP (inducted 2018 via Era Committee)
+    inductionYear: 2018, ballotType: 'Era Committee', ballotNumber: 15,
+    ballotLabel: 'Era Committee (2018)', votePercentage: 67.7,
   },
 }
