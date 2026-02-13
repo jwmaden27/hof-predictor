@@ -2,6 +2,7 @@ import { Badge } from '@/components/ui/Badge.tsx'
 import { AwardBadges } from '@/components/player/AwardBadges.tsx'
 import { getTierBgColor, getScoreColor } from '@/utils/stats-helpers.ts'
 import { POSITION_LABELS } from '@/data/hof-averages.ts'
+import { HOF_BALLOT_DATA } from '@/data/hof-ballot-data.ts'
 import type { PlayerAnalysis, HOFEligibility } from '@/hooks/usePlayerData.ts'
 
 interface PlayerHeaderProps {
@@ -66,6 +67,7 @@ export function PlayerHeader({ data }: PlayerHeaderProps) {
   const seasonsLabel = getSeasonsLabel(data)
   const ageDisplay = getAgeDisplay(bio)
   const eligibilityDisplay = getEligibilityDisplay(hofEligibility)
+  const ballotInfo = HOF_BALLOT_DATA[bio.id] ?? null
 
   return (
     <div className="bg-gradient-to-r from-gray-900 to-gray-800 dark:from-gray-950 dark:to-gray-900 text-white">
@@ -129,6 +131,28 @@ export function PlayerHeader({ data }: PlayerHeaderProps) {
                 </div>
                 <div className="mt-1 text-xs text-gray-400 dark:text-gray-500">HOF Score</div>
               </div>
+              {hofScore.tier === 'Hall of Famer' && ballotInfo && (
+                <>
+                  {ballotInfo.votePercentage !== null && (
+                    <div className="text-center">
+                      <div className="text-5xl font-bold text-amber-400">
+                        {ballotInfo.votePercentage}%
+                      </div>
+                      <div className="mt-1 text-xs text-gray-400 dark:text-gray-500">
+                        Induction Vote
+                      </div>
+                    </div>
+                  )}
+                  <div className="text-center">
+                    <div className="text-2xl font-semibold text-amber-400">
+                      {ballotInfo.ballotLabel}
+                    </div>
+                    <div className="mt-1 text-xs text-gray-400 dark:text-gray-500">
+                      {ballotInfo.ballotType ?? 'Committee'} {ballotInfo.inductionYear}
+                    </div>
+                  </div>
+                </>
+              )}
               {hofScore.tier !== 'Hall of Famer' && (
                 <div className="text-center">
                   <div className="text-5xl font-bold text-cyan-400">
@@ -136,6 +160,16 @@ export function PlayerHeader({ data }: PlayerHeaderProps) {
                   </div>
                   <div className="mt-1 text-xs text-gray-400 dark:text-gray-500">
                     HOF Probability
+                  </div>
+                </div>
+              )}
+              {hofScore.tier !== 'Hall of Famer' && ballotInfo && ballotInfo.votePercentage !== null && (
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-orange-400">
+                    {ballotInfo.votePercentage}%
+                  </div>
+                  <div className="mt-1 text-xs text-gray-400 dark:text-gray-500">
+                    Peak Vote
                   </div>
                 </div>
               )}
