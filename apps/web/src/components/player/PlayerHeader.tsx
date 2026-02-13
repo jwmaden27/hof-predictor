@@ -3,6 +3,7 @@ import { AwardBadges } from '@/components/player/AwardBadges.tsx'
 import { getTierBgColor, getScoreColor } from '@/utils/stats-helpers.ts'
 import { POSITION_LABELS } from '@/data/hof-averages.ts'
 import { HOF_BALLOT_DATA } from '@/data/hof-ballot-data.ts'
+import { PITCHER_ACHIEVEMENTS } from '@/data/pitcher-achievements.ts'
 import type { PlayerAnalysis, HOFEligibility } from '@/hooks/usePlayerData.ts'
 
 interface PlayerHeaderProps {
@@ -112,9 +113,9 @@ export function PlayerHeader({ data }: PlayerHeaderProps) {
                   {bio.active ? 'Active' : 'Retired'}
                 </Badge>
               </div>
-              {data.awards.length > 0 && (
+              {(data.awards.length > 0 || PITCHER_ACHIEVEMENTS[bio.id]) && (
                 <div className="mt-2">
-                  <AwardBadges awards={data.awards} />
+                  <AwardBadges awards={data.awards} playerId={bio.id} />
                 </div>
               )}
             </div>
