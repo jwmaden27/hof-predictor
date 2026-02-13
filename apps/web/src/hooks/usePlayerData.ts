@@ -3,6 +3,7 @@ import { getPlayerComplete } from '@/services/mlb-api.ts'
 import { getPlayerSeasonWARs, getPlayerWAR, hasWARData, isHallOfFamer, fetchAndCacheWAR } from '@/services/war-service.ts'
 import { calculateJAWS, compareToHOFAverage } from '@/utils/jaws.ts'
 import { calculateHOFScore } from '@/utils/scoring.ts'
+import { projectCareerEnd } from '@/utils/career-projection.ts'
 import { mapPositionToCategory, getPlayerType } from '@/utils/stats-helpers.ts'
 import type {
   PlayerBio,
@@ -147,6 +148,34 @@ export function usePlayerData(playerId: number | null) {
             ? new Date(bio.mlbDebutDate).getFullYear()
             : undefined
 
+          // For active players, run career projection to get projected stats for milestone scoring
+          let projectedCareerStats: Record<string, number> | undefined
+          if (bio.active) {
+            try {
+              const projection = projectCareerEnd({
+                warSeasons,
+                seasonStats,
+                careerStats,
+                awards,
+                positionCategory,
+                currentAge: bio.currentAge,
+                isPitcher,
+              })
+              if (projection) {
+                projectedCareerStats = { ...statsRecord }
+                // Override counting stats with projected values
+                for (const [key, value] of Object.entries(projection.projectedStats)) {
+                  if (typeof value === 'number') {
+                    projectedCareerStats[key] = value
+                  }
+                }
+                projectedCareerStats.careerWAR = Math.round(projection.projectedCareerWAR * 10) / 10
+              }
+            } catch {
+              // If projection fails, fall back to current stats
+            }
+          }
+
           hofScore = calculateHOFScore(
             jawsComparison,
             awards,
@@ -157,6 +186,7 @@ export function usePlayerData(playerId: number | null) {
             bio.active,
             positionCategory,
             debutYear,
+            projectedCareerStats,
           )
 
           if (playerId && isHallOfFamer(playerId)) {

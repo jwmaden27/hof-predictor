@@ -144,11 +144,14 @@ export function calculateHOFScore(
   isActive: boolean,
   positionCategory?: string,
   debutYear?: number,
+  projectedCareerStats?: Record<string, number>,
 ): HOFScore {
   const jawsComponent = calculateJAWSComponent(jawsComparison)
   const awardsComponent = calculateAwardsComponent(awards)
+  // For active players with projections, use projected stats for milestone scoring
+  const milestoneStats = isActive && projectedCareerStats ? projectedCareerStats : careerStats
   const { points: milestonesComponent, milestoneHits } =
-    calculateMilestonesComponent(careerStats, playerType, positionCategory, debutYear)
+    calculateMilestonesComponent(milestoneStats, playerType, positionCategory, debutYear)
   const trajectoryComponent = calculateTrajectoryComponent(
     seasons,
     currentAge,
