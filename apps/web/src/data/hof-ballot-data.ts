@@ -1134,4 +1134,246 @@ export const HOF_BALLOT_DATA: Record<number, HOFBallotInfo> = {
     inductionYear: 2018, ballotType: 'Era Committee', ballotNumber: 15,
     ballotLabel: 'Era Committee (2018)', votePercentage: 67.7,
   },
+
+  // === 1970s–1990s era HOF inductees missing from above sections ===
+
+  123006: { // Don Sutton - SP (inducted 1998, 5th ballot)
+    inductionYear: 1998, ballotType: 'BBWAA', ballotNumber: 5,
+    ballotLabel: '5th Ballot', votePercentage: 81.6,
+  },
+  116439: { // Reggie Jackson - RF (inducted 1993, 1st ballot)
+    inductionYear: 1993, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: '1st Ballot', votePercentage: 93.6,
+  },
+  121697: { // Ron Santo - 3B (inducted 2012 via Golden Era Committee)
+    inductionYear: 2012, ballotType: 'Era Committee', ballotNumber: 15,
+    ballotLabel: 'Era Committee (2012)', votePercentage: 43.1,
+  },
+  116803: { // Jim Kaat - SP (inducted 2022 via Golden Days Era Committee)
+    inductionYear: 2022, ballotType: 'Era Committee', ballotNumber: 15,
+    ballotLabel: 'Era Committee (2022)', votePercentage: null,
+  },
+  111691: { // Jim Bunning - SP (inducted 1996 via Veterans Committee)
+    inductionYear: 1996, ballotType: 'Veterans Committee', ballotNumber: 15,
+    ballotLabel: 'Veterans Committee (1996)', votePercentage: 74.2,
+  },
+  110157: { // Dick Allen - 1B (inducted 2025 via Classic Baseball Era Committee)
+    inductionYear: 2025, ballotType: 'Era Committee', ballotNumber: 14,
+    ballotLabel: 'Era Committee (2025)', votePercentage: null,
+  },
+  119176: { // Minnie Minoso - LF (inducted 2022 via Golden Days Era Committee)
+    inductionYear: 2022, ballotType: 'Era Committee', ballotNumber: 15,
+    ballotLabel: 'Era Committee (2022)', votePercentage: null,
+  },
+  122247: { // Ted Simmons - C (inducted 2020 via Modern Baseball Era Committee)
+    inductionYear: 2020, ballotType: 'Era Committee', ballotNumber: 1,
+    ballotLabel: 'Era Committee (2020)', votePercentage: null,
+  },
+  112157: { // Orlando Cepeda - 1B (inducted 1999 via Veterans Committee)
+    inductionYear: 1999, ballotType: 'Veterans Committee', ballotNumber: 15,
+    ballotLabel: 'Veterans Committee (1999)', votePercentage: 73.5,
+  },
+  119980: { // Tony Oliva - RF (inducted 2022 via Golden Days Era Committee)
+    inductionYear: 2022, ballotType: 'Era Committee', ballotNumber: 15,
+    ballotLabel: 'Era Committee (2022)', votePercentage: 47.3,
+  },
+  118497: { // Bill Mazeroski - 2B (inducted 2001 via Veterans Committee)
+    inductionYear: 2001, ballotType: 'Veterans Committee', ballotNumber: 15,
+    ballotLabel: 'Veterans Committee (2001)', votePercentage: 42.3,
+  },
+  114129: { // Rollie Fingers - RP (inducted 1992, 2nd ballot)
+    inductionYear: 1992, ballotType: 'BBWAA', ballotNumber: 2,
+    ballotLabel: '2nd Ballot', votePercentage: 81.2,
+  },
+
+  // === 1970s–1990s era non-HOF players ===
+
+  113889: { // Darin Erstad - CF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2015)', votePercentage: 0.2,
+  },
+  123610: { // Jose Valentin - SS (never placed on ballot)
+    inductionYear: null, ballotType: null, ballotNumber: null,
+    ballotLabel: 'Not on Ballot', votePercentage: null,
+  },
+  113984: { // Ray Durham - 2B
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2014)', votePercentage: 0.0,
+  },
+  111072: { // Bobby Bonilla - RF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2007)', votePercentage: 0.4,
+  },
+  124315: { // Woody Williams - SP
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2013)', votePercentage: 0.0,
+  },
+  115817: { // Livan Hernandez - SP
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2018)', votePercentage: 0.2,
+  },
+  117919: { // Javy Lopez - C
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2012)', votePercentage: 0.2,
+  },
+  110690: { // Edgardo Alfonzo - 3B (never placed on ballot)
+    inductionYear: null, ballotType: null, ballotNumber: null,
+    ballotLabel: 'Not on Ballot', votePercentage: null,
+  },
+  121673: { // Reggie Sanders - RF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2013)', votePercentage: 0.0,
+  },
+  133225: { // Ryan Dempster - SP (never placed on ballot)
+    inductionYear: null, ballotType: null, ballotNumber: null,
+    ballotLabel: 'Not on Ballot', votePercentage: null,
+  },
+  150404: { // Ted Lilly - SP
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2019)', votePercentage: 0.0,
+  },
+  111059: { // Mike Bordick - SS (never placed on ballot)
+    inductionYear: null, ballotType: null, ballotNumber: null,
+    ballotLabel: 'Not on Ballot', votePercentage: null,
+  },
+  123678: { // Mo Vaughn - 1B
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2009)', votePercentage: 1.1,
+  },
+  122259: { // B.J. Surhoff - LF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2011)', votePercentage: 0.3,
+  },
+  123275: { // Greg Vaughn - LF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2009)', votePercentage: 0.0,
+  },
+  114260: { // Cliff Floyd - LF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2015)', votePercentage: 0.0,
+  },
+  110668: { // Garret Anderson - LF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2016)', votePercentage: 0.2,
+  },
+  211560: { // Casey Blake - 3B
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2017)', votePercentage: 0.0,
+  },
+  117244: { // Paul Konerko - 1B
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2020)', votePercentage: 2.5,
+  },
+  223272: { // Jason Varitek - C
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2017)', votePercentage: 0.5,
+  },
+  112234: { // Jay Buhner - RF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2007)', votePercentage: 0.2,
+  },
+  110990: { // Bret Boone - 2B
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2011)', votePercentage: 0.2,
+  },
+  114880: { // Craig Counsell - SS (never placed on ballot)
+    inductionYear: null, ballotType: null, ballotNumber: null,
+    ballotLabel: 'Not on Ballot', votePercentage: null,
+  },
+  150229: { // A.J. Pierzynski - C
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2022)', votePercentage: 0.5,
+  },
+  111451: { // Orlando Cabrera - SS
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2017)', votePercentage: 0.0,
+  },
+  119827: { // Hideo Nomo - SP
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2014)', votePercentage: 1.1,
+  },
+  114098: { // Carl Everett - CF (never placed on ballot)
+    inductionYear: null, ballotType: null, ballotNumber: null,
+    ballotLabel: 'Not on Ballot', votePercentage: null,
+  },
+  113679: { // Jermaine Dye - RF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2015)', votePercentage: 0.0,
+  },
+  117046: { // Darryl Kile - SP (died 2002)
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2003)', votePercentage: 1.4,
+  },
+  150040: { // José Molina - C (never placed on ballot)
+    inductionYear: null, ballotType: null, ballotNumber: null,
+    ballotLabel: 'Not on Ballot', votePercentage: null,
+  },
+  112563: { // Jeromy Burnitz - RF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2012)', votePercentage: 0.0,
+  },
+  112001: { // Carlos Baerga - 2B
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2011)', votePercentage: 0.0,
+  },
+  113118: { // Royce Clayton - SS
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2013)', votePercentage: 0.0,
+  },
+  113135: { // Jeff Conine - 1B
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2013)', votePercentage: 0.0,
+  },
+  112542: { // Vinny Castilla - 3B
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2012)', votePercentage: 1.0,
+  },
+  114106: { // Cecil Fielder - 1B
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2004)', votePercentage: 0.2,
+  },
+  120401: { // Troy Percival - RP
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2015)', votePercentage: 0.7,
+  },
+  112797: { // Sean Casey - 1B
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2014)', votePercentage: 0.0,
+  },
+  110735: { // Brad Ausmus - C
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2016)', votePercentage: 0.0,
+  },
+  116627: { // Mike Hampton - SP
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2016)', votePercentage: 0.0,
+  },
+  111518: { // Scott Brosius - 3B
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2007)', votePercentage: 0.0,
+  },
+  110869: { // Aaron Boone - 3B
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2015)', votePercentage: 0.4,
+  },
+  120194: { // Dean Palmer - 3B (never placed on ballot)
+    inductionYear: null, ballotType: null, ballotNumber: null,
+    ballotLabel: 'Not on Ballot', votePercentage: null,
+  },
+  110475: { // Tony Batista - 3B (never placed on ballot)
+    inductionYear: null, ballotType: null, ballotNumber: null,
+    ballotLabel: 'Not on Ballot', votePercentage: null,
+  },
+  120985: { // Matt Stairs - LF
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2017)', votePercentage: 0.0,
+  },
+  117134: { // Ryan Klesko - 1B
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2013)', votePercentage: 0.0,
+  },
+  114069: { // Shawon Dunston - SS
+    inductionYear: null, ballotType: 'BBWAA', ballotNumber: 1,
+    ballotLabel: 'Fell Off Ballot (2008)', votePercentage: 0.2,
+  },
 }
