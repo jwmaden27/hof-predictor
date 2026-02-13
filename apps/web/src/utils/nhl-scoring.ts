@@ -119,12 +119,14 @@ function calculateNHLTrajectoryComponent(
   return Math.min(points, 15)
 }
 
-function predictNHLInduction(score: number): { ballot: string; description: string } {
-  if (score >= 90) return { ballot: 'First Eligible', description: 'Likely inducted in first year of eligibility' }
-  if (score >= 75) return { ballot: 'Strong Candidate', description: 'Likely inducted within 1-3 years of eligibility' }
-  if (score >= 60) return { ballot: 'Eventual Induction', description: 'May be inducted after extended consideration' }
-  if (score >= 45) return { ballot: 'Borderline', description: 'Possible induction but not certain' }
-  return { ballot: 'Unlikely', description: 'Unlikely to be inducted by selection committee' }
+function predictNHLInduction(score: number): { ballot: string; description: string; predictedVotePct: number } {
+  // NHL uses a selection committee (no public vote %), so predictedVotePct represents estimated likelihood
+  const predictedVotePct = Math.round(Math.max(0, Math.min(99, score)) * 10) / 10
+  if (score >= 90) return { ballot: 'First Eligible', description: 'Likely inducted in first year of eligibility', predictedVotePct }
+  if (score >= 75) return { ballot: 'Strong Candidate', description: 'Likely inducted within 1-3 years of eligibility', predictedVotePct }
+  if (score >= 60) return { ballot: 'Eventual Induction', description: 'May be inducted after extended consideration', predictedVotePct }
+  if (score >= 45) return { ballot: 'Borderline', description: 'Possible induction but not certain', predictedVotePct }
+  return { ballot: 'Unlikely', description: 'Unlikely to be inducted by selection committee', predictedVotePct }
 }
 
 export function assignNHLTier(score: number): HOFTier {

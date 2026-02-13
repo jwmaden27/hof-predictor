@@ -21,7 +21,7 @@ export interface BallotLeaderboardEntry {
   isNewToAllot: boolean
   hofScore: number
   hofProbability: number
-  ballotPrediction: { ballot: string; description: string }
+  ballotPrediction: { ballot: string; description: string; predictedVotePct: number }
 }
 
 /**
@@ -61,7 +61,7 @@ export function useBallotLeaderboard(positionFilter?: PositionCategory, tierFilt
       let tier: HOFTier = 'Not HOF Caliber'
       let hofScore = 0
       let hofProbability = 0
-      let ballotPrediction = { ballot: 'Unlikely', description: 'Insufficient data for prediction.' }
+      let ballotPrediction = { ballot: 'Unlikely', description: 'Insufficient data for prediction.', predictedVotePct: 0 }
 
       if (warEntry && warEntry.seasons.length > 0) {
         const jawsResult = calculateJAWS(warEntry.seasons, candidate.positionCategory)

@@ -7,7 +7,7 @@ export interface HOFScore {
   breakdown: ScoringBreakdown
   tier: HOFTier
   hofProbability: number
-  ballotPrediction: { ballot: string; description: string }
+  ballotPrediction: { ballot: string; description: string; predictedVotePct: number }
 }
 
 export type HOFTier =

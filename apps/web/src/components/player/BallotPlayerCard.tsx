@@ -140,7 +140,9 @@ export function BallotPlayerCard({ player }: BallotPlayerCardProps) {
               </div>
             ) : (
               <div className="text-xs text-gray-500 dark:text-gray-400">
-                {player.hofProbability > 0 ? `${player.hofProbability}% chance` : 'Low probability'}
+                {player.ballotPrediction.predictedVotePct > 0
+                  ? `~${player.ballotPrediction.predictedVotePct}% predicted vote`
+                  : 'Low probability'}
               </div>
             )}
           </div>

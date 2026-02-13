@@ -156,10 +156,10 @@ export function PlayerHeader({ data }: PlayerHeaderProps) {
               {hofScore.tier !== 'Hall of Famer' && (
                 <div className="text-center">
                   <div className="text-5xl font-bold text-cyan-400">
-                    {hofScore.hofProbability}%
+                    {hofScore.ballotPrediction.predictedVotePct}%
                   </div>
                   <div className="mt-1 text-xs text-gray-400 dark:text-gray-500">
-                    HOF Probability
+                    Predicted Peak Vote
                   </div>
                 </div>
               )}
@@ -169,7 +169,7 @@ export function PlayerHeader({ data }: PlayerHeaderProps) {
                     {ballotInfo.votePercentage}%
                   </div>
                   <div className="mt-1 text-xs text-gray-400 dark:text-gray-500">
-                    Peak Vote
+                    Actual Peak Vote
                   </div>
                 </div>
               )}
