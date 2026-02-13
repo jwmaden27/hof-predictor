@@ -148,8 +148,10 @@ export function usePlayerData(playerId: number | null) {
             ? new Date(bio.mlbDebutDate).getFullYear()
             : undefined
 
-          // For active players, run career projection to get projected stats for milestone scoring
+          // For active players, run career projection to get projected stats, WAR, and JAWS
           let projectedCareerStats: Record<string, number> | undefined
+          let projectedJawsComparison: JAWSComparison | undefined
+          let projectedAllSeasons: SeasonWAR[] | undefined
           if (bio.active) {
             try {
               const projection = projectCareerEnd({
@@ -162,14 +164,19 @@ export function usePlayerData(playerId: number | null) {
                 isPitcher,
               })
               if (projection) {
+                // Build projected career stats for milestone scoring
                 projectedCareerStats = { ...statsRecord }
-                // Override counting stats with projected values
                 for (const [key, value] of Object.entries(projection.projectedStats)) {
                   if (typeof value === 'number') {
                     projectedCareerStats[key] = value
                   }
                 }
                 projectedCareerStats.careerWAR = Math.round(projection.projectedCareerWAR * 10) / 10
+
+                // Combine current + projected WAR seasons for JAWS calculation
+                projectedAllSeasons = [...warSeasons, ...projection.projectedWARSeasons]
+                const projectedJaws = calculateJAWS(projectedAllSeasons, positionCategory)
+                projectedJawsComparison = compareToHOFAverage(projectedJaws)
               }
             } catch {
               // If projection fails, fall back to current stats
@@ -187,6 +194,8 @@ export function usePlayerData(playerId: number | null) {
             positionCategory,
             debutYear,
             projectedCareerStats,
+            projectedJawsComparison,
+            projectedAllSeasons,
           )
 
           if (playerId && isHallOfFamer(playerId)) {

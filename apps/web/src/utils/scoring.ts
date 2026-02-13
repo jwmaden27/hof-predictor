@@ -145,15 +145,20 @@ export function calculateHOFScore(
   positionCategory?: string,
   debutYear?: number,
   projectedCareerStats?: Record<string, number>,
+  projectedJawsComparison?: JAWSComparison,
+  projectedSeasons?: SeasonWAR[],
 ): HOFScore {
-  const jawsComponent = calculateJAWSComponent(jawsComparison)
+  // For active players with projections, use projected JAWS and WAR seasons
+  const effectiveJaws = isActive && projectedJawsComparison ? projectedJawsComparison : jawsComparison
+  const effectiveSeasons = isActive && projectedSeasons ? projectedSeasons : seasons
+  const jawsComponent = calculateJAWSComponent(effectiveJaws)
   const awardsComponent = calculateAwardsComponent(awards)
   // For active players with projections, use projected stats for milestone scoring
   const milestoneStats = isActive && projectedCareerStats ? projectedCareerStats : careerStats
   const { points: milestonesComponent, milestoneHits } =
     calculateMilestonesComponent(milestoneStats, playerType, positionCategory, debutYear)
   const trajectoryComponent = calculateTrajectoryComponent(
-    seasons,
+    effectiveSeasons,
     currentAge,
     isActive,
   )
@@ -166,15 +171,15 @@ export function calculateHOFScore(
   )
 
   const breakdown: ScoringBreakdown = {
-    jawsRatio: jawsComparison.jawsRatio,
+    jawsRatio: effectiveJaws.jawsRatio,
     mvpCount: countAward(awards, AWARD_IDS.MVP),
     cyYoungCount: countAward(awards, AWARD_IDS.CY_YOUNG),
     allStarCount: countAward(awards, AWARD_IDS.ALL_STAR),
     goldGloveCount: countAward(awards, AWARD_IDS.GOLD_GLOVE),
     silverSluggerCount: countAward(awards, AWARD_IDS.SILVER_SLUGGER),
     milestoneHits,
-    peakSeasonsAbove5WAR: seasons.filter((s) => s.war >= 5.0).length,
-    careerLengthYears: seasons.length,
+    peakSeasonsAbove5WAR: effectiveSeasons.filter((s) => s.war >= 5.0).length,
+    careerLengthYears: effectiveSeasons.length,
   }
 
   return {
